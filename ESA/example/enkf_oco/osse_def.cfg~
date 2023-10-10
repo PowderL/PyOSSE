@@ -1,0 +1,288 @@
+# Configuration for assimilating observations 
+# 
+# Menus define options for 
+# 1. stv:  state vector
+# 2. sat_opr: satellite observation operator for calculating model xgp
+# 3. sat_obs: class for virtual or satellite observation
+# 4. fc_prof: class for model profile
+# 5. enr_prof: class ensemble model profiles
+# 6. x2flux:   class for projecting coefficients to fluxes
+# 7. bf: class for Basis functions
+# 8. ctm: options for forecast run 
+
+
+#SETP (parameters for preprocess menu)
+   # data  path 
+   DATAPATH=/home/lfeng/local_disk/otool_data
+   # module path
+   MDPATH=ESA.enkf
+
+   # module obs path
+   MD_OBS_PATH=ESA.observation
+   
+   # module surface path 
+   MD_SF_PATH=ESA.surface
+
+    # observation 
+
+   OBSPATH=/home/lfeng/otool/ESA/example/enkf_oco/sat_obs/
+   
+   # fcrun 
+   FCRUN_ROOT=/home/lfeng/otool/ESA/example/enkf_oco/
+   FCRUN_DATAPATH=/home/lfeng/otool/ESA/example/enkf_oco/enkf_rerun/
+   FCEXT='.ST001.EN0001-EN0002'
+    
+   # inversion
+   INVPATH=./oco_inv/
+   
+#ENDP
+
+
+#MENU (state vector)
+#==================================================
+name|stv
+fclass|__load:$MDPATH$.state_vector:ens_stat_cl
+
+# scaling function (spatial correlation etc) 
+
+fscale_m|None
+
+# step
+
+max_step|20
+
+# lag window  
+
+lag_window|5
+
+# model bias etc
+# #c: they are the observation-model  biases to be corrected indeed 
+
+
+mod_bias|__list:Nil
+mod_bias_err|__list:Nil
+
+# #c: temporal correlation 
+
+use_tcor|False
+tcor_len|720.0  # in hours
+tcor_factcor|1.0
+# #c: step tag 
+
+tag_fmt| XYYYYX.STXSTEPX
+ftag|__load:$MDPATH$.construct_state_vector:construct_step_tag
+# #c: function to create prior 
+  
+fprior|__load:$MDPATH$.construct_state_vector:add_step_prior  
+
+# assimilation 
+use_wnd_xtm|2
+use_wnd_inc_m|2
+
+
+#MEND
+
+
+
+#MENU (satellite observation operator for calculating model xgp)
+#================================================
+name|sat_opr
+
+# xgp calculation function
+
+fxgp|__load:$MD_OBS_PATH$.xgp_jacobian_m:get_xgp
+
+# Jacobian calculation function
+
+fhm|__load:$MD_OBS_PATH$.xgp_jacobian_m:get_xgp
+fclass|__load:$MD_OBS_PATH$.satellite_operator:satellite_xgp_cl
+
+gpname_lst|__list:'PSURF', 'CO2'	
+sel_idx|0
+traname|'CO2'
+xgp_flnm|$INVPATH$/xgp
+hm_flnm|$INVPATH$/hm
+
+#MEND
+
+
+
+#MENU (class for virtual or satellite observation )
+#============================================
+name|sat_obs
+path|$OBSPATH$/
+flnm|'XVIEWTYPEX.XYYYYXXMMXXDDX.nc'
+viewtype|oco_xco2
+viewmode|'nadir'
+sat_id|3
+varname_lst|__list:'lon', 'lat', 'time', 'obs', 'oerr', 'obs_ak', 'obs_apr', 'obs_pres', 'cnt', 'sp'
+
+
+# translate to the name stored in netcdf file
+varname_dict|__dict:err=oerr 
+fclass|__load:ESA.observation.satellite_obs:satellite_obs_cl
+#MEND
+
+
+#MENU (class for model profile)
+#================================================
+name|fc_prof
+# model output  
+path|$FCRUN_DATAPATH$
+# file name (empty to use defaults)
+flnm|'ts_satelliteXEXTX.XYYYYXXMMXXDDX.bpch'
+fdiaginfo|'diaginfoXEXTX.dat' 
+ftracerinfo|'tracerinfoXEXTX.dat' 
+vname|single_profile
+ext|$FCEXT$
+
+# output access 
+fopen|__load:ESA.util.gc_ts_file_m:open_ts_file
+fread|__load:ESA.util.gc_ts_file_m:setup_daily_profile
+fget|__load:ESA.util.gc_ts_file_m:get_mod_gp
+fpres|__load:ESA.util.gc_ts_file_m:get_mod_pres
+fclass|__load:ESA.atmosphere.ts_slice_m:gc_slice_cl
+
+#MEND
+
+
+#MENU (class ensemble model profiles)
+#================================================
+name|enr_prof
+# model output  
+path|$DATAPATH$/enkf_output/XYYYYX/
+# file name (empty to use defaults)
+flnm|''
+fdiaginfo|'' 
+ftracerinfo|'' 
+restart_flnm|restart.STXENRSTEPX.ENXEMSTX-ENXEMENDX.XYYYYXXMMXXDDX00
+
+# output access 
+
+vname|enr_profile
+fopen|__load:ESA.util.gc_ts_file_m:open_enr_file
+fread|__load:ESA.util.gc_ts_file_m:setup_enr_daily_profile
+fget|__load:ESA.util.gc_ts_file_m:get_mod_gp
+fpres|__load:ESA.util.gc_ts_file_m:get_mod_pres
+fclass|__load:ESA.atmosphere.enr_slice_m:enr_slice_cl
+
+# function for calculating departs from reference state
+
+fsubtract|__load:ESA.enkf.construct_state_vector:hm_subtract_m1
+                     
+#MEND
+
+
+
+#MENU (convert x to flux)
+
+name|x2flux
+# model output  
+path|$DATAPATH$/surface_flux/
+# file name (empty to use defaults)
+flnm|CO2_EMISSION.XYYYYXDXDOYX.nc
+lon_nm|longitude
+lat_nm|latitude
+flux_nm|flux
+
+# read in function 
+
+bf_get|__load:ESA.enkf.x2flux_m:read_bf
+bf_cl|None
+fclass|__load:ESA.enkf.x2flux_m:x2flux_cl
+
+#MEND
+
+
+
+#MENU (EnkF run description)
+
+name|run_desc
+
+path|$DATAPATH$/enkf_output/XYYYYX/
+flnm|'enr_cfg_XYYYYX.dat'
+fopen|__load:ESA.enkf.run_desc_file_m:open_enr_desc_file
+fread|__load:ESA.enkf.run_desc_file_m:read_enr_desc_file
+fclose|__load:ESA.enkf.run_desc_file_m:close_enr_desc_file
+fget|__load:ESA.enkf.run_desc_file_m:get_enr_desc_table
+fclass|__load:ESA.enkf.run_desc_m:enr_desc_cl
+
+
+#MEND
+
+
+#MENU (BF)
+name|bf
+
+# 1. file name and path 
+
+path|$DATAPATH$/surface_flux/
+flnm|CO2_EMISSION.XYYYYXDXDOYX.nc
+
+
+# 2. variable names to be used in codes
+ 
+varname_lst|__list:'lon', 'lat', 'layer', 'map', 'flux','area'
+
+rdname_lst|__list:'lon', 'lat', 'map', 'area', 'flux'
+
+# 3. dictionary for translating variable names to name in netcdf file
+
+varname_dict|__dict:lon=longitude, lat=latitude
+
+# 4. file io function  
+
+fopen|__load:$MD_SF_PATH$.bf_file_m:open_bf_file 
+fread|__load:$MD_SF_PATH$.bf_file_m:read_bf_file 
+fclose|__load:$MD_SF_PATH$.bf_file_m:close_bf_file
+fget|__load:$MD_SF_PATH$.bf_file_m:get_bf
+keywords|__dict:Nil
+fclass|__load:$MD_SF_PATH$.bf_m:bf_cl
+#MEND
+
+#MENU (CTM for single tracer run)
+name|ctm
+runpath|$FCRUN_ROOT$
+datapath|$FCRUN_DATAPATH$
+tra_st|1
+tra_end|2
+finput_gen|__load:ESA.example.enkf_oco.input_geos_gen:create_new_input_file
+ext|ST001.EN0001-EN0002
+
+runtype|3
+runscript|rungeos.sh
+fclass|__load:ESA.example.enkf_oco.run_geos_chem:geos_chem_cl
+
+
+#MEND
+
+#MENU (Prior flux)
+name|prior
+datapath|$FCRUN_DATAPATH$
+fctm|ctmXEXTX.XYYYYMMDDX.bpch
+fdiaginfo|'diaginfoXEXTX.dat' 
+ftracerinfo|'tracerinfoXEXTX.dat' 
+ext|$FCEXT$
+#MEND
+
+#MENU (Diag)
+name|diag
+path|$INVPATH$
+obsflnm|'daily_obs.XDATEX.nc'
+save_obs|True
+
+#MEND
+
+
+#MENU (inv)
+name|inv
+path|$INVPATH$
+flnm|oco_assim
+lag_window|5
+mod_err|2.0
+add_flux_pb|True
+flux_pb|0.5
+
+
+
+#MEND

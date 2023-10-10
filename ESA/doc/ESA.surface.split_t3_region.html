@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.split_t3_region</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.split_t3_region</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/split_t3_region.py">/home/lfeng/otool/ESA/surface/split_t3_region.py</a></font></td></tr></table>
+    <p><tt>Wrapper&nbsp;for&nbsp;functions&nbsp;in&nbsp;divide_region.py&nbsp;to&nbsp;<br>
+generate&nbsp;144&nbsp;global&nbsp;regions&nbsp;from&nbsp;T3&nbsp;standard&nbsp;regions<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.01.12<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+==============================================================<br>
+1.&nbsp;get_reg_op_lst:&nbsp;generate&nbsp;a&nbsp;list&nbsp;for&nbsp;action&nbsp;(split)&nbsp;for&nbsp;each&nbsp;T3&nbsp;region&nbsp;<br>
+2.&nbsp;split_t3_region:&nbsp;split&nbsp;t3&nbsp;region&nbsp;into&nbsp;&nbsp;sub-regions.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.surface.divide_region.html">ESA.surface.divide_region</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+</td><td width="25%" valign=top><a href="ESA.atmosphere.ctm_grid_2d.html">ESA.atmosphere.ctm_grid_2d</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top><a href="pylab.html">pylab</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_reg_op_lst"><strong>get_reg_op_lst</strong></a>(reg_id_lst, nsub_lon_lst, nsub_lat_lst, split_op<font color="#909090">=&lt;function divide_region_to_subregion&gt;</font>)</dt><dd><tt>construct&nbsp;reg_op_lst&nbsp;for&nbsp;dividing&nbsp;regions&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------<br>
+1.&nbsp;reg_id_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;&nbsp;region&nbsp;id&nbsp;for&nbsp;parent&nbsp;regions<br>
+2.&nbsp;nsub_lon_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;number&nbsp;of&nbsp;subregions&nbsp;along&nbsp;longitudes&nbsp;<br>
+3.&nbsp;nsub_lat_lst:&nbsp;&lt;list,&nbsp;t:int&gt;:&nbsp;number&nbsp;of&nbsp;subregions&nbsp;along&nbsp;latitudes<br>
+&nbsp;<br>
+&nbsp;<br>
+returns:<br>
+-------------------------------------------<br>
+1.&nbsp;reg_op_lst:&lt;list,&nbsp;t:reg_op_cl&gt;:&nbsp;class&nbsp;for&nbsp;operations&nbsp;on&nbsp;region&nbsp;maps</tt></dd></dl>
+ <dl><dt><a name="-split_t3_region"><strong>split_t3_region</strong></a>(out_ncflnm, do_debug<font color="#909090">=False</font>, **keywords)</dt><dd><tt>split&nbsp;T3&nbsp;regions&nbsp;into&nbsp;sub-regions<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;out_ncflnm:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;the&nbsp;name&nbsp;map&nbsp;file&nbsp;<br>
+2.&nbsp;do_debug:&lt;T/F&gt;:&nbsp;debug&nbsp;<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;<br>
+&nbsp;<br>
+---Reserved&nbsp;keywords<br>
+---&gt;1.map_flnm:&lt;str&gt;:&nbsp;original&nbsp;file&nbsp;<br>
+---&gt;2.varnames:&lt;list,&nbsp;t:str&gt;:&nbsp;names&nbsp;for&nbsp;lon,lat&nbsp;and&nbsp;map&nbsp;in&nbsp;original&nbsp;map&nbsp;file&nbsp;<br>
+---&gt;3.&nbsp;reg_id_lst:&lt;list,&nbsp;t:id&gt;:&nbsp;ids&nbsp;for&nbsp;regions&nbsp;to&nbsp;be&nbsp;splited&nbsp;<br>
+---&gt;4.&nbsp;nsub_lon_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;number&nbsp;of&nbsp;subregions&nbsp;along&nbsp;longitudes&nbsp;<br>
+---&gt;5.&nbsp;&nbsp;nsub_lat_lst:&nbsp;&lt;list,&nbsp;t:int&gt;:&nbsp;number&nbsp;of&nbsp;subregions&nbsp;along&nbsp;latitudes</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>def_t3_mapflnm</strong> = 'reg_flux_t3_05x05.nc'<br>
+<strong>def_t3_nsub_lat_lst</strong> = [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, ...]<br>
+<strong>def_t3_nsub_lon_lst</strong> = [1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, ...]<br>
+<strong>def_t3_reg_id_lst</strong> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...]<br>
+<strong>def_t3_reg_type_lst</strong> = [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, ...]<br>
+<strong>def_t3_varnames</strong> = ['longitude', 'latitude', 'map', 'flux', 'area', 'pid']</td></tr></table>
+</body></html>

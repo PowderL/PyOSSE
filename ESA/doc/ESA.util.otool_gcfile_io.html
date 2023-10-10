@@ -1,0 +1,654 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.otool_gcfile_io</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.otool_gcfile_io</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/otool_gcfile_io.py">/home/lfeng/otool/ESA/util/otool_gcfile_io.py</a></font></td></tr></table>
+    <p><tt>class&nbsp;for&nbsp;reading&nbsp;and&nbsp;writing&nbsp;GEOS-Chem&nbsp;binary&nbsp;punch&nbsp;files<br>
+history:<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.10.22<br>
+History:&nbsp;v0.95,&nbsp;2013.03.02<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Classes:<br>
+=============================================<br>
+1.&nbsp;<a href="#diag_info_cl">diag_info_cl</a>:&nbsp;class&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+2.&nbsp;<a href="#tracer_info_cl">tracer_info_cl</a>:&nbsp;class&nbsp;for&nbsp;tracer&nbsp;info&nbsp;file&nbsp;<br>
+3.&nbsp;<a href="#gcfile_desc_cl">gcfile_desc_cl</a>:&nbsp;class&nbsp;for&nbsp;accessing&nbsp;GEOS-Chem&nbsp;bpch2&nbsp;files<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+================================================<br>
+&nbsp;<br>
+1.&nbsp;&nbsp;is_bpch_matched:&nbsp;check&nbsp;whether&nbsp;it&nbsp;is&nbsp;the&nbsp;required&nbsp;tracer&nbsp;<br>
+2.&nbsp;&nbsp;read_bpch_to_data_list:&nbsp;read&nbsp;3D&nbsp;files&nbsp;from&nbsp;<br>
+bpch&nbsp;file&nbsp;to&nbsp;list&nbsp;oif&nbsp;ctm_field<br>
+&nbsp;<br>
+3.&nbsp;&nbsp;read_bpch_to_profile_list:&nbsp;read&nbsp;3D&nbsp;files&nbsp;from&nbsp;bpch&nbsp;file&nbsp;<br>
+and&nbsp;sample&nbsp;them&nbsp;along&nbsp;latitude&nbsp;and&nbsp;logitudes.&nbsp;&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;&nbsp;open_bpch2_write:&nbsp;open&nbsp;a&nbsp;new&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;&nbsp;close_bpch2_file:&nbsp;close&nbsp;one&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;&nbsp;write_record_to_bpch2:&nbsp;write&nbsp;a&nbsp;data&nbsp;set&nbsp;into&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+7.&nbsp;&nbsp;close_bpch2_file:&nbsp;close&nbsp;one&nbsp;bpch2&nbsp;file</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.bpch2_rw_py.html">ESA.util.bpch2_rw_py</a><br>
+<a href="ESA.atmosphere.ctm_field_m.html">ESA.atmosphere.ctm_field_m</a><br>
+<a href="ESA.atmosphere.ctm_profile_m.html">ESA.atmosphere.ctm_profile_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.atmosphere.gc_grid_3d.html">ESA.atmosphere.gc_grid_3d</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.pres_m.html">ESA.util.pres_m</a><br>
+<a href="ESA.util.pres_m.html">ESA.util.pres_m</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.otool_gcfile_io.html#diag_info_cl">diag_info_cl</a>
+</font></dt><dt><font face="helvetica, arial"><a href="ESA.util.otool_gcfile_io.html#gcfile_desc_cl">gcfile_desc_cl</a>
+</font></dt><dt><font face="helvetica, arial"><a href="ESA.util.otool_gcfile_io.html#tracer_info_cl">tracer_info_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="diag_info_cl">class <strong>diag_info_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;infomation&nbsp;of&nbsp;the&nbsp;tracers&nbsp;<br>
+included&nbsp;in&nbsp;the&nbsp;GEOS-Chem&nbsp;simulation<br>
+&nbsp;<br>
+Members:<br>
+-----------------------------------------------------<br>
+1.&nbsp;name:&lt;list,&nbsp;t:str&gt;:&nbsp;short&nbsp;name&nbsp;of&nbsp;tracers&nbsp;&nbsp;<br>
+2.&nbsp;fullname:&lt;list,&nbsp;t:str&gt;:&nbsp;full&nbsp;name&nbsp;of&nbsp;tracer&nbsp;&nbsp;<br>
+3.&nbsp;tracer:&lt;list/array,&nbsp;t:integer&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;tracer&nbsp;&nbsp;<br>
+4.&nbsp;scale:&lt;list,&nbsp;t:float&gt;:&nbsp;scaling&nbsp;factor&nbsp;<br>
+5.&nbsp;unit:&nbsp;&lt;unit,&nbsp;t:str&gt;:&nbsp;unit&nbsp;of&nbsp;the&nbsp;tracers&nbsp;<br>
+6.&nbsp;c:&nbsp;&lt;list,&nbsp;t:integer&gt;:&nbsp;category&nbsp;id&nbsp;of&nbsp;the&nbsp;tracer.&nbsp;<br>
+7.&nbsp;molew:&lt;list,t:float&gt;:&nbsp;mass&nbsp;of&nbsp;tracer<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+----------------------------------------------<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;read_info:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;different&nbsp;fields.<br>
+3.&nbsp;get_offset:&nbsp;&nbsp;get&nbsp;the&nbsp;offset&nbsp;for&nbsp;given&nbsp;category&nbsp;<br>
+4.&nbsp;load_diag_info:&nbsp;read&nbsp;diag&nbsp;info&nbsp;from&nbsp;file<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="diag_info_cl-__init__"><strong>__init__</strong></a>(self, flnm)</dt><dd><tt>initialization<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;flnm&nbsp;:&lt;str&gt;:&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;diaginfo&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="diag_info_cl-get_offset"><strong>get_offset</strong></a>(self, category)</dt><dd><tt>get&nbsp;the&nbsp;offset&nbsp;for&nbsp;given&nbsp;category&nbsp;<br>
+Inputs:<br>
+-----------------------<br>
+1.&nbsp;category:&lt;str&gt;:&nbsp;tracer&nbsp;category&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;offset:&lt;integer&gt;:&nbsp;offset&nbsp;of&nbsp;the&nbsp;category</tt></dd></dl>
+
+<dl><dt><a name="diag_info_cl-load_diag_info"><strong>load_diag_info</strong></a>(self, flnm)</dt><dd><tt>read&nbsp;diag&nbsp;info&nbsp;from&nbsp;file<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="diag_info_cl-read_info"><strong>read_info</strong></a>(self, lines)</dt><dd><tt>read&nbsp;information&nbsp;from&nbsp;lines&nbsp;in&nbsp;diaginfo&nbsp;file&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------<br>
+1.&nbsp;lines:&nbsp;&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;lines&nbsp;<br>
+--typical&nbsp;line&nbsp;includes:&nbsp;&nbsp;offset,&nbsp;category&nbsp;and&nbsp;comment</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="gcfile_desc_cl">class <strong>gcfile_desc_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Members:<br>
+====================================<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+2,&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+3.&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+4.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;categorys&nbsp;to&nbsp;be&nbsp;read<br>
+5.&nbsp;tracers:&lt;list,t:int&gt;:&nbsp;list&nbsp;of&nbsp;tracers&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+6.&nbsp;taus:&lt;list,&nbsp;t:float&gt;:&nbsp;list&nbsp;of&nbsp;taus&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+7.&nbsp;tranames:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;tracer&nbsp;name<br>
+8.&nbsp;fio_keywords:&nbsp;&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;IO<br>
+9.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attributes<br>
+&nbsp;<br>
+10.&nbsp;mask_val:&lt;float&gt;:&nbsp;fillings&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;values<br>
+11.&nbsp;data_lst:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;list&nbsp;of&nbsp;model&nbsp;data&nbsp;or&nbsp;profiles&nbsp;read&nbsp;from&nbsp;bpch2&nbsp;file&nbsp;<br>
+12.&nbsp;ref_lst:&lt;list,&nbsp;t:int&gt;:list&nbsp;of&nbsp;the&nbsp;references.<br>
+13.&nbsp;flnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;file&nbsp;names.<br>
+14.&nbsp;tracerinfo_flnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;tracerinfo&nbsp;file&nbsp;names.<br>
+15.&nbsp;diaginfo_flnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;diaginfo&nbsp;file&nbsp;names.<br>
+&nbsp;<br>
+16.&nbsp;cur_flnm:&nbsp;&lt;str&gt;:&nbsp;current&nbsp;filename&nbsp;<br>
+17.&nbsp;cur_tracerinfo_flnm:&nbsp;&lt;str&gt;:&nbsp;current&nbsp;tracer&nbsp;info&nbsp;file&nbsp;<br>
+18.&nbsp;cur_diaginfo_flnm:&lt;str&gt;:&nbsp;current&nbsp;diag&nbsp;info&nbsp;file&nbsp;<br>
+19.&nbsp;cur_ref:&lt;current&nbsp;ref&gt;:&nbsp;current&nbsp;reference&nbsp;number&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+=================================================<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization&nbsp;<br>
+2.&nbsp;append_data:&nbsp;add&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;lists&nbsp;of&nbsp;the&nbsp;class<br>
+3.&nbsp;del_data:&nbsp;Remove&nbsp;data&nbsp;from&nbsp;the&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+4.&nbsp;set_file_path:&nbsp;set&nbsp;path&nbsp;for&nbsp;data&nbsp;file<br>
+5.&nbsp;set_filename_format:&nbsp;set&nbsp;template&nbsp;for&nbsp;filename<br>
+&nbsp;<br>
+6.&nbsp;set_tracerinfo_file_path:&nbsp;set&nbsp;path&nbsp;for&nbsp;tracerinfo&nbsp;&nbsp;file<br>
+7.&nbsp;set_tracerinfo_filename_format:&nbsp;set&nbsp;template&nbsp;for&nbsp;tracerinfo&nbsp;filename<br>
+&nbsp;<br>
+8.&nbsp;set_diaginfo_file_path:set&nbsp;path&nbsp;for&nbsp;diaginfo&nbsp;&nbsp;file<br>
+9.&nbsp;set_diaginfo_filename_format:set&nbsp;template&nbsp;for&nbsp;diaginfo&nbsp;filename<br>
+10.&nbsp;construct_filename:&nbsp;construction&nbsp;file&nbsp;name&nbsp;using&nbsp;keywords&nbsp;<br>
+&nbsp;<br>
+11.&nbsp;construct_diaginfo_filename:&nbsp;construction&nbsp;name&nbsp;for&nbsp;diag&nbsp;info&nbsp;file&nbsp;using&nbsp;keywords<br>
+12.&nbsp;set_attr:&nbsp;assign&nbsp;one&nbsp;attribute<br>
+13.&nbsp;get_attr:&nbsp;get&nbsp;one&nbsp;attribute<br>
+14.&nbsp;read_file:&nbsp;Read&nbsp;file&nbsp;from&nbsp;GEOS-Chem&nbsp;runs<br>
+15.&nbsp;read_file_to_profile_list:Read&nbsp;outputs&nbsp;from&nbsp;GEOS-Chem&nbsp;&nbsp;runs&nbsp;to&nbsp;list&nbsp;of&nbsp;profiles&nbsp;(ctm_profile_cl)<br>
+&nbsp;<br>
+#&nbsp;ensemble&nbsp;runs&nbsp;<br>
+&nbsp;<br>
+16.&nbsp;construct_enr_filename_dict:&nbsp;&nbsp;Form&nbsp;dictionary&nbsp;(extensions)&nbsp;to&nbsp;construct&nbsp;name&nbsp;for&nbsp;ensemble&nbsp;runs<br>
+17.&nbsp;read_enr_file:&nbsp;Read&nbsp;file&nbsp;from&nbsp;ensemble&nbsp;runs&nbsp;to&nbsp;a&nbsp;list&nbsp;of&nbsp;fields&nbsp;(gc_field_3d)<br>
+18.&nbsp;read_enr_file_to_profile_list:Read&nbsp;outputs&nbsp;from&nbsp;ensemble&nbsp;run&nbsp;to&nbsp;list&nbsp;of&nbsp;profiles&nbsp;(ctm_profile_cl)<br>
+&nbsp;<br>
+19.&nbsp;get_data:&nbsp;find&nbsp;the&nbsp;data&nbsp;meeting&nbsp;criteria&nbsp;on&nbsp;traname,&nbsp;category&nbsp;and&nbsp;tracer&nbsp;id&nbsp;etc&nbsp;<br>
+&nbsp;<br>
+#&nbsp;pressure&nbsp;grid<br>
+&nbsp;<br>
+20.&nbsp;compute_mod_pres:&nbsp;compute&nbsp;from&nbsp;read&nbsp;surface&nbsp;pressure&nbsp;<br>
+&nbsp;&nbsp;&nbsp;or&nbsp;directly&nbsp;fetch&nbsp;read&nbsp;model&nbsp;pressure<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="gcfile_desc_cl-__init__"><strong>__init__</strong></a>(self, flnm, ftracerinfo, fdiaginfo, yyyy, mm, dd, is_enr_file<font color="#909090">=False</font>, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>, mask_val<font color="#909090">=-999.0</font>, fio_keywords<font color="#909090">={}</font>, **keywords)</dt><dd><tt>initialization&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+2,&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+3.&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+4.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;categorys&nbsp;to&nbsp;be&nbsp;read<br>
+5.&nbsp;tracers:&lt;list,t:int&gt;:&nbsp;list&nbsp;of&nbsp;tracers&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+6.&nbsp;taus:&lt;list,&nbsp;t:float&gt;:&nbsp;list&nbsp;of&nbsp;taus&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+7.&nbsp;tranames:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;tracer&nbsp;name<br>
+8.&nbsp;mask_val:&lt;float&gt;:&nbsp;values&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;data<br>
+9.&nbsp;fio_keywors:&nbsp;&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;IO<br>
+10.&nbsp;keywords:&lt;dict&gt;:&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-append_data"><strong>append_data</strong></a>(self, flnm, tracerinfo_flnm, diaginfo_flnm, data_lst, ref)</dt><dd><tt>add&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;lists&nbsp;of&nbsp;the&nbsp;class<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;flnm:&nbsp;&lt;str&gt;:&nbsp;&nbsp;&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;tracerinfo_flnm:&nbsp;&lt;str&gt;:&nbsp;&nbsp;&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file&nbsp;<br>
+3.&nbsp;diaginfo_flnm:&nbsp;&lt;str&gt;:&nbsp;&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file&nbsp;&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;data:&nbsp;&lt;array&gt;:&nbsp;&nbsp;raw&nbsp;data&nbsp;read&nbsp;from&nbsp;the&nbsp;file&nbsp;<br>
+5.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;id&nbsp;(such&nbsp;as&nbsp;time&nbsp;etc)&nbsp;for&nbsp;the&nbsp;data&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-compute_mod_pres"><strong>compute_mod_pres</strong></a>(self, traname<font color="#909090">='PSURF'</font>, use_sp<font color="#909090">=True</font>, geos_ver<font color="#909090">=5</font>, use_reduced<font color="#909090">=1</font>, **keywords)</dt><dd><tt>compute&nbsp;or&nbsp;fetch&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;centres&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;traname:&lt;str&gt;:&nbsp;traname&nbsp;for&nbsp;pressure&nbsp;or&nbsp;sp&nbsp;<br>
+2.&nbsp;use_sp:&lt;T/F&gt;:&nbsp;True,&nbsp;surface&nbsp;pressure&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;calculate&nbsp;pressures<br>
+3.&nbsp;geos_ver:&lt;int&gt;:&nbsp;GEOS-Chem&nbsp;version<br>
+4.&nbsp;use_reduced:&lt;int&gt;:&nbsp;1&nbsp;means&nbsp;reduced&nbsp;model&nbsp;vertical&nbsp;grid&nbsp;is&nbsp;used&nbsp;&nbsp;<br>
+&nbsp;<br>
+keywords:<br>
+=========================================<br>
+---Reserved&nbsp;keys:<br>
+---category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;pressure<br>
+---tracer:&lt;int&gt;:&nbsp;tracer&nbsp;ID&nbsp;of&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;model&nbsp;pressure<br>
+---tau:&lt;float&gt;:&nbsp;time&nbsp;of&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;model&nbsp;pressure<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1.&nbsp;mod_res:&nbsp;&lt;array,(nx,&nbsp;[ny],&nbsp;&nbsp;[lx])&gt;:&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;or&nbsp;surface&nbsp;pressure&nbsp;(see&nbsp;Notes&nbsp;1)<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;when&nbsp;use_sp&nbsp;is&nbsp;set&nbsp;to&nbsp;False,&nbsp;the&nbsp;return&nbsp;will&nbsp;be&nbsp;the&nbsp;surface&nbsp;pressure</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-construct_diaginfo_filename"><strong>construct_diaginfo_filename</strong></a>(self, **keywords)</dt><dd><tt>construction&nbsp;name&nbsp;for&nbsp;diag&nbsp;info&nbsp;file&nbsp;using&nbsp;keywords<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;file&nbsp;format&nbsp;and&nbsp;path<br>
+---expected&nbsp;Keynames:<br>
+---&gt;1.&nbsp;diaginfo_flnmformat:&lt;str&gt;:&nbsp;file&nbsp;format<br>
+---&gt;2.&nbsp;diaginfo_filepath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+---&gt;3.&nbsp;words&nbsp;used&nbsp;to&nbsp;replace&nbsp;dummies&nbsp;in&nbsp;file&nbsp;format.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;sflnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-construct_enr_filename_dict"><strong>construct_enr_filename_dict</strong></a>(self, yyyy, dd, mm, enr_yyyy, enr_doy, enr_step, enr_em_st, enr_em_end)</dt><dd><tt>Form&nbsp;dictionary&nbsp;(extensions)&nbsp;to&nbsp;construct&nbsp;name&nbsp;for&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+Input:<br>
+============================================<br>
+1.&nbsp;enr_yyyy:&lt;int&gt;:&nbsp;year&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start&nbsp;<br>
+2.&nbsp;enr_doy:&lt;int&gt;:&nbsp;&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start<br>
+3.&nbsp;enr_step:&lt;int&gt;:&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;<br>
+4.&nbsp;enr_em_st:&lt;int&gt;:&nbsp;firt&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble&nbsp;<br>
+5.&nbsp;enr_em_end:&lt;int&gt;:&nbsp;last&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble&nbsp;<br>
+6.&nbsp;yyyy,&nbsp;dd,&nbsp;mm:&lt;int&gt;:&nbsp;output&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;the&nbsp;default&nbsp;extension&nbsp;will&nbsp;be&nbsp;like:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STXENRSTEPX.ENXEMSTX-XEMEND.XYYYYXXMMXXDDX<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;example:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ST001.EN0001-EN0048.2009.01.01<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stands&nbsp;for&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;step=1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ensemble&nbsp;member&nbsp;of&nbsp;0001-0049<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yyyyy=2009,&nbsp;mm=1,&nbsp;dd=1</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-construct_filename"><strong>construct_filename</strong></a>(self, **keywords)</dt><dd><tt>construction&nbsp;file&nbsp;name&nbsp;using&nbsp;keywords&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------<br>
+&nbsp;<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;file&nbsp;format&nbsp;and&nbsp;path<br>
+---expected&nbsp;Keynames:<br>
+---&gt;1.&nbsp;flnmformat:&lt;str&gt;:&nbsp;file&nbsp;format<br>
+---&gt;2.&nbsp;filepath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+---&gt;3.&nbsp;words&nbsp;used&nbsp;to&nbsp;replace&nbsp;dummies&nbsp;in&nbsp;file&nbsp;format.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;sflnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-construct_tracerinfo_filename"><strong>construct_tracerinfo_filename</strong></a>(self, **keywords)</dt><dd><tt>construction&nbsp;name&nbsp;for&nbsp;tracer&nbsp;info&nbsp;file&nbsp;&nbsp;use&nbsp;the&nbsp;keyword&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;file&nbsp;format&nbsp;and&nbsp;path<br>
+---expected&nbsp;Keynames:<br>
+---&gt;1.&nbsp;tracerinfo_flnmformat:&lt;str&gt;:&nbsp;file&nbsp;format<br>
+---&gt;2.&nbsp;tracerfo_filepath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+---&gt;3.&nbsp;words&nbsp;used&nbsp;to&nbsp;replace&nbsp;dummies&nbsp;in&nbsp;file&nbsp;format.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;sflnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-del_data"><strong>del_data</strong></a>(self, idx, by_ref<font color="#909090">=False</font>)</dt><dd><tt>Remove&nbsp;data&nbsp;from&nbsp;the&nbsp;list&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------<br>
+&nbsp;<br>
+1.idx&nbsp;:&lt;int/obj&gt;:&nbsp;index&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;be&nbsp;deleted&nbsp;<br>
+2.&nbsp;by_ref:&lt;T/F&gt;:&nbsp;if&nbsp;ture&nbsp;,&nbsp;index&nbsp;will&nbsp;be&nbsp;treated&nbsp;as&nbsp;ref&nbsp;<br>
+---values&nbsp;for&nbsp;looking&nbsp;up&nbsp;ref_lst<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------<br>
+self.<strong>nset</strong>:&lt;int&gt;:&nbsp;the&nbsp;length&nbsp;of&nbsp;the&nbsp;current&nbsp;data&nbsp;lst</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>get&nbsp;one&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+Returns:<br>
+-----------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-get_data"><strong>get_data</strong></a>(self, traname<font color="#909090">=None</font>, category<font color="#909090">=None</font>, tracer<font color="#909090">=None</font>)</dt><dd><tt>select&nbsp;the&nbsp;data&nbsp;from&nbsp;data_lst<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+=======================================<br>
+1.&nbsp;traname:&lt;list,&nbsp;t:str&gt;:&nbsp;tracer&nbsp;name<br>
+2.&nbsp;category:&lt;list,&nbsp;t:str&gt;:&nbsp;category&nbsp;<br>
+3.&nbsp;tracerID:&lt;list,&nbsp;t:int&gt;:&nbsp;tracer&nbsp;ID&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+==========================================<br>
+1.&nbsp;traname_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;trace&nbsp;name&nbsp;<br>
+2.&nbsp;category_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;category&nbsp;<br>
+3.&nbsp;tid_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;tracer&nbsp;ID&nbsp;<br>
+4.&nbsp;sid_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;data&nbsp;in&nbsp;the&nbsp;list<br>
+5.&nbsp;found_data_lst:&lt;list,&nbsp;t:class&nbsp;bpdata&nbsp;or&nbsp;profile&gt;:</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-read_enr_file"><strong>read_enr_file</strong></a>(self, yyyy, mm, dd, enr_yst_lst, enr_dst_lst, enr_step_lst, enr_em_st_lst, enr_em_end_lst, **keywords)</dt><dd><tt>Read&nbsp;outputs&nbsp;from&nbsp;ensemble&nbsp;runs&nbsp;to&nbsp;list&nbsp;of&nbsp;ctm_data_cl<br>
+&nbsp;<br>
+&nbsp;<br>
+Input:<br>
+============================================================<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year&nbsp;month&nbsp;day&nbsp;<br>
+2.&nbsp;enr_yyyy_lst:&lt;int&gt;:&nbsp;year&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+3.&nbsp;enr_doy_lst:&lt;int&gt;:&nbsp;&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+4.&nbsp;enr_step_lst:&lt;int&gt;:&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run.<br>
+5.&nbsp;enr_em_st_st:&lt;int&gt;:&nbsp;firt&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+6.&nbsp;enr_em_end_lst:&lt;int&gt;:&nbsp;last&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+7.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:<br>
+&nbsp;<br>
+Returns:<br>
+==========================================================<br>
+1.&nbsp;self.<strong>nset</strong>:&lt;int&gt;:&nbsp;number&nbsp;of&nbsp;data&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-read_enr_file_profile_list"><strong>read_enr_file_profile_list</strong></a>(self, yyyy, mm, dd, olon, olat, enr_yst_lst, enr_dst_lst, enr_step_lst, enr_em_st_lst, enr_em_end_lst, **keywords)</dt><dd><tt>Read&nbsp;outputs&nbsp;from&nbsp;ensemble&nbsp;runs&nbsp;to&nbsp;list&nbsp;of&nbsp;ctm_profile_cl<br>
+&nbsp;<br>
+Input:<br>
+============================================================<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year&nbsp;month&nbsp;day&nbsp;<br>
+2.&nbsp;olon:&lt;array&gt;:&nbsp;longitude<br>
+3.&nbsp;olat:&lt;array&gt;:latitude&nbsp;<br>
+4.&nbsp;enr_yyyy_lst:&lt;int&gt;:&nbsp;year&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+5.&nbsp;enr_doy_lst:&lt;int&gt;:&nbsp;&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+6.&nbsp;enr_step_lst:&lt;int&gt;:&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run.<br>
+7.&nbsp;enr_em_st_st:&lt;int&gt;:&nbsp;firt&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+8.&nbsp;enr_em_end_lst:&lt;int&gt;:&nbsp;last&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+9.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:<br>
+&nbsp;<br>
+Returns:<br>
+==========================================================<br>
+1.&nbsp;self.<strong>nset</strong>:&lt;int&gt;:&nbsp;number&nbsp;of&nbsp;data&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-read_file"><strong>read_file</strong></a>(self, yyyy, mm, dd, ext<font color="#909090">=''</font>, **keywords)</dt><dd><tt>Read&nbsp;outputs&nbsp;from&nbsp;GEOS-Chem&nbsp;runs&nbsp;to&nbsp;a&nbsp;list&nbsp;of&nbsp;3D&nbsp;fields&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Input:<br>
+============================================================<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year&nbsp;month&nbsp;day&nbsp;<br>
+2.&nbsp;ent:&lt;str&gt;:&nbsp;string&nbsp;for&nbsp;file&nbsp;extension&nbsp;<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:<br>
+&nbsp;<br>
+Returns:<br>
+==========================================================<br>
+1.&nbsp;bp_lst:&lt;list,&nbsp;t:gc_field_3d&gt;:&nbsp;list&nbsp;of&nbsp;&nbsp;data&nbsp;sets.</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-read_file_to_profile_list"><strong>read_file_to_profile_list</strong></a>(self, yyyy, mm, dd, olon, olat, ext<font color="#909090">=''</font>, **keywords)</dt><dd><tt>Read&nbsp;outputs&nbsp;from&nbsp;forecast&nbsp;runs&nbsp;to&nbsp;a&nbsp;list&nbsp;of&nbsp;ctm_profile_cl<br>
+&nbsp;<br>
+Input:<br>
+============================================================<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year&nbsp;month&nbsp;day&nbsp;<br>
+2.&nbsp;olon:&lt;array&gt;:&nbsp;longitude<br>
+3.&nbsp;olat:&lt;array&gt;:latitude&nbsp;<br>
+4.&nbsp;ext:&lt;str&gt;:&nbsp;file&nbsp;extension&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:<br>
+&nbsp;<br>
+Returns:<br>
+==========================================================<br>
+1.&nbsp;bp_lst:&lt;list,&nbsp;t:prof_lst&gt;:&nbsp;list&nbsp;of&nbsp;found&nbsp;profiles.</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, value)</dt><dd><tt>assign&nbsp;one&nbsp;attribute<br>
+Inputs:<br>
+-------------------------------------------------------<br>
+1.&nbsp;attr_name:&nbsp;&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;value:&nbsp;&lt;obj&gt;:attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_diaginfo_file_path"><strong>set_diaginfo_file_path</strong></a>(self, path)</dt><dd><tt>set&nbsp;path&nbsp;for&nbsp;diaginfo&nbsp;&nbsp;file&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;path:&lt;str&gt;:&nbsp;path&nbsp;&nbsp;for&nbsp;tracerinfo&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_diaginfo_filename_format"><strong>set_diaginfo_filename_format</strong></a>(self, flnm_format)</dt><dd><tt>set&nbsp;template&nbsp;for&nbsp;diaginfo&nbsp;filename&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;flnm_format:&lt;str&gt;:&nbsp;format&nbsp;for&nbsp;diaginfo&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_file_path"><strong>set_file_path</strong></a>(self, path)</dt><dd><tt>set&nbsp;path&nbsp;for&nbsp;data&nbsp;file&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;path:&lt;str&gt;:&nbsp;path&nbsp;&nbsp;for&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_filename_format"><strong>set_filename_format</strong></a>(self, flnm_format)</dt><dd><tt>set&nbsp;template&nbsp;for&nbsp;filename&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;flnm_format:&lt;str&gt;:&nbsp;format&nbsp;for&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_tracerinfo_file_path"><strong>set_tracerinfo_file_path</strong></a>(self, path)</dt><dd><tt>set&nbsp;path&nbsp;for&nbsp;tracerinfo&nbsp;&nbsp;file&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;path:&lt;str&gt;:&nbsp;path&nbsp;&nbsp;for&nbsp;tracerinfo&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="gcfile_desc_cl-set_tracerinfo_filename_format"><strong>set_tracerinfo_filename_format</strong></a>(self, flnm_format)</dt><dd><tt>set&nbsp;template&nbsp;for&nbsp;tracerinfo&nbsp;filename&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;flnm_format:&lt;str&gt;:&nbsp;format&nbsp;for&nbsp;tracerinfo&nbsp;file&nbsp;name</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="tracer_info_cl">class <strong>tracer_info_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;infomation&nbsp;of&nbsp;the&nbsp;tracers&nbsp;<br>
+included&nbsp;in&nbsp;the&nbsp;GEOS-Chem&nbsp;simulation<br>
+&nbsp;<br>
+Members:<br>
+-----------------------------------------------------<br>
+1.&nbsp;name:&lt;list,&nbsp;t:str&gt;:&nbsp;short&nbsp;name&nbsp;of&nbsp;tracers&nbsp;&nbsp;<br>
+2.&nbsp;fullname:&lt;list,&nbsp;t:str&gt;:&nbsp;full&nbsp;name&nbsp;of&nbsp;tracer&nbsp;&nbsp;<br>
+3.&nbsp;tracer:&lt;list/array,&nbsp;t:integer&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;tracer&nbsp;&nbsp;<br>
+4.&nbsp;scale:&lt;list,&nbsp;t:float&gt;:&nbsp;scaling&nbsp;factor&nbsp;<br>
+5.&nbsp;unit:&nbsp;&lt;unit,&nbsp;t:str&gt;:&nbsp;unit&nbsp;of&nbsp;the&nbsp;tracers&nbsp;<br>
+6.&nbsp;c:&nbsp;&lt;list,&nbsp;t:integer&gt;:&nbsp;category&nbsp;id&nbsp;of&nbsp;the&nbsp;tracer.&nbsp;<br>
+7.&nbsp;molew:&lt;list,t:float&gt;:&nbsp;mass&nbsp;of&nbsp;tracer<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+----------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;read_info:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;different&nbsp;fields&nbsp;<br>
+3.&nbsp;get_tracer_info:check&nbsp;information&nbsp;of&nbsp;the&nbsp;tracer&nbsp;<br>
+4.&nbsp;<a href="#tracer_info_cl-load_tracer_info">load_tracer_info</a>(self,&nbsp;flnm):&nbsp;Read&nbsp;tracer&nbsp;infor&nbsp;from&nbsp;file<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="tracer_info_cl-__init__"><strong>__init__</strong></a>(self, flnm)</dt></dl>
+
+<dl><dt><a name="tracer_info_cl-get_tracer_info"><strong>get_tracer_info</strong></a>(self, tracer_in)</dt><dd><tt>check&nbsp;information&nbsp;of&nbsp;the&nbsp;tracer&nbsp;<br>
+Inputs:<br>
+----------------------------------------<br>
+1.&nbsp;tracer_in:&lt;integer&gt;:&nbsp;(real)&nbsp;tracer&nbsp;id&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;tracer<br>
+2.&nbsp;fullname:&lt;str&gt;:&nbsp;full&nbsp;name&nbsp;of&nbsp;the&nbsp;tracer&nbsp;<br>
+3.&nbsp;molew:&nbsp;&lt;float&gt;:&nbsp;molecular&nbsp;mass<br>
+4.&nbsp;scale:&nbsp;&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;<br>
+5.&nbsp;unit:&nbsp;&lt;str&gt;:&nbsp;unit&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+----------------------------<br>
+1.&nbsp;If&nbsp;tracer_in&nbsp;is&nbsp;not&nbsp;found&nbsp;in&nbsp;self.<strong>tracer</strong>,&nbsp;returns&nbsp;will&nbsp;be&nbsp;filled&nbsp;with&nbsp;"???"&nbsp;or&nbsp;with&nbsp;oob.fill_val</tt></dd></dl>
+
+<dl><dt><a name="tracer_info_cl-load_tracer_info"><strong>load_tracer_info</strong></a>(self, flnm)</dt><dd><tt>Read&nbsp;tracer&nbsp;infor&nbsp;from&nbsp;file<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;tracer&nbsp;info</tt></dd></dl>
+
+<dl><dt><a name="tracer_info_cl-read_info"><strong>read_info</strong></a>(self, lines)</dt><dd><tt>decode&nbsp;lines&nbsp;in&nbsp;tracer&nbsp;info&nbsp;file&nbsp;into&nbsp;different&nbsp;fields<br>
+Inputs:<br>
+----------------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;str&gt;:&nbsp;lines&nbsp;in&nbsp;tracerinfo&nbsp;file&nbsp;<br>
+---&nbsp;a&nbsp;typical&nbsp;line&nbsp;include<br>
+name,&nbsp;fullname,&nbsp;molecular&nbsp;mass,&nbsp;scaling&nbsp;factor,&nbsp;tracer_id,&nbsp;unit,&nbsp;category&nbsp;id</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-close_bpch2_file"><strong>close_bpch2_file</strong></a>(funit)</dt><dd><tt>open&nbsp;one&nbsp;bpch2&nbsp;file&nbsp;to&nbsp;write&nbsp;<br>
+Inputs:<br>
+-------------------------<br>
+1.&nbsp;funit:&lt;int&gt;:&nbsp;file&nbsp;unit&nbsp;handle&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------<br>
+1.&nbsp;stat:&lt;int&gt;:&nbsp;status&nbsp;of&nbsp;the&nbsp;operation</tt></dd></dl>
+ <dl><dt><a name="-is_bpch_matched"><strong>is_bpch_matched</strong></a>(tcat, ttracer, tname, ttau0, ttau1, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>)</dt><dd><tt>Check&nbsp;whether&nbsp;a&nbsp;bpch&nbsp;set&nbsp;meeting&nbsp;the&nbsp;selection&nbsp;criteria<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;tcat:&lt;str&gt;:&nbsp;category&nbsp;<br>
+2.&nbsp;ttracer:&lt;integer&gt;:&nbsp;tracer&nbsp;id&nbsp;<br>
+3.&nbsp;tname:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;tracer&nbsp;<br>
+4.&nbsp;ttau0:&lt;float&gt;:&nbsp;start&nbsp;tau<br>
+5.&nbsp;ttau1:&lt;float&gt;:&nbsp;end&nbsp;tau&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;required&nbsp;&nbsp;category&nbsp;<br>
+7.&nbsp;tracers:&lt;list,&nbsp;t:integer&gt;:&nbsp;required&nbsp;tracer&nbsp;numbers<br>
+8.&nbsp;taus:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;&nbsp;required&nbsp;tau&nbsp;<br>
+9.&nbsp;tranames:&lt;list,&nbsp;t:float&gt;:&nbsp;required&nbsp;names<br>
+&nbsp;<br>
+Returns:<br>
+==================================================<br>
+1.&nbsp;matched:&nbsp;&lt;True&gt;:&nbsp;if&nbsp;the&nbsp;criteria&nbsp;are&nbsp;met.&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+=================================================<br>
+1.&nbsp;tranames&nbsp;are&nbsp;the&nbsp;short&nbsp;names&nbsp;&nbsp;<br>
+2.&nbsp;ttracer&nbsp;are&nbsp;the&nbsp;ID&nbsp;stored&nbsp;in&nbsp;the&nbsp;bpch2&nbsp;file,&nbsp;<br>
+---instead&nbsp;of&nbsp;the&nbsp;ones&nbsp;after&nbsp;being&nbsp;shifted&nbsp;by&nbsp;category&nbsp;offset&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;fill&nbsp;values&nbsp;are&nbsp;treated&nbsp;as&nbsp;switching&nbsp;off&nbsp;the&nbsp;criteria.</tt></dd></dl>
+ <dl><dt><a name="-open_bpch2_write"><strong>open_bpch2_write</strong></a>(funit, flnm, title<font color="#909090">=''</font>)</dt><dd><tt>open&nbsp;one&nbsp;bpch2&nbsp;file&nbsp;to&nbsp;write&nbsp;<br>
+Inputs:<br>
+-------------------------<br>
+1.&nbsp;funit:&lt;int&gt;:&nbsp;file&nbsp;unit&nbsp;handle&nbsp;<br>
+2.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;<br>
+3.&nbsp;title:&lt;str&gt;:&nbsp;title&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;be&nbsp;written.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------<br>
+1.&nbsp;stat:&lt;int&gt;:&nbsp;status&nbsp;of&nbsp;the&nbsp;operation</tt></dd></dl>
+ <dl><dt><a name="-read_bpch_to_data_list"><strong>read_bpch_to_data_list</strong></a>(flnm, ftracerinfo<font color="#909090">=''</font>, fdiaginfo<font color="#909090">=''</font>, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>)</dt><dd><tt>read&nbsp;in&nbsp;the&nbsp;bpch&nbsp;data&nbsp;which&nbsp;meet&nbsp;the&nbsp;selection&nbsp;criteria&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;bpch2&nbsp;file&nbsp;<br>
+2.&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;tracerinfo&nbsp;file&nbsp;<br>
+3.&nbsp;fdiaginfo:&lt;str&gt;:name&nbsp;of&nbsp;the&nbsp;diag&nbsp;info&nbsp;file&nbsp;<br>
+4.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;required&nbsp;&nbsp;category&nbsp;<br>
+5.&nbsp;tracers:&lt;list,&nbsp;t:integer&gt;:&nbsp;required&nbsp;tracer&nbsp;numbers<br>
+6.&nbsp;taus:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;&nbsp;required&nbsp;tau&nbsp;<br>
+7.&nbsp;tranames:&lt;list,&nbsp;t:float&gt;:&nbsp;required&nbsp;names<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------<br>
+1.&nbsp;data_lst:&lt;list,&nbsp;t:ctm_field_cl&gt;:&nbsp;list&nbsp;of&nbsp;class&nbsp;object&nbsp;of&nbsp;ctm_field_cl.<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;tracers&nbsp;is&nbsp;the&nbsp;ID&nbsp;stored&nbsp;in&nbsp;the&nbsp;bpch2&nbsp;file,&nbsp;&nbsp;instead&nbsp;of&nbsp;the&nbsp;'real'<br>
+---&nbsp;tracer&nbsp;ID&nbsp;&nbsp;after&nbsp;being&nbsp;shifted&nbsp;by&nbsp;category&nbsp;offsets&nbsp;read&nbsp;from&nbsp;diaginfo&nbsp;file&nbsp;<br>
+2.&nbsp;Detailed&nbsp;information&nbsp;such&nbsp;as&nbsp;traname,&nbsp;trafullname,&nbsp;tramolew,&nbsp;trascale&nbsp;and&nbsp;traunit&nbsp;<br>
+---are&nbsp;read&nbsp;from&nbsp;tracerinfo&nbsp;file&nbsp;according&nbsp;to&nbsp;the&nbsp;real&nbsp;tracer&nbsp;ID&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;fill&nbsp;value&nbsp;means&nbsp;&nbsp;the&nbsp;switching&nbsp;off&nbsp;the&nbsp;criteria.</tt></dd></dl>
+ <dl><dt><a name="-read_bpch_to_profile_list"><strong>read_bpch_to_profile_list</strong></a>(olon, olat, flnm, ftracerinfo<font color="#909090">=''</font>, fdiaginfo<font color="#909090">=''</font>, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>)</dt><dd><tt>read&nbsp;in&nbsp;the&nbsp;bpch&nbsp;data&nbsp;which&nbsp;meet&nbsp;the&nbsp;selection&nbsp;criteria&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;olon:&lt;array&gt;:&nbsp;longitude<br>
+2.&nbsp;olat:&lt;array&gt;:&nbsp;latitude&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;flnm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;bpch2&nbsp;file&nbsp;<br>
+4.&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;tracerinfo&nbsp;file&nbsp;<br>
+5.&nbsp;fdiaginfo:&lt;str&gt;:name&nbsp;of&nbsp;the&nbsp;diag&nbsp;info&nbsp;file&nbsp;<br>
+6.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;required&nbsp;&nbsp;category&nbsp;<br>
+7.&nbsp;tracers:&lt;list,&nbsp;t:integer&gt;:&nbsp;required&nbsp;tracer&nbsp;numbers&nbsp;(Note&nbsp;1)<br>
+&nbsp;<br>
+8.&nbsp;taus:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;&nbsp;required&nbsp;tau&nbsp;<br>
+9.&nbsp;tranames:&lt;list,&nbsp;t:str&gt;:&nbsp;required&nbsp;names<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------<br>
+1.&nbsp;data_lst:&lt;list,&nbsp;t:ctm_profile_cl&gt;:&nbsp;list&nbsp;of&nbsp;class&nbsp;object&nbsp;of&nbsp;ctm_field_cl.<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;tracers&nbsp;is&nbsp;the&nbsp;ID&nbsp;stored&nbsp;in&nbsp;the&nbsp;bpch2&nbsp;file,&nbsp;&nbsp;instead&nbsp;of&nbsp;the&nbsp;'real'<br>
+---&nbsp;tracer&nbsp;ID&nbsp;&nbsp;after&nbsp;being&nbsp;shifted&nbsp;by&nbsp;category&nbsp;offsets&nbsp;read&nbsp;from&nbsp;diaginfo&nbsp;file&nbsp;<br>
+2.&nbsp;Detailed&nbsp;information&nbsp;such&nbsp;as&nbsp;traname,&nbsp;trafullname,&nbsp;tramolew,&nbsp;trascale&nbsp;and&nbsp;traunit&nbsp;<br>
+---are&nbsp;read&nbsp;from&nbsp;tracerinfo&nbsp;file&nbsp;according&nbsp;to&nbsp;the&nbsp;real&nbsp;tracer&nbsp;ID&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;fill&nbsp;value&nbsp;means&nbsp;&nbsp;the&nbsp;switching&nbsp;off&nbsp;the&nbsp;criteria.</tt></dd></dl>
+ <dl><dt><a name="-write_record_to_bpch2"><strong>write_record_to_bpch2</strong></a>(funit, ctm_data, **keywords)</dt><dd><tt>write&nbsp;data&nbsp;into&nbsp;one&nbsp;open&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;funit:&nbsp;&nbsp;&nbsp;&nbsp;integer-&nbsp;the&nbsp;unit&nbsp;number&nbsp;of&nbsp;the&nbsp;bpch2&nbsp;file&nbsp;<br>
+2.&nbsp;ctm_data:&lt;ctm_field_cl/array&gt;:&nbsp;gridded&nbsp;data&nbsp;with&nbsp;the&nbsp;ctm_grd&nbsp;<br>
+3.&nbsp;keywords:&nbsp;Additional&nbsp;inputs&nbsp;to&nbsp;replace&nbsp;what&nbsp;stored&nbsp;in&nbsp;data&nbsp;<br>
+---&nbsp;reserved&nbsp;keywords&nbsp;<br>
+---&gt;'ctm_grd':&lt;gc_grid_cl&gt;:&nbsp;grid&nbsp;<br>
+---&gt;'unit':&lt;str&gt;:&nbsp;unit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+---&gt;'modelname':&nbsp;&lt;str&gt;:&nbsp;model&nbsp;name&nbsp;<br>
+---&gt;'tau0':&lt;float&gt;:&nbsp;starting&nbsp;tau&nbsp;for&nbsp;the&nbsp;data&nbsp;set&nbsp;<br>
+---&gt;'tau1':&lt;float&gt;:&nbsp;end&nbsp;tau&nbsp;for&nbsp;the&nbsp;data&nbsp;set<br>
+---'&gt;tracer_id:':&lt;int&gt;:&nbsp;tracer&nbsp;number&nbsp;<br>
+---&gt;'category':&nbsp;&lt;str&gt;:&nbsp;tracer&nbsp;category&nbsp;<br>
+---&gt;'reserved':&nbsp;&lt;str&gt;:&nbsp;reserved&nbsp;fields.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------<br>
+1.&nbsp;stat:&lt;int&gt;:&nbsp;status&nbsp;of&nbsp;the&nbsp;operation</tt></dd></dl>
+</td></tr></table>
+</body></html>

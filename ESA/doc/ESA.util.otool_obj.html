@@ -1,0 +1,206 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.otool_obj</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.otool_obj</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/otool_obj.py">/home/lfeng/otool/ESA/util/otool_obj.py</a></font></td></tr></table>
+    <p><tt>Module&nbsp;for&nbsp;constant&nbsp;and&nbsp;managing&nbsp;function&nbsp;for&nbsp;objects&nbsp;defined&nbsp;in&nbsp;toolkit<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.30<br>
+History:&nbsp;v0.95,&nbsp;2013.01.06<br>
+&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;Parameters<br>
+===========================================<br>
+#&nbsp;filling&nbsp;values<br>
+1.&nbsp;fill_val_float=-999.0<br>
+2.&nbsp;fill_val=-999.0<br>
+3.&nbsp;fill_val_int=-999<br>
+4.&nbsp;fill_val_str=""<br>
+&nbsp;<br>
+#&nbsp;python&nbsp;types<br>
+&nbsp;<br>
+5.&nbsp;ot_int=1<br>
+6.&nbsp;ot_float=2<br>
+7.&nbsp;ot_string=3<br>
+8.&nbsp;ot_list=4<br>
+9.&nbsp;ot_array=5<br>
+10.ot_slice=6<br>
+&nbsp;<br>
+#&nbsp;ot&nbsp;types&nbsp;<br>
+11.&nbsp;ot_numeric=9<br>
+12.&nbsp;ot_axis=100<br>
+13.&nbsp;ot_grid=200<br>
+14.&nbsp;ot_field=300<br>
+15.&nbsp;ot_world=400<br>
+16.&nbsp;ot_profile=500<br>
+17.&nbsp;ot_vintpl=600<br>
+18.&nbsp;ot_hinterp=700<br>
+19.&nbsp;ot_slice=800<br>
+20.&nbsp;ot_iovar=900<br>
+21.&nbsp;ot_fdesc=1010<br>
+22.&nbsp;ot_ncfdesc=1010<br>
+23.&nbsp;ot_ak=1030<br>
+24.&nbsp;ot_err=1040<br>
+25.&nbsp;ot_cloud=1050<br>
+26.&nbsp;ot_aod=1060<br>
+&nbsp;<br>
+27.&nbsp;ot_no_ot_type=fill_val_int<br>
+28.&nbsp;ot_bf=1070&nbsp;<br>
+29.&nbsp;ot_obs_op=1080<br>
+30.&nbsp;ot_stv=1090<br>
+31.&nbsp;ot_menu=1100<br>
+32.&nbsp;ot_def=1200<br>
+33.&nbsp;ot_lc=1300<br>
+&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;Functions:<br>
+=======================================================<br>
+1.get_ot_type:&nbsp;get&nbsp;type&nbsp;of&nbsp;the&nbsp;obj<br>
+2.check_type&nbsp;:&nbsp;check&nbsp;whether&nbsp;the&nbsp;obj&nbsp;has&nbsp;the&nbsp;type&nbsp;as&nbsp;required&nbsp;<br>
+3.compare_type:&nbsp;check&nbsp;whether&nbsp;two&nbsp;objects&nbsp;have&nbsp;the&nbsp;same&nbsp;type&nbsp;&nbsp;<br>
+4.compare_attr:&nbsp;compare&nbsp;attributes&nbsp;of&nbsp;the&nbsp;ot&nbsp;object&nbsp;<br>
+5.is_attr_matched:&nbsp;compare&nbsp;<br>
+6.&nbsp;check_ot_shape:&nbsp;check&nbsp;whether&nbsp;obj&nbsp;has&nbsp;the&nbsp;required&nbsp;shape.&nbsp;<br>
+7.&nbsp;translate_dict_ID:&nbsp;find&nbsp;ID&nbsp;&nbsp;for&nbsp;given&nbsp;names&nbsp;from&nbsp;a&nbsp;ID&nbsp;dictionary</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-check_ot_shape"><strong>check_ot_shape</strong></a>(obj, dims)</dt><dd><tt>check_ot_shape:&nbsp;check&nbsp;whether&nbsp;obj&nbsp;has&nbsp;the&nbsp;required&nbsp;shape.<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;object&nbsp;which&nbsp;shape&nbsp;will&nbsp;be&nbsp;test.&nbsp;<br>
+2.&nbsp;dims:&lt;array/list&gt;:&nbsp;the&nbsp;required&nbsp;shape&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;matched:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;the&nbsp;obj&nbsp;shape&nbsp;is&nbsp;matched&nbsp;with&nbsp;the&nbsp;requirements.</tt></dd></dl>
+ <dl><dt><a name="-check_type"><strong>check_type</strong></a>(obj, ot_type)</dt><dd><tt>check&nbsp;whether&nbsp;the&nbsp;object&nbsp;has&nbsp;the&nbsp;type&nbsp;as&nbsp;required<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;otool&nbsp;class<br>
+2.&nbsp;ot_type:&lt;integer&gt;:&nbsp;the&nbsp;expected&nbsp;type&nbsp;of&nbsp;otool&nbsp;object.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;matched:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;matched,&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------------<br>
+1.&nbsp;&nbsp;when&nbsp;obj&nbsp;is&nbsp;&nbsp;list&nbsp;or&nbsp;array,&nbsp;we&nbsp;can&nbsp;not&nbsp;check&nbsp;its&nbsp;each&nbsp;element.</tt></dd></dl>
+ <dl><dt><a name="-compare_attr"><strong>compare_attr</strong></a>(obj, obj2, attr_lst)</dt><dd><tt>check&nbsp;objecs&nbsp;have&nbsp;the&nbsp;set&nbsp;of&nbsp;attributes&nbsp;set&nbsp;out&nbsp;by&nbsp;keyword_lst<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;otool&nbsp;class<br>
+2.&nbsp;obj2:&lt;obj&gt;:&nbsp;otool&nbsp;class&nbsp;for&nbsp;comparison<br>
+3.&nbsp;attr_lst:&lt;dict&gt;:&nbsp;key&nbsp;attributes&nbsp;to&nbsp;be&nbsp;comparied&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;matched:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;matched,</tt></dd></dl>
+ <dl><dt><a name="-compare_type"><strong>compare_type</strong></a>(obj, obj2)</dt><dd><tt>check&nbsp;the&nbsp;object&nbsp;has&nbsp;type&nbsp;as&nbsp;required<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;otool&nbsp;class<br>
+2.&nbsp;obj2:&lt;obj&gt;:&nbsp;otool&nbsp;class&nbsp;for&nbsp;comparison<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;is_match:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;matched,</tt></dd></dl>
+ <dl><dt><a name="-get_ot_type"><strong>get_ot_type</strong></a>(obj)</dt><dd><tt>check&nbsp;the&nbsp;object&nbsp;has&nbsp;type&nbsp;as&nbsp;required<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;otool&nbsp;class<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;obj_type:&lt;integer&gt;:&nbsp;type&nbsp;of&nbsp;object&nbsp;tool</tt></dd></dl>
+ <dl><dt><a name="-is_attr_matched"><strong>is_attr_matched</strong></a>(obj, **keywords)</dt><dd><tt>check&nbsp;objecs&nbsp;have&nbsp;the&nbsp;set&nbsp;of&nbsp;attributes&nbsp;set&nbsp;out&nbsp;by&nbsp;keyword_lst<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;obj:&lt;obj&gt;:&nbsp;otool&nbsp;class<br>
+2.&nbsp;obj2:&lt;obj&gt;:&nbsp;otool&nbsp;class&nbsp;for&nbsp;comparison<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;key&nbsp;attributes&nbsp;to&nbsp;be&nbsp;comparied&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;matched:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;matched.&nbsp;<br>
+&nbsp;<br>
+Notes:&nbsp;<br>
+1.&nbsp;if&nbsp;no&nbsp;criteria&nbsp;(keywords)&nbsp;is&nbsp;given,&nbsp;a&nbsp;True&nbsp;will&nbsp;be&nbsp;return</tt></dd></dl>
+ <dl><dt><a name="-translate_dict_ID"><strong>translate_dict_ID</strong></a>(id_dict, names)</dt><dd><tt>find&nbsp;ID&nbsp;&nbsp;for&nbsp;names&nbsp;from&nbsp;a&nbsp;ID&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.id_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;{keyname:id}&nbsp;for&nbsp;ID&nbsp;of&nbsp;keynames&nbsp;(see&nbsp;Note&nbsp;1)<br>
+2.names:&lt;array/obj&gt;:&nbsp;names&nbsp;to&nbsp;be&nbsp;checked&nbsp;against&nbsp;id_dict<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+vid_lst:&lt;array/obj&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;given&nbsp;names<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+---------------------------------------------<br>
+1.&nbsp;ID&nbsp;could&nbsp;be&nbsp;a&nbsp;unqie&nbsp;number&nbsp;or&nbsp;string</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>fill_val</strong> = -999.0<br>
+<strong>fill_val_float</strong> = -999.0<br>
+<strong>fill_val_int</strong> = -999<br>
+<strong>fill_val_str</strong> = ''<br>
+<strong>ot_ak</strong> = 1030<br>
+<strong>ot_aod</strong> = 1060<br>
+<strong>ot_array</strong> = 5<br>
+<strong>ot_axis</strong> = 100<br>
+<strong>ot_bf</strong> = 1070<br>
+<strong>ot_cloud</strong> = 1050<br>
+<strong>ot_def</strong> = 1200<br>
+<strong>ot_err</strong> = 1040<br>
+<strong>ot_fdesc</strong> = 1010<br>
+<strong>ot_field</strong> = 300<br>
+<strong>ot_float</strong> = 2<br>
+<strong>ot_grid</strong> = 200<br>
+<strong>ot_hinterp</strong> = 800<br>
+<strong>ot_int</strong> = 1<br>
+<strong>ot_iovar</strong> = 900<br>
+<strong>ot_lc</strong> = 1300<br>
+<strong>ot_list</strong> = 4<br>
+<strong>ot_menu</strong> = 1100<br>
+<strong>ot_ncfdesc</strong> = 1020<br>
+<strong>ot_no_ot_type</strong> = -1000<br>
+<strong>ot_numeric</strong> = 9<br>
+<strong>ot_obs_op</strong> = 1080<br>
+<strong>ot_profile</strong> = 500<br>
+<strong>ot_slice</strong> = 600<br>
+<strong>ot_str</strong> = 3<br>
+<strong>ot_string</strong> = 3<br>
+<strong>ot_stv</strong> = 1090<br>
+<strong>ot_vintpl</strong> = 700<br>
+<strong>ot_world</strong> = 400</td></tr></table>
+</body></html>

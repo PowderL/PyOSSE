@@ -1,0 +1,349 @@
+GEOS-CHEM SIMULATION v8-01-01: GEOS-5 1-month benchmark
+------------------------+------------------------------------------------------
+%%% SIMULATION MENU %%% :
+Start YYYYMMDD, HHMMSS  : 20100401 000000   
+End   YYYYMMDD, HHMMSS  : 20100501 000000   
+Run directory           : ./
+Input restart file      : restart.ST011.EN0081-EN0146.YYYYMMDDhh
+Make new restart file?  : T
+Output restart file(s)  : .//enkf_output//restart.ST011.EN0081-EN0146.YYYYMMDDhh
+Root data directory     : /geos/u23/GC_DATA_/ctm/GEOS_4x5/
+ => GCAP       subdir   : AGRID/YYYY/MM/
+ => GEOS-3     subdir   : GEOS_3/YYYY/MM/
+ => GEOS-4     subdir   : GEOS_4_v4/YYYY/MM/
+ => GEOS-5     subdir   : GEOS_5.1.0/YYYY/MM/
+Dir w/ 1x1 emissions etc: /geos/u23/GC_DATA_/ctm/GEOS_1x1/
+Temporary directory     : .//temp
+Unzip met fields?       : T
+Wait for met fields?    : T
+Use variable tropopause?: T
+Global offsets I0, J0   : 0 0
+------------------------+------------------------------------------------------
+%%% TRACER MENU %%%     : 
+Type of simulation      : 12
+Number of Tracers       :   66   
+Tracer Entries -------> : TR#   Name  g/mole   Tracer Members; () = emitted 
+Tracer #081 ENSEM       :    1  CO2     44.0   (CO2)
+Tracer #082 ENSEM       :    2  CO2     44.0   (CO2)
+Tracer #083 ENSEM       :    3  CO2     44.0   (CO2)
+Tracer #084 ENSEM       :    4  CO2     44.0   (CO2)
+Tracer #085 ENSEM       :    5  CO2     44.0   (CO2)
+Tracer #086 ENSEM       :    6  CO2     44.0   (CO2)
+Tracer #087 ENSEM       :    7  CO2     44.0   (CO2)
+Tracer #088 ENSEM       :    8  CO2     44.0   (CO2)
+Tracer #089 ENSEM       :    9  CO2     44.0   (CO2)
+Tracer #090 ENSEM       :   10  CO2     44.0   (CO2)
+Tracer #091 ENSEM       :   11  CO2     44.0   (CO2)
+Tracer #092 ENSEM       :   12  CO2     44.0   (CO2)
+Tracer #093 ENSEM       :   13  CO2     44.0   (CO2)
+Tracer #094 ENSEM       :   14  CO2     44.0   (CO2)
+Tracer #095 ENSEM       :   15  CO2     44.0   (CO2)
+Tracer #096 ENSEM       :   16  CO2     44.0   (CO2)
+Tracer #097 ENSEM       :   17  CO2     44.0   (CO2)
+Tracer #098 ENSEM       :   18  CO2     44.0   (CO2)
+Tracer #099 ENSEM       :   19  CO2     44.0   (CO2)
+Tracer #100 ENSEM       :   20  CO2     44.0   (CO2)
+Tracer #101 ENSEM       :   21  CO2     44.0   (CO2)
+Tracer #102 ENSEM       :   22  CO2     44.0   (CO2)
+Tracer #103 ENSEM       :   23  CO2     44.0   (CO2)
+Tracer #104 ENSEM       :   24  CO2     44.0   (CO2)
+Tracer #105 ENSEM       :   25  CO2     44.0   (CO2)
+Tracer #106 ENSEM       :   26  CO2     44.0   (CO2)
+Tracer #107 ENSEM       :   27  CO2     44.0   (CO2)
+Tracer #108 ENSEM       :   28  CO2     44.0   (CO2)
+Tracer #109 ENSEM       :   29  CO2     44.0   (CO2)
+Tracer #110 ENSEM       :   30  CO2     44.0   (CO2)
+Tracer #111 ENSEM       :   31  CO2     44.0   (CO2)
+Tracer #112 ENSEM       :   32  CO2     44.0   (CO2)
+Tracer #113 ENSEM       :   33  CO2     44.0   (CO2)
+Tracer #114 ENSEM       :   34  CO2     44.0   (CO2)
+Tracer #115 ENSEM       :   35  CO2     44.0   (CO2)
+Tracer #116 ENSEM       :   36  CO2     44.0   (CO2)
+Tracer #117 ENSEM       :   37  CO2     44.0   (CO2)
+Tracer #118 ENSEM       :   38  CO2     44.0   (CO2)
+Tracer #119 ENSEM       :   39  CO2     44.0   (CO2)
+Tracer #120 ENSEM       :   40  CO2     44.0   (CO2)
+Tracer #121 ENSEM       :   41  CO2     44.0   (CO2)
+Tracer #122 ENSEM       :   42  CO2     44.0   (CO2)
+Tracer #123 ENSEM       :   43  CO2     44.0   (CO2)
+Tracer #124 ENSEM       :   44  CO2     44.0   (CO2)
+Tracer #125 ENSEM       :   45  CO2     44.0   (CO2)
+Tracer #126 ENSEM       :   46  CO2     44.0   (CO2)
+Tracer #127 ENSEM       :   47  CO2     44.0   (CO2)
+Tracer #128 ENSEM       :   48  CO2     44.0   (CO2)
+Tracer #129 ENSEM       :   49  CO2     44.0   (CO2)
+Tracer #130 ENSEM       :   50  CO2     44.0   (CO2)
+Tracer #131 ENSEM       :   51  CO2     44.0   (CO2)
+Tracer #132 ENSEM       :   52  CO2     44.0   (CO2)
+Tracer #133 ENSEM       :   53  CO2     44.0   (CO2)
+Tracer #134 ENSEM       :   54  CO2     44.0   (CO2)
+Tracer #135 ENSEM       :   55  CO2     44.0   (CO2)
+Tracer #136 ENSEM       :   56  CO2     44.0   (CO2)
+Tracer #137 ENSEM       :   57  CO2     44.0   (CO2)
+Tracer #138 ENSEM       :   58  CO2     44.0   (CO2)
+Tracer #139 ENSEM       :   59  CO2     44.0   (CO2)
+Tracer #140 ENSEM       :   60  CO2     44.0   (CO2)
+Tracer #141 ENSEM       :   61  CO2     44.0   (CO2)
+Tracer #142 ENSEM       :   62  CO2     44.0   (CO2)
+Tracer #143 ENSEM       :   63  CO2     44.0   (CO2)
+Tracer #144 ENSEM       :   64  CO2     44.0   (CO2)
+Tracer #145 ENSEM       :   65  CO2     44.0   (CO2)
+Tracer #146 ENSEM       :   66  CO2     44.0   (CO2)
+------------------------+------------------------------------------------------
+%%% TRANSPORT MENU %%%  :
+Turn on Transport       : T
+ => Use Flux Correction?: F
+ => Fill Negative Values: T 
+ => IORD, JORD, KORD    : 3  3  7
+Transport Timestep [min]: 30
+Use strat O3/NOy BC's   : T
+------------------------+------------------------------------------------------
+%%% CONVECTION MENU %%% :
+Turn on Cloud Conv?     : T
+Turn on PBL Mixing?     : T
+Convect Timestep (min)  : 30
+------------------------+------------------------------------------------------
+%%% EMISSIONS MENU %%%  :
+Turn on emissions?      : T
+Emiss timestep (min)    : 60 
+Include anthro emiss?   : T
+ => Scale to (1985-2005): -1
+ => Use EMEP emissions? : T
+ => Use BRAVO emissions?: F
+ => Use EDGAR emissions?: F
+ => Use STREETS emiss?  : F
+ => Use CAC emissions?  : F
+Use EPA/NEI99 (anth+bf)?: F
+    w/ ICARTT modif.?   : F
+    w/ VISTAS NOx emis? : F
+Include biofuel emiss?  : T
+Include biogenic emiss? : T
+ => Use MEGAN inventory?: F
+ => Use MEGAN for MONO? : F
+Include biomass emiss?  : F
+ => Seasonal biomass?   : F
+ => Scaled to TOMSAI?   : F
+ => Use GFED2 biomass?  :---
+    => monthly GFED2?   : F 
+    => 8-day GFED2?     : F 
+    => 3-hr GFED2?      : F
+    => synoptic GFED2?  : F
+Individual NOx sources  :---
+ => Use aircraft NOx?   : F
+ => Use lightning NOx   : F
+    => Scale glb flrate?: F
+    => OTD reg redist?  : F
+    => OTD loc redist?  : T
+    => Use CTH param?   : T
+    => Use MFLUX param? : F
+    => Use PRECON param?: F
+ => Use soil NOx        : T
+Use SHIP emissions      :---
+ => global EDGAR ?      : F
+ => EMEP over EUROPE ?  : F
+ => ship SO2 Corbett ?  : F
+ => ship SO2 Arctas ?   : F
+Use AVHRR-derived LAI?  : F
+------------------------+------------------------------------------------------
+%%% AEROSOL MENU %%%    :
+Online SULFATE AEROSOLS : T
+Online CRYST/AQ AEROSOLS: F
+Online CARBON  AEROSOLS : T
+Online 2dy ORG AEROSOLS : F
+Online DUST    AEROSOLS : T
+ => Use DEAD emissions? : T
+Online SEASALT AEROSOLS : T
+ -- SALA radius bin [um]: 0.1  0.5
+ -- SALC radius bin [um]: 0.5 10.0
+Online dicarb. chem.    : F
+------------------------+------------------------------------------------------
+%%% DEPOSITION MENU %%% :
+Turn on Dry Deposition? : T
+Turn on Wet Deposition? : T
+------------------------+------------------------------------------------------
+%%% CHEMISTRY MENU %%%  : 
+Turn on Chemistry?      : T
+Chemistry Timestep [min]: 60
+Use Embedded Chemistry? : F
+ -- IE0, JE0, IE1, JE1  :     0    0    0    0
+Read and save CSPEC_FULL: F
+------------------------+------------------------------------------------------
+%%% OUTPUT MENU %%%     : 123456789.123456789.123456789.1--1=ZERO+2=BPCH 
+Schedule output for JAN : 0000000000000000000000000000000
+Schedule output for FEB : 00000000000000000000000000000  
+Schedule output for MAR : 0000000000000000000000000000000
+Schedule output for APR : 300000000000000000000000000000
+Schedule output for MAY : 3000000000000000000000000000000
+Schedule output for JUN : 000000000000000000000000000000
+Schedule output for JUL : 0000000000000000000000000000000
+Schedule output for AUG : 0000000000000000000000000000000
+Schedule output for SEP : 000000000000000000000000000000
+Schedule output for OCT : 0000000000000000000000000000000
+Schedule output for NOV : 000000000000000000000000000000
+Schedule output for DEC : 0000000000000000000000000000000
+------------------------+------------------------------------------------------
+%%% GAMAP MENU %%%      :
+diaginfo.dat path       : .//enkf_output//diaginfo.ST011.EN0081-EN0146.dat
+tracerinfo.dat path     : .//enkf_output//tracerinfo.ST011.EN0081-EN0146.dat
+------------------------+------------------------------------------------------
+%%% DIAGNOSTIC MENU %%% : 
+Binary punch file name  :  .//enkf_output//ctm.ST011.EN0081-EN0146.YYYYMMDD.bpch
+Diagnostic Entries ---> :  L   Tracers to print out for each diagnostic
+ND01: Rn/Pb/Be source   :  0   all        
+ND02: Rn/Pb/Be decay    :  0   all             
+ND03: Hg emissions, P/L :  0   all                
+ND04: CO2 sources       :  1   all                
+ND05: Sulfate prod/loss :  0   all               
+ND06: Dust aer source   :  1   all                
+ND07: Carbon aer source : 30   all                
+ND08: Seasalt aer source:  1   all                
+ND09: -                 :  0   all                
+ND10: -                 :  0   all                
+ND11: Acetone sources   :  1   all                 
+ND12: BL fraction       :  0   all              
+ND13: Sulfur sources    : 30   all                
+ND14: Cld conv mass flx :  0   all                
+ND15: BL mix mass flx   :  0   all                
+ND16: LS/Conv prec frac :  0   all               
+ND17: Rainout fraction  :  0   all            
+ND18: Washout fraction  :  0   all            
+ND19: -                 :  0   all            
+ND21: Optical depths    : 30   all            
+ND22: J-Values          : 30   1 7 8 20 99            
+      => JV time range  :      11 13
+ND24: E/W transpt flx   :  0   all
+ND25: N/S transpt flx   :  0   all
+ND26: U/D transpt flx   :  0   all
+ND27: Strat NOx,Ox,HNO3 :  0   1 2 7
+ND28: Biomass emissions :  1   1 4 5 9 10 11 18 19 20 21 26 30 34 35
+ND29: CO sources        :  0   all
+ND30: Land Map          :  1   all
+ND31: Surface pressure  : 48   all
+ND32: NOx sources       :  1   all
+ND33: Column tracer     :  0   all
+ND34: Biofuel emissions :  1   1 4 5 9 10 11 18 19 20 21
+ND35: Tracers at 500 mb :  0   all
+ND36: Anthro emissions  :  1   1 4 5 9 10 18 19 21
+ND37: Updraft scav frac :  0   all
+ND38: Cld Conv scav loss: 30   all
+ND39: Wetdep scav loss  : 30   all
+ND41: Afternoon PBL ht  :  0   all
+ND42: -                 :  0   all
+ND43: Chem OH,NO,HO2,NO2: 30   all
+  ==> OH/HO2 time range :       0 24   
+  ==> NO/NO2 time range :      10 14
+ND44: Drydep flx/vel    :  1   all
+ND45: Tracer Conc's     : 30   all 
+  ==> ND45 Time range   :       0 24
+ND46: Biogenic emissions:  1   all
+ND47: 24-h avg trc conc :  0   all
+ND52: -                 :  0   all
+ND53: -                 :  0   all
+ND54: Time in t'sphere  : 30   all
+ND55: Tropopause height : 30   all
+ND56: -                 :  0   all
+ND57: -                 :  0   all
+ND58: -                 :  0   all
+ND59: -                 :  0   all
+ND60: -                 :  0   all
+ND61: -                 :  0   all
+ND62: Inst column maps  :  0   all
+ND63: -                 :  0   all
+ND64: -                 :  0   all
+ND66: DAO 3-D fields    : 30   all
+ND67: DAO 2-D fields    : 30   all
+ND68: Airmass/Boxheight : 30   all
+ND69: Surface area      :  0   all
+ND70: Debug output      :  0   all
+------------------------+------------------------------------------------------
+%%% PLANEFLIGHT MENU %%%:
+Turn on plane flt diag? : F
+Flight track info file  : planeflight.dat.YYYYMMDD
+Output file name        : plane.log.YYYYMMD
+Flight track info file  : planeflight.dat.YYYYMMDD
+Output file name        : plane.log.YYYYMMDD
+------------------------+------------------------------------------------------
+%%% ND48 MENU %%%       :
+Turn on ND48 stations   : F
+Station Timeseries file : stations.YYYYMMDD
+Frequency [min]         :  60
+Number of stations      :  0
+------------------------+------------------------------------------------------
+%%% ND49 MENU %%%       :
+Turn on ND49 diagnostic : F
+Inst 3-D timeser. file  : tsYYYYMMDD.bpch
+Tracers to include      : 94 
+Frequency [min]         : 120
+IMIN, IMAX of region    :  70  30
+JMIN, JMAX of region    :  23  46
+LMIN, LMAX of region    :   1   1
+-------------------------------------------------------------------------------
+%%% ND50 MENU %%%       :
+Turn on ND50 diagnostic : F
+24-hr avg timeser. file : ts_24h_avg.STYYY.ENXXXX-ENXXXX.YYYYMMDD.bpch
+Tracers to include      : 1 2 90 91 98 99
+IMIN, IMAX of region    :   1  72
+JMIN, JMAX of region    :   1  46
+LMIN, LMAX of region    :   1  15
+-------------------------------------------------------------------------------
+%%% ND51 MENU %%%       :
+Turn on ND51 diagnostic : T
+LT avg timeseries file  : .//enkf_output//ts_satellite.ST011.EN0081-EN0146.YYYYMMDD.bpch
+Tracers to include      : 1 66 196 198 199 200 201 
+GMT Hour for disk write :   0	
+Avg Period [LT hours]   :  12  14
+IMIN, IMAX of region    :   1  72
+JMIN, JMAX of region    :   1  46
+LMIN, LMAX of region    :   1  47
+------------------------+------------------------------------------------------
+%%% PROD & LOSS MENU %%%:
+Turn on P/L (ND65) diag?: F
+# of levels for ND65    : 30
+Save O3 P/L (ND20)?     : F
+Number of P/L families  : 4   
+1st chemical family     : POX: O3 NO2 2NO3 PAN PMN PPN HNO4 3N2O5 HNO3
+2nd chemical family     : LOX: O3 NO2 2NO3 PAN PMN PPN HNO4 3N2O5 HNO3
+3rd chemical family     : PCO: CO
+4th chemical family     : LCO: CO
+------------------------+------------------------------------------------------
+%%% ARCHIVED OH MENU %%%: 
+Dir w/ archived OH files: /geos/u23/GC_DATA_/ctm/GEOS_MEAN/OHmerge/v5-07-08/
+------------------------+------------------------------------------------------
+%%% O3 P/L MENU %%%     : 
+Dir w/ O3 P/L rate files: /geos/u23/GC_DATA_/ctm/GEOS_MEAN/O3_PROD_LOSS/2003.v6-01-05/
+------------------------+------------------------------------------------------
+%%% NESTED GRID MENU %%%:  
+Save TPCORE 4x5 BC's    : F
+TPCORE 4x5 BC directory : BC_4x5/
+4x5 BC timestep [min]   : 180
+LL box of 4x5 BC region :  51  21
+UR box of 4x5 BC region :  67  37
+1x1 offsets I0_W, J0_W  :   3   3
+------------------------+------------------------------------------------------
+%%% BENCHMARK MENU %%%  :  
+Save benchmark output?  : T
+File w/ initial Ox      : Ox.mass.initial
+File w/ final Ox        : Ox.mass.final
+------------------------+------------------------------------------------------
+%%% ENSEMBLE MENU    %%%:                                                     
+Member start            : 81   
+Member end              : 146   
+DO BK RUN               : 4   
+Ntime                   : 2  
+Doy                     : 91 121  
+Year                    : 2010 2010  
+PBSTART                 : 80   
+PBFLUX_USE              : 1 1  
+file                    : CO2_EMISSION.2009D335
+------------------------+------------------------------------------------------
+%%% UNIX CMDS MENU %%%  : 
+Background symbol       : & 
+Redirect symbol         :  >
+Unix remove command     : rm -f
+Unix pathname separator : /
+Unix wildcard character : *
+Unix unzip command      : gzip -dc
+Zip file suffix         : .gz
+------------------------+------------------------------------------------------
+END OF FILE             :
+------------------------+------------------------------------------------------

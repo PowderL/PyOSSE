@@ -1,0 +1,55 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.convert_netcdf_flux_bpch</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.convert_netcdf_flux_bpch</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/convert_netcdf_flux_bpch.py">/home/lfeng/otool/ESA/surface/convert_netcdf_flux_bpch.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;write&nbsp;file&nbsp;to&nbsp;GEOS-Chem&nbsp;BPCH2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.10.12<br>
+History:&nbsp;v0.95,&nbsp;2013.02.01<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+==========================================================<br>
+1.&nbsp;convert_nc_ens_flux_bpch:&nbsp;read&nbsp;into&nbsp;ensemble&nbsp;flux&nbsp;and&nbsp;save&nbsp;them&nbsp;to&nbsp;bpch2&nbsp;file.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top><a href="ESA.surface.write_flux_bpch.html">ESA.surface.write_flux_bpch</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-convert_nc_ens_flux_bpch"><strong>convert_nc_ens_flux_bpch</strong></a>(ncflnm, tau0, tau1, varname_lst<font color="#909090">=['lon', 'lat', 'map', 'flux']</font>, varname_dict<font color="#909090">={'lat': 'lat', 'lon': 'lon', 'reg_flux': 'flux', 'regmap': 'map'}</font>, bpch_flux_flnm<font color="#909090">='region_flux_ml'</font>, bpch_map_flnm<font color="#909090">='region_map_ml'</font>, save_split_necdf<font color="#909090">=True</font>)</dt><dd><tt>read&nbsp;into&nbsp;ensemble&nbsp;flux&nbsp;and&nbsp;save&nbsp;them&nbsp;to&nbsp;bpch2&nbsp;file.&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------<br>
+1.&nbsp;ncflnm:&lt;str&gt;:&nbsp;netcdf&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;tau0,&nbsp;tau1:&lt;float&gt;:&nbsp;start&nbsp;and&nbsp;end&nbsp;time&nbsp;<br>
+3.&nbsp;varname_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;variables&nbsp;to&nbsp;be&nbsp;read&nbsp;in&nbsp;<br>
+4.&nbsp;varname_dict:&lt;dict&gt;:&nbsp;translate&nbsp;name&nbsp;used&nbsp;in&nbsp;codes&nbsp;to&nbsp;name&nbsp;from&nbsp;netcdf&nbsp;file&nbsp;<br>
+5.&nbsp;bpch_flux_flnm:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;output&nbsp;flux&nbsp;<br>
+6.&nbsp;bpch_map_ml:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;output&nbsp;map&nbsp;<br>
+7.&nbsp;save_split_necdf:&lt;T/F&gt;:&nbsp;If&nbsp;ture,&nbsp;netcdf&nbsp;conuterparts&nbsp;will&nbsp;be&nbsp;&nbsp;<br>
+&nbsp;<br>
+Notes:</tt></dd></dl>
+</td></tr></table>
+</body></html>

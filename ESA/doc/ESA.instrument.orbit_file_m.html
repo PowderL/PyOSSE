@@ -1,0 +1,128 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.orbit_file_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.orbit_file_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/orbit_file_m.py">/home/lfeng/otool/ESA/instrument/orbit_file_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;to&nbsp;read&nbsp;orbit&nbsp;file&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.19<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+=================================================<br>
+1.&nbsp;get_orbit_column_name:&nbsp;check&nbsp;names&nbsp;of&nbsp;columns&nbsp;in&nbsp;orbit&nbsp;file&nbsp;<br>
+2.&nbsp;open_orbit_file:&nbsp;set&nbsp;up&nbsp;class&nbsp;file_desc_cl&nbsp;for&nbsp;file&nbsp;access<br>
+3.&nbsp;read_orbit_file:&nbsp;read&nbsp;orbit&nbsp;data&nbsp;into&nbsp;class&nbsp;file_desc_cl<br>
+4.&nbsp;close_orbit_file:&nbsp;delete&nbsp;class&nbsp;file_desc_cl<br>
+&nbsp;<br>
+5.&nbsp;get_orbit_data:&nbsp;get&nbsp;orbit&nbsp;at&nbsp;given&nbsp;date</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_txtfile_io.html">ESA.util.otool_txtfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-close_orbit_file"><strong>close_orbit_file</strong></a>(fdesc)</dt><dd><tt>Close&nbsp;fdesc&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-get_orbit_column_name"><strong>get_orbit_column_name</strong></a>()</dt><dd><tt>get&nbsp;default&nbsp;column&nbsp;name&nbsp;in&nbsp;the&nbsp;orbit&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;orb_colnm_lst:&lt;list,&nbsp;str&gt;:&nbsp;default&nbsp;name&nbsp;of&nbsp;columns&nbsp;in&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-get_orbit_data"><strong>get_orbit_data</strong></a>(fdesc, **fio_keywords)</dt><dd><tt>get&nbsp;orbit&nbsp;data<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------------<br>
+1.&nbsp;fdesc:&nbsp;&lt;fdesc_cl&gt;:&nbsp;class&nbsp;of&nbsp;desc<br>
+2.&nbsp;fio_keywords&nbsp;:&lt;dict&gt;:&nbsp;extra&nbsp;parameters&nbsp;for&nbsp;file&nbsp;access&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;fdesc.dtable:&lt;recordarray&gt;:&nbsp;table&nbsp;read&nbsp;from&nbsp;orbit&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-open_orbit_file"><strong>open_orbit_file</strong></a>(flnm, datapath, viewtype, viewmode, yyyy, mm, dd, **fio_keywords)</dt><dd><tt>open&nbsp;file&nbsp;to&nbsp;read&nbsp;orbit&nbsp;data&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;file&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use&nbsp;)<br>
+2.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+3.&nbsp;viewtype:&lt;str&gt;:&nbsp;instrument&nbsp;type&nbsp;<br>
+4.&nbsp;viewmode:&lt;str&gt;:&nbsp;nadir&nbsp;or&nbsp;glint&nbsp;view<br>
+5.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;year<br>
+6.&nbsp;mm:&nbsp;&lt;int&gt;:&nbsp;month<br>
+7.&nbsp;dd:&lt;int&gt;:&nbsp;day&nbsp;of&nbsp;year<br>
+8.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs.&nbsp;<br>
+&nbsp;<br>
+&nbsp;--Reserved&nbsp;words:<br>
+&nbsp;---&gt;fl_colnm_lst:&nbsp;list&nbsp;of&nbsp;all&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file&nbsp;<br>
+&nbsp;---&gt;sel_colnm_lst:&nbsp;list&nbsp;of&nbsp;the&nbsp;names&nbsp;for&nbsp;column&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;---&gt;delim:&lt;str&gt;:&nbsp;dividing&nbsp;word<br>
+&nbsp;---&gt;header_start:&lt;int&gt;:&nbsp;header&nbsp;start&nbsp;line<br>
+&nbsp;---&gt;data_start:&lt;int&gt;:&nbsp;data&nbsp;start&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access</tt></dd></dl>
+ <dl><dt><a name="-read_orbit_file"><strong>read_orbit_file</strong></a>(fdesc, **fio_keywords)</dt><dd><tt>Read&nbsp;orbit&nbsp;data&nbsp;into&nbsp;fdesc.detable<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;read&nbsp;write<br>
+&nbsp;<br>
+&nbsp;--Reserved&nbsp;words:<br>
+&nbsp;---&gt;fl_colnm_lst:&nbsp;list&nbsp;of&nbsp;all&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file&nbsp;<br>
+&nbsp;---&gt;sel_colnm_lst:&nbsp;list&nbsp;of&nbsp;the&nbsp;names&nbsp;for&nbsp;column&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;ndata:&lt;int&gt;:&nbsp;length&nbsp;of&nbsp;fdesc.dtable&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------<br>
+1.&nbsp;data&nbsp;will&nbsp;be&nbsp;stored&nbsp;as&nbsp;recarray&nbsp;by&nbsp;fdesc.dtable</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>orb_column_lst</strong> = ['lat', 'lon', 'number', 'date', 'sza', 'effective']<br>
+<strong>orb_data_start</strong> = 4<br>
+<strong>orb_filename_format</strong> = 'XVIEWTYPEX_num_XVIEWMODEX_XDOYX.dat'<br>
+<strong>orb_header_start</strong> = 3<br>
+<strong>orb_varname_dict</strong> = {'cnt': 'number', 'lat': 'lat', 'lon': 'lon', 'sza': 'sza', 'time': 'date'}</td></tr></table>
+</body></html>

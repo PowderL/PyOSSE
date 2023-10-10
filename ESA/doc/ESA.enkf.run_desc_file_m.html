@@ -1,0 +1,192 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.run_desc_file_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.run_desc_file_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/run_desc_file_m.py">/home/lfeng/otool/ESA/enkf/run_desc_file_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;creating&nbsp;and&nbsp;&nbsp;reading&nbsp;&nbsp;configuration&nbsp;for&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Functions<br>
+=================================================<br>
+&nbsp;<br>
+1.&nbsp;open_enr_desc_file:&nbsp;set&nbsp;up&nbsp;class&nbsp;file_desc_cl&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;read_enr_desc_file:&nbsp;read&nbsp;enr_desc&nbsp;&nbsp;&nbsp;data&nbsp;into&nbsp;class&nbsp;file_desc_cl<br>
+3.&nbsp;close_enr_desc_file:&nbsp;delete&nbsp;class&nbsp;file_desc_cl<br>
+4.&nbsp;get_enr_desc_table:&nbsp;get&nbsp;enr_desc_table_lst&nbsp;at&nbsp;given&nbsp;time<br>
+5.&nbsp;write_enr_desc_colum_heads:&nbsp;write&nbsp;out&nbsp;the&nbsp;column&nbsp;names&nbsp;etc<br>
+6.&nbsp;write_enr_desc_colum_val:&nbsp;write&nbsp;out&nbsp;the&nbsp;column&nbsp;values<br>
+7.&nbsp;open_enr_desc_file_write:&nbsp;open&nbsp;one&nbsp;new&nbsp;run&nbsp;description&nbsp;file&nbsp;<br>
+8.&nbsp;close_new_enr_desc_file:&nbsp;close&nbsp;a&nbsp;new&nbsp;run&nbsp;description&nbsp;file</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_descfile_io.html">ESA.util.otool_descfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_enr_desc_data"><strong>add_enr_desc_data</strong></a>(fdesc, ref, **keywords)</dt><dd><tt>add&nbsp;table&nbsp;for&nbsp;ensemble&nbsp;configurations&nbsp;&nbsp;to&nbsp;data_lst&nbsp;in&nbsp;fdesc<br>
+&nbsp;<br>
+Inputs:<br>
+=====================================<br>
+1.&nbsp;fdesc:&lt;grdfile_io_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;reference&nbsp;for&nbsp;data&nbsp;sets&nbsp;read&nbsp;from&nbsp;file&nbsp;<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;parameters<br>
+&nbsp;<br>
+Returns:<br>
+=====================================<br>
+1.&nbsp;idx:&lt;int&gt;:&nbsp;index&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;with&nbsp;reference&nbsp;=ref.</tt></dd></dl>
+ <dl><dt><a name="-close_enr_desc_file"><strong>close_enr_desc_file</strong></a>(fdesc)</dt><dd><tt>Close&nbsp;fdesc&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-close_new_enr_desc_file"><strong>close_new_enr_desc_file</strong></a>(fl)</dt><dd><tt>close&nbsp;file&nbsp;<br>
+Inputs;<br>
+---------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;file&nbsp;handle</tt></dd></dl>
+ <dl><dt><a name="-get_enr_desc_file_ref"><strong>get_enr_desc_file_ref</strong></a>(yyyy, mm, dd, **keywords)</dt><dd><tt>check&nbsp;file&nbsp;reference<br>
+&nbsp;<br>
+for&nbsp;enremble&nbsp;configuration.&nbsp;By&nbsp;default&nbsp;<br>
+the&nbsp;reference&nbsp;number&nbsp;is&nbsp;year&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;yyyy:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;year<br>
+2.&nbsp;mm:&nbsp;&lt;array,&nbsp;(ntime,)&gt;:&nbsp;month<br>
+3.&nbsp;dd:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;dd<br>
+4.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;information<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;ref:&lt;int&gt;:&nbsp;reference&nbsp;number&nbsp;<br>
+---&nbsp;by&nbsp;default,&nbsp;the&nbsp;reference&nbsp;number&nbsp;is&nbsp;year</tt></dd></dl>
+ <dl><dt><a name="-get_enr_desc_table"><strong>get_enr_desc_table</strong></a>(fdesc, oyyyy, omm, odd, **keywords)</dt><dd><tt>read&nbsp;run&nbsp;description&nbsp;&nbsp;data&nbsp;table&nbsp;at&nbsp;a&nbsp;given&nbsp;point&nbsp;(such&nbsp;year)<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;fdesc:&lt;grdfile_io_cl&gt;:&nbsp;file&nbsp;access&nbsp;<br>
+2.&nbsp;oyyyy:&lt;int&gt;:&nbsp;year<br>
+3.&nbsp;omm:&nbsp;&lt;int&gt;:&nbsp;month&nbsp;<br>
+4.&nbsp;odd:&lt;int&gt;:&nbsp;day&nbsp;(for&nbsp;future&nbsp;use)<br>
+&nbsp;<br>
+6.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+---Reserved&nbsp;Entries<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;<br>
+================================================<br>
+1.&nbsp;fdesc.data_lst:&lt;list,&nbsp;t:recarray&gt;:class&nbsp;for&nbsp;runs&nbsp;covering&nbsp;given&nbsp;date</tt></dd></dl>
+ <dl><dt><a name="-open_enr_desc_file"><strong>open_enr_desc_file</strong></a>(flnm, datapath, yyyy, mm, dd, **fio_keywords)</dt><dd><tt>construct&nbsp;fdesc&nbsp;to&nbsp;read&nbsp;ensemble&nbsp;run&nbsp;configurations&nbsp;data<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+==============================================<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;format&nbsp;for&nbsp;filename<br>
+2.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+3.&nbsp;yyyy:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;year<br>
+4.&nbsp;mm:&nbsp;&lt;array,&nbsp;(ntime,)&gt;:&nbsp;month<br>
+5.&nbsp;dd:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;dd<br>
+6.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;<br>
+---Reserved&nbsp;keywords:<br>
+---&gt;fl_colnm_lst:&nbsp;&lt;list&gt;:&nbsp;&nbsp;list&nbsp;of&nbsp;all&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file&nbsp;<br>
+---&gt;sel_colnm_lst:&nbsp;&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;names&nbsp;for&nbsp;column&nbsp;to&nbsp;be&nbsp;read<br>
+---&gt;colnm_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;translating&nbsp;column&nbsp;names<br>
+---&gt;delim:&nbsp;&lt;str&gt;:&nbsp;separator.&nbsp;<br>
+---&gt;data_start:&lt;int&gt;:&nbsp;starting&nbsp;line&nbsp;number&nbsp;of&nbsp;the&nbsp;data&nbsp;section&nbsp;<br>
+---&gt;header_start:&lt;int&gt;:&nbsp;line&nbsp;number&nbsp;of&nbsp;header&nbsp;section<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+=============================================<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access</tt></dd></dl>
+ <dl><dt><a name="-open_enr_desc_file_write"><strong>open_enr_desc_file_write</strong></a>(flnm)</dt><dd><tt>open&nbsp;a&nbsp;new&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;file&nbsp;handle</tt></dd></dl>
+ <dl><dt><a name="-open_enr_desc_write"><strong>open_enr_desc_write</strong></a>(flnm, datapath, yyyy, mm, dd, **fio_keywords)</dt></dl>
+ <dl><dt><a name="-read_enr_desc_file"><strong>read_enr_desc_file</strong></a>(fdesc, **fio_keywords)</dt><dd><tt>Read&nbsp;ensemble&nbsp;configurations&nbsp;as&nbsp;table&nbsp;into&nbsp;fdesc.data_lst<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;read&nbsp;write<br>
+---Reserved&nbsp;words:<br>
+---&gt;fl_colnm_lst:&nbsp;list&nbsp;of&nbsp;all&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file&nbsp;<br>
+---&gt;sel_colnm_lst:&nbsp;list&nbsp;of&nbsp;the&nbsp;names&nbsp;for&nbsp;column&nbsp;to&nbsp;be&nbsp;read<br>
+---&gt;colnm_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;translating&nbsp;column&nbsp;names<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;ndata:&lt;int&gt;:&nbsp;length&nbsp;of&nbsp;fdesc.dtable&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------<br>
+1.&nbsp;data&nbsp;will&nbsp;be&nbsp;stored&nbsp;as&nbsp;recarray&nbsp;by&nbsp;fdesc.dtable</tt></dd></dl>
+ <dl><dt><a name="-write_enr_desc_colum_heads"><strong>write_enr_desc_colum_heads</strong></a>(fl, colnm_lst<font color="#909090">=['step', 'mem_st', 'mem_end', 'year_st', 'year_end', 'doy_st', 'doy_end', 'flnm', 'output_name', 'index_method']</font>, max_nmlen<font color="#909090">=20</font>)</dt><dd><tt>write&nbsp;out&nbsp;the&nbsp;column&nbsp;names<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;handle&nbsp;to&nbsp;file&nbsp;<br>
+2.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;column&nbsp;names<br>
+3.&nbsp;max_nmlen:&lt;int&gt;:&nbsp;maximum&nbsp;length&nbsp;of&nbsp;column&nbsp;name<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;file&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-write_enr_desc_colum_val"><strong>write_enr_desc_colum_val</strong></a>(fl, col_vals, coltype_lst<font color="#909090">=['i4', 'i4', 'i4', 'i4', 'i4', 'i4', 'i4', 'S40', 'S40', 'i4']</font>)</dt><dd><tt>write&nbsp;out&nbsp;the&nbsp;column&nbsp;values<br>
+Inputs:<br>
+--------------------------------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;handle&nbsp;to&nbsp;run&nbsp;description&nbsp;file<br>
+2.&nbsp;col_vals:&lt;list/array&gt;:&nbsp;value&nbsp;of&nbsp;each&nbsp;column<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;fl:&lt;file&gt;:&nbsp;file&nbsp;handle</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>def_delim</strong> = ','<br>
+<strong>def_enr_data_start</strong> = '000'<br>
+<strong>def_enr_header_start</strong> = 0<br>
+<strong>enr_datapath</strong> = '/XYYYYX/'<br>
+<strong>enr_desc_colnm_dict</strong> = {'doy_end': 'doy_end', 'doy_st': 'doy_st', 'flnm': 'flnm_ems', 'mem_end': 'mem_end', 'mem_st': 'mem_st', 'output_name': 'flnm_mod', 'step': 'step', 'year_end': 'year_end', 'year_st': 'year_st'}<br>
+<strong>enr_desc_coltype_lst</strong> = ['i4', 'i4', 'i4', 'i4', 'i4', 'i4', 'i4', 'S40', 'S40', 'i4']<br>
+<strong>enr_desc_column_lst</strong> = ['step', 'mem_st', 'mem_end', 'year_st', 'year_end', 'doy_st', 'doy_end', 'flnm', 'output_name', 'index_method']<br>
+<strong>enr_desc_flnm_format</strong> = 'enr_desc_XYYYYX.dat'</td></tr></table>
+</body></html>

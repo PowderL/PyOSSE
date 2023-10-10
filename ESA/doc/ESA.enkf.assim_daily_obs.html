@@ -1,0 +1,87 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.assim_daily_obs</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.assim_daily_obs</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/assim_daily_obs.py">/home/lfeng/otool/ESA/enkf/assim_daily_obs.py</a></font></td></tr></table>
+    <p><tt>this&nbsp;code&nbsp;is&nbsp;used&nbsp;to&nbsp;construct&nbsp;state&nbsp;vector&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Functions:<br>
+&nbsp;<br>
+=================================================<br>
+1.&nbsp;assim_satellite_obs:</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.enkf.assim_def_m.html">ESA.enkf.assim_def_m</a><br>
+<a href="ESA.enkf.construct_state_vector.html">ESA.enkf.construct_state_vector</a><br>
+<a href="ESA.util.otool_menu_m.html">ESA.util.otool_menu_m</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_descfile_io.html">ESA.util.otool_descfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top><a href="ESA.enkf.run_desc_m.html">ESA.enkf.run_desc_m</a><br>
+<a href="ESA.enkf.run_desc_file_m.html">ESA.enkf.run_desc_file_m</a><br>
+<a href="ESA.enkf.state_vector.html">ESA.enkf.state_vector</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top><a href="ESA.enkf.x2flux_m.html">ESA.enkf.x2flux_m</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-assim_create_objects"><strong>assim_create_objects</strong></a>(yyyy, mm, dd, root_menu)</dt><dd><tt>Create&nbsp;class&nbsp;for&nbsp;assimilation&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;date<br>
+2.&nbsp;root_menu:&lt;menu_cl&gt;:&nbsp;menu&nbsp;for&nbsp;configurations&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;cl_def:&lt;&nbsp;assim_def_cl&gt;:&nbsp;container&nbsp;for&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-assim_digest_satellite_obs"><strong>assim_digest_satellite_obs</strong></a>(cfg, yyyy, mm, dd, cl_stv, cl_sat_opr, cl_run_desc, hm_do_update<font color="#909090">=True</font>, hm_save<font color="#909090">=True</font>, mean_do_update<font color="#909090">=True</font>, mean_save<font color="#909090">=True</font>, **keywords)</dt><dd><tt>Adding&nbsp;apriori&nbsp;for&nbsp;one&nbsp;step&nbsp;into&nbsp;the&nbsp;state&nbsp;vector<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;date<br>
+2.&nbsp;cl_run_desc:&lt;run_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;<br>
+3.&nbsp;cl_stv:&nbsp;&lt;state_vector&gt;:&nbsp;class&nbsp;for&nbsp;state&nbsp;vector&nbsp;<br>
+4.&nbsp;cl_x2flux:&lt;x2flux_cl&gt;:&nbsp;&nbsp;class&nbsp;for&nbsp;project&nbsp;x&nbsp;to&nbsp;fluxes&nbsp;<br>
+5.&nbsp;tag_fmt:&lt;str&gt;:&nbsp;&nbsp;format&nbsp;for&nbsp;tag&nbsp;used&nbsp;to&nbsp;identify&nbsp;format&nbsp;<br>
+6.&nbsp;ftag&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;function&nbsp;for&nbsp;generating&nbsp;tag&nbsp;<br>
+7.&nbsp;fscale_m:&lt;func&gt;:&nbsp;for&nbsp;generating&nbsp;correlation&nbsp;<br>
+8.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------------<br>
+1.&nbsp;iadd_x:&lt;int&gt;:&nbsp;number&nbsp;of&nbsp;state&nbsp;vector&nbsp;added</tt></dd></dl>
+ <dl><dt><a name="-assim_read_config"><strong>assim_read_config</strong></a>(menu_flnm)</dt><dd><tt>read&nbsp;assimilation&nbsp;configuration&nbsp;<br>
+&nbsp;<br>
+Input:<br>
+---------------------------------<br>
+1.&nbsp;menu_flnm:&nbsp;&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;menu&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------<br>
+1.&nbsp;root_menu:&lt;menu_cl&gt;:&nbsp;menu&nbsp;for&nbsp;configurations</tt></dd></dl>
+</td></tr></table>
+</body></html>

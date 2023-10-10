@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.orbit_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.orbit_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/orbit_m.py">/home/lfeng/otool/ESA/instrument/orbit_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;pre-calculated&nbsp;orbit&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Classes:<br>
+===============================================<br>
+1.&nbsp;<a href="#orbit_cl">orbit_cl</a>:&nbsp;Class&nbsp;for&nbsp;reading&nbsp;and&nbsp;filtering&nbsp;pre-calculated&nbsp;orbits</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.instrument.orbit_file_m.html">ESA.instrument.orbit_file_m</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.vertical_profile.html">ESA.util.vertical_profile</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.instrument.orbit_m.html#orbit_cl">orbit_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="orbit_cl">class <strong>orbit_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;for&nbsp;reading&nbsp;and&nbsp;filtering&nbsp;pre-calculated&nbsp;orbits&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+====================================================================<br>
+1.&nbsp;viewtype:&lt;str&gt;:&nbsp;instrument&nbsp;type<br>
+2.&nbsp;viewmode:&lt;str&gt;:&nbsp;view&nbsp;mode&nbsp;such&nbsp;as&nbsp;'nadir',&nbsp;'glint'&nbsp;etc<br>
+3.&nbsp;flnm&nbsp;&nbsp;&nbsp;&nbsp;:&lt;str&gt;:&nbsp;Name&nbsp;of&nbsp;orbit&nbsp;file&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use)<br>
+4.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;<br>
+5.&nbsp;yyyy&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;year&nbsp;<br>
+6.&nbsp;mm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;month&nbsp;<br>
+7.&nbsp;dd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;day&nbsp;<br>
+&nbsp;<br>
+8.&nbsp;fopen&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;construct&nbsp;class&nbsp;file_desc_cl&nbsp;for&nbsp;accessing&nbsp;orbit&nbsp;file&nbsp;&nbsp;(see&nbsp;Note&nbsp;5)<br>
+9.&nbsp;fread&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;read&nbsp;orbit&nbsp;data&nbsp;into&nbsp;fdesc&nbsp;(see&nbsp;Note&nbsp;6)<br>
+10.&nbsp;fclose&nbsp;:&lt;func&gt;:&nbsp;orbit&nbsp;file&nbsp;close&nbsp;function&nbsp;&nbsp;(see&nbsp;Noye&nbsp;7)<br>
+11.&nbsp;fget&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;&nbsp;get&nbsp;origin&nbsp;orbit&nbsp;table<br>
+&nbsp;<br>
+12.&nbsp;var_name_dict:&lt;dict&gt;:&nbsp;translation&nbsp;between&nbsp;column&nbsp;name&nbsp;in&nbsp;the&nbsp;orbit&nbsp;file&nbsp;<br>
+---&nbsp;and&nbsp;variable&nbsp;name&nbsp;in&nbsp;class&nbsp;<br>
+&nbsp;<br>
+13.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;parameter&nbsp;for&nbsp;opening&nbsp;and&nbsp;reading&nbsp;orbit&nbsp;files&nbsp;<br>
+&nbsp;<br>
+14.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;file&nbsp;access&nbsp;class<br>
+&nbsp;<br>
+15.&nbsp;orb:&lt;dict&gt;:&nbsp;&nbsp;orbit&nbsp;information&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+===============================================================<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;load_orbit_from_file:&nbsp;read&nbsp;orbit&nbsp;from&nbsp;file&nbsp;<br>
+3.&nbsp;grid_orbit:&nbsp;grid&nbsp;obit&nbsp;data&nbsp;into&nbsp;grid&nbsp;boxes&nbsp;defined&nbsp;by&nbsp;rlon,&nbsp;rlat<br>
+4.&nbsp;get_var:&nbsp;get&nbsp;variable&nbsp;stored&nbsp;in&nbsp;self.<strong>fdesc</strong><br>
+Notes:<br>
+================================================================<br>
+&nbsp;<br>
+1)&nbsp;After&nbsp;orbit&nbsp;file&nbsp;is&nbsp;read,&nbsp;self.<strong>orb</strong>&nbsp;and&nbsp;self.<strong>var_name_dict</strong>&nbsp;must&nbsp;&nbsp;<br>
+contain&nbsp;the&nbsp;following&nbsp;entries:<br>
+---&nbsp;1)&nbsp;'lon'&nbsp;for&nbsp;longitude<br>
+---&nbsp;2)&nbsp;'lat'&nbsp;for&nbsp;latitude<br>
+---&nbsp;3)&nbsp;'sza'&nbsp;for&nbsp;solar&nbsp;zenith&nbsp;angle&nbsp;<br>
+---&nbsp;4)&nbsp;'time'&nbsp;for&nbsp;time&nbsp;in&nbsp;seconds<br>
+&nbsp;<br>
+2)&nbsp;self.<strong>fesc</strong>.dtable&nbsp;contains&nbsp;all&nbsp;data&nbsp;read&nbsp;from&nbsp;orbit&nbsp;files.&nbsp;&nbsp;<br>
+3)&nbsp;self.<strong>orb</strong>&nbsp;contains&nbsp;only&nbsp;those&nbsp;with&nbsp;their&nbsp;names&nbsp;in&nbsp;var_name_dict.&nbsp;<br>
+4)&nbsp;self.<strong>orb</strong>&nbsp;could&nbsp;have&nbsp;less&nbsp;records&nbsp;than&nbsp;fdesc&nbsp;after&nbsp;being&nbsp;regridded&nbsp;or&nbsp;being&nbsp;filtered&nbsp;<br>
+5)&nbsp;fopen&nbsp;is&nbsp;expected&nbsp;to&nbsp;have&nbsp;an&nbsp;interface&nbsp;like:<br>
+---fdesc=fopen(flnm,&nbsp;datapath,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewtype,&nbsp;viewmode,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yyyy,&nbsp;doy,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**keywords)<br>
+&nbsp;<br>
+6)&nbsp;fread&nbsp;is&nbsp;expected&nbsp;to&nbsp;have&nbsp;an&nbsp;interface&nbsp;like:<br>
+---fdesc=fread(fdesc,&nbsp;**keywords)<br>
+&nbsp;<br>
+&nbsp;<br>
+7)&nbsp;fclose&nbsp;is&nbsp;expected&nbsp;to&nbsp;have&nbsp;an&nbsp;interface&nbsp;like:<br>
+---fclose(fdesc)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="orbit_cl-__init__"><strong>__init__</strong></a>(self, viewtype, viewmode, datapath, flnm, yyyy, mm, dd, fopen<font color="#909090">=&lt;function open_orbit_file&gt;</font>, fread<font color="#909090">=&lt;function read_orbit_file&gt;</font>, fclose<font color="#909090">=&lt;function close_orbit_file&gt;</font>, fget<font color="#909090">=&lt;function get_orbit_data&gt;</font>, varname_dict<font color="#909090">={'cnt': 'number', 'lat': 'lat', 'lon': 'lon', 'sza': 'sza', 'time': 'date'}</font>, mask_val<font color="#909090">=-999.0</font>, fio_keywords<font color="#909090">={}</font>)</dt><dd><tt>Initialization<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;viewtype:&lt;str&gt;:&nbsp;instrument&nbsp;type<br>
+2.&nbsp;viewmode:&lt;str&gt;:&nbsp;view&nbsp;mode&nbsp;such&nbsp;as&nbsp;'nadir',&nbsp;'glint'&nbsp;etc<br>
+3.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;<br>
+4.&nbsp;flnm&nbsp;&nbsp;&nbsp;&nbsp;:&lt;str&gt;:&nbsp;Name&nbsp;of&nbsp;orbit&nbsp;file&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use)<br>
+5.&nbsp;yyyy&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;year&nbsp;<br>
+6.&nbsp;mm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;month&nbsp;<br>
+7.&nbsp;dd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;day&nbsp;<br>
+&nbsp;<br>
+8.&nbsp;fopen&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;orbit&nbsp;file&nbsp;open&nbsp;function&nbsp;(Note&nbsp;5).&nbsp;<br>
+9.&nbsp;fread&nbsp;&nbsp;&nbsp;:&lt;func&gt;:&nbsp;orbit&nbsp;file&nbsp;read&nbsp;function&nbsp;(Note&nbsp;6).<br>
+10.&nbsp;fclose&nbsp;:&lt;func&gt;:&nbsp;orbit&nbsp;file&nbsp;close&nbsp;function&nbsp;(Note&nbsp;7).<br>
+11.&nbsp;varname_dict:&lt;dict&gt;:&nbsp;translation&nbsp;between&nbsp;column&nbsp;name&nbsp;in&nbsp;orbit&nbsp;file&nbsp;<br>
+---&nbsp;and&nbsp;variable&nbsp;name&nbsp;in&nbsp;class&nbsp;(Note&nbsp;1).&nbsp;<br>
+&nbsp;<br>
+12.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;extra&nbsp;parameter&nbsp;for&nbsp;opening&nbsp;and&nbsp;reading&nbsp;orbit&nbsp;files</tt></dd></dl>
+
+<dl><dt><a name="orbit_cl-get_var"><strong>get_var</strong></a>(self, varname)</dt><dd><tt>get&nbsp;the&nbsp;variable&nbsp;stored&nbsp;in&nbsp;self.<strong>fdesc</strong><br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;varname:&lt;str&gt;:&nbsp;variable&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;var:&lt;array&gt;&nbsp;variable</tt></dd></dl>
+
+<dl><dt><a name="orbit_cl-grid_orbit"><strong>grid_orbit</strong></a>(self, rlon, rlat, update_orbit<font color="#909090">=True</font>)</dt><dd><tt>grid&nbsp;orbit&nbsp;data&nbsp;into&nbsp;grid&nbsp;boxes&nbsp;defined&nbsp;by&nbsp;rlon,&nbsp;rlat&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;rlon:&nbsp;&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;grid&nbsp;in&nbsp;ascending&nbsp;order.&nbsp;<br>
+2.&nbsp;rlat:&nbsp;&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude&nbsp;grid&nbsp;&nbsp;in&nbsp;descending&nbsp;order.<br>
+&nbsp;<br>
+3.&nbsp;reset_orbit:&lt;T/F&gt;:&nbsp;if&nbsp;true,&nbsp;self.<strong>orb</strong>&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;new&nbsp;gridded&nbsp;data<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;all_fields:&lt;dict&gt;:&nbsp;orbit&nbsp;data&nbsp;summaried&nbsp;at&nbsp;grid&nbsp;boxes&nbsp;defined&nbsp;by&nbsp;(rlonxrlat)</tt></dd></dl>
+
+<dl><dt><a name="orbit_cl-load_orbit_from_file"><strong>load_orbit_from_file</strong></a>(self, yyyy, mm, dd, **keywords)</dt><dd><tt>read&nbsp;orbit&nbsp;from&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;yyyy&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;year&nbsp;<br>
+2.&nbsp;mm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;month&nbsp;<br>
+3.&nbsp;dd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&lt;int&gt;:&nbsp;day&nbsp;<br>
+4.&nbsp;keywords&nbsp;:&lt;dict&gt;:&nbsp;extra&nbsp;parameters&nbsp;for&nbsp;file&nbsp;access&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns<br>
+-----------------------------------------------<br>
+1.&nbsp;len(fdesc.dtable):&lt;int&gt;:&nbsp;number&nbsp;of&nbsp;record&nbsp;read&nbsp;in</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

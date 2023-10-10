@@ -1,0 +1,202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.time_module</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.time_module</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/time_module.py">/home/lfeng/otool/ESA/util/time_module.py</a></font></td></tr></table>
+    <p><tt>module&nbsp;for&nbsp;time&nbsp;conversions.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.04.01<br>
+History:&nbsp;v0.95,&nbsp;2012.08.21<br>
+&nbsp;<br>
+Functions:<br>
+=====================================================<br>
+1.&nbsp;days_in_year:&nbsp;number&nbsp;of&nbsp;days&nbsp;in&nbsp;each&nbsp;year<br>
+2.&nbsp;day_of_year:&nbsp;&nbsp;day&nbsp;of&nbsp;year&nbsp;for&nbsp;calender&nbsp;date<br>
+3.&nbsp;get_doy:&nbsp;a&nbsp;wrapper&nbsp;for&nbsp;day_of_year<br>
+4.&nbsp;tai85_to_utc:&nbsp;&nbsp;convert&nbsp;a&nbsp;time&nbsp;in&nbsp;tai85&nbsp;format&nbsp;to&nbsp;UTC&nbsp;string.<br>
+5.&nbsp;doy_to_utc:&nbsp;&nbsp;&nbsp;&nbsp;convert&nbsp;day&nbsp;of&nbsp;year&nbsp;to&nbsp;utc&nbsp;string.&nbsp;<br>
+6.&nbsp;doy_to_time_array:&nbsp;convert&nbsp;day&nbsp;of&nbsp;year&nbsp;to&nbsp;calendar&nbsp;date&nbsp;(yyyy,&nbsp;mm,&nbsp;dd)<br>
+7.&nbsp;<a href="#-utc_to_time_array">utc_to_time_array</a>(utc):&nbsp;convert&nbsp;the&nbsp;utc&nbsp;string&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;(yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec)<br>
+8.&nbsp;time_array_to_utc:&nbsp;convert&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;to&nbsp;utc&nbsp;string<br>
+9.&nbsp;convert&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;to&nbsp;tau&nbsp;(i.e,&nbsp;hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00)<br>
+10.<a href="#-tau_to_time_array">tau_to_time_array</a>(tau):&nbsp;convert&nbsp;tau&nbsp;(i.e,&nbsp;hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00)&nbsp;to&nbsp;&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;<br>
+11.&nbsp;next_doy:&nbsp;get&nbsp;day&nbsp;of&nbsp;year&nbsp;for&nbsp;current&nbsp;time&nbsp;+&nbsp;n&nbsp;days&nbsp;<br>
+12.&nbsp;get_ut_loc_time_slot:&nbsp;get&nbsp;indexes&nbsp;for&nbsp;UT&nbsp;time&nbsp;series&nbsp;which&nbsp;fall&nbsp;within&nbsp;the&nbsp;local&nbsp;time&nbsp;slot</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pylab.html">pylab</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-day_of_year"><strong>day_of_year</strong></a>(yyyy, mm, dd)</dt><dd><tt>get&nbsp;the&nbsp;days&nbsp;in&nbsp;a&nbsp;given&nbsp;year&nbsp;for&nbsp;calender&nbsp;date<br>
+&nbsp;<br>
+Input:&nbsp;<br>
+-------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:year,&nbsp;month&nbsp;and&nbsp;day&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;&nbsp;days&nbsp;in&nbsp;year</tt></dd></dl>
+ <dl><dt><a name="-days_in_year"><strong>days_in_year</strong></a>(yyyy)</dt><dd><tt>get&nbsp;the&nbsp;days&nbsp;in&nbsp;a&nbsp;given&nbsp;year&nbsp;for&nbsp;calender&nbsp;date<br>
+&nbsp;<br>
+Input:&nbsp;<br>
+-------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:year,&nbsp;month&nbsp;and&nbsp;day&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;&nbsp;days&nbsp;in&nbsp;year</tt></dd></dl>
+ <dl><dt><a name="-doy_to_tai85"><strong>doy_to_tai85</strong></a>(doy, sec<font color="#909090">=0</font>, yyyy<font color="#909090">=2004</font>)</dt><dd><tt>convert&nbsp;the&nbsp;day&nbsp;of&nbsp;year&nbsp;to&nbsp;tai85&nbsp;format&nbsp;<br>
+(i.e.,&nbsp;Seconds&nbsp;since&nbsp;1985-01-01&nbsp;00:00:00)<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;doy:&lt;integer&gt;:&nbsp;Day&nbsp;of&nbsp;year<br>
+2.&nbsp;sec:&lt;integer&gt;:&nbsp;Seconds&nbsp;in&nbsp;the&nbsp;day<br>
+3.&nbsp;yyyy:&nbsp;&lt;integer&gt;:&nbsp;Year<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;tai85:&nbsp;&nbsp;in&nbsp;seconds</tt></dd></dl>
+ <dl><dt><a name="-doy_to_time_array"><strong>doy_to_time_array</strong></a>(doy, yyyy<font color="#909090">=2005</font>)</dt><dd><tt>convert&nbsp;day&nbsp;of&nbsp;year&nbsp;to&nbsp;calendar&nbsp;date&nbsp;(yyyy,&nbsp;mm,&nbsp;dd)<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;doy:&lt;integer&gt;:&nbsp;Day&nbsp;of&nbsp;year<br>
+2.&nbsp;yyyy:&nbsp;&lt;integer&gt;:&nbsp;Year<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:&nbsp;year,&nbsp;month&nbsp;and&nbsp;day</tt></dd></dl>
+ <dl><dt><a name="-doy_to_utc"><strong>doy_to_utc</strong></a>(doy, sec<font color="#909090">=0</font>, yyyy<font color="#909090">=2004</font>)</dt><dd><tt>convert&nbsp;day&nbsp;of&nbsp;year&nbsp;to&nbsp;utc&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+1.&nbsp;doy:&lt;integer&gt;:&nbsp;Day&nbsp;of&nbsp;year<br>
+2.&nbsp;sec:&lt;integer&gt;:&nbsp;Seconds&nbsp;in&nbsp;the&nbsp;day<br>
+3.&nbsp;yyyy:&nbsp;&lt;integer&gt;:&nbsp;Year<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;utc:&nbsp;the&nbsp;time&nbsp;in&nbsp;utc&nbsp;format&nbsp;yyyy-mm-dd&nbsp;hh:mm:ss</tt></dd></dl>
+ <dl><dt><a name="-get_doy"><strong>get_doy</strong></a>(yyyy, mm, dd)</dt><dd><tt>get&nbsp;the&nbsp;days&nbsp;in&nbsp;a&nbsp;given&nbsp;year&nbsp;for&nbsp;calender&nbsp;date<br>
+(wrapper&nbsp;for&nbsp;day_of_year)<br>
+&nbsp;<br>
+Input:&nbsp;<br>
+----------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:year,&nbsp;month&nbsp;and&nbsp;day&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;&nbsp;days&nbsp;in&nbsp;year</tt></dd></dl>
+ <dl><dt><a name="-get_tau"><strong>get_tau</strong></a>(yyyy, mm, dd, hh<font color="#909090">=0</font>, mi<font color="#909090">=0</font>, sec<font color="#909090">=0</font>)</dt><dd><tt>convert&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;to&nbsp;tau&nbsp;(i.e,&nbsp;hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00)<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec:&lt;integer&gt;:&nbsp;year,&nbsp;month,&nbsp;day,&nbsp;hour,&nbsp;minute&nbsp;and&nbsp;second<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Outputs:<br>
+1.&nbsp;tau:&lt;float&gt;:&nbsp;Hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00</tt></dd></dl>
+ <dl><dt><a name="-get_ut_loc_time_slot"><strong>get_ut_loc_time_slot</strong></a>(lt_st, lt_end, day_time_grid, lon, day_length<font color="#909090">=86400.0</font>)</dt><dd><tt>get&nbsp;indexes&nbsp;for&nbsp;UT&nbsp;time&nbsp;series&nbsp;which&nbsp;fall&nbsp;within&nbsp;the&nbsp;local&nbsp;time&nbsp;slot<br>
+&nbsp;<br>
+Inputs:<br>
+1.lt_st,&nbsp;lt_end:&lt;numeric&gt;:&nbsp;local&nbsp;time&nbsp;periods.&nbsp;<br>
+2.day_time_grid:&lt;array&gt;:&nbsp;UT&nbsp;time&nbsp;series<br>
+3.lon:&lt;array&gt;:&nbsp;longitudes&nbsp;of&nbsp;the&nbsp;locations.&nbsp;<br>
+4.&nbsp;day_length:&lt;float&gt;:&nbsp;the&nbsp;length&nbsp;of&nbsp;day&nbsp;in&nbsp;seconds&nbsp;or&nbsp;hours.&nbsp;<br>
+The&nbsp;unit&nbsp;should&nbsp;be&nbsp;consistent&nbsp;with&nbsp;day_time_grid&nbsp;and&nbsp;the&nbsp;local&nbsp;time&nbsp;period.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;usd_idx:&lt;array&gt;:the&nbsp;index&nbsp;for&nbsp;the&nbsp;UT&nbsp;time&nbsp;series&nbsp;which&nbsp;fall&nbsp;within&nbsp;the&nbsp;local&nbsp;time<br>
+between&nbsp;ls_st&nbsp;and&nbsp;lt_end</tt></dd></dl>
+ <dl><dt><a name="-next_doy"><strong>next_doy</strong></a>(yyyy_in, doy_in, days<font color="#909090">=1</font>, return_ymd<font color="#909090">=False</font>)</dt><dd><tt>get&nbsp;date&nbsp;&nbsp;for&nbsp;current&nbsp;time&nbsp;+&nbsp;n&nbsp;days&nbsp;later<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+&nbsp;<br>
+1.yyyy_in,&nbsp;doy_in:&lt;integer&gt;:&nbsp;current&nbsp;year&nbsp;and&nbsp;day&nbsp;of&nbsp;year<br>
+2.days:&lt;integer&gt;:&nbsp;day&nbsp;increment<br>
+3.return_ymd:&lt;T/F&gt;:&nbsp;if&nbsp;ture,&nbsp;year,&nbsp;month&nbsp;and&nbsp;day&nbsp;will&nbsp;be&nbsp;returned&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.yyyy,&nbsp;doy:&lt;integer&gt;:&nbsp;year&nbsp;and&nbsp;day,&nbsp;If&nbsp;return_ymd==False,&nbsp;<br>
+&nbsp;<br>
+or&nbsp;<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:year,&nbsp;month&nbsp;and&nbsp;day,&nbsp;If&nbsp;return_ymd==True.</tt></dd></dl>
+ <dl><dt><a name="-tai85_to_utc"><strong>tai85_to_utc</strong></a>(tai85)</dt><dd><tt>convert&nbsp;a&nbsp;time&nbsp;in&nbsp;tai85&nbsp;format&nbsp;to&nbsp;UTC&nbsp;string&nbsp;<br>
+Inputs:&nbsp;<br>
+----------------------------------------<br>
+1.&nbsp;tai85:&lt;integer&gt;:&nbsp;Seconds&nbsp;since&nbsp;1985-01-01&nbsp;00:00:00<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;utc:&nbsp;&lt;string&gt;:&nbsp;time&nbsp;in&nbsp;utc&nbsp;format&nbsp;(yyyy-mm-dd&nbsp;hh:mi:ss)<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+Time_leap&nbsp;is&nbsp;done&nbsp;in&nbsp;a&nbsp;hard&nbsp;(hand)&nbsp;way</tt></dd></dl>
+ <dl><dt><a name="-tau_to_time_array"><strong>tau_to_time_array</strong></a>(tau)</dt><dd><tt>convert&nbsp;tau&nbsp;(i.e,&nbsp;hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00)&nbsp;to&nbsp;&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;tau:&lt;float&gt;:&nbsp;Hours&nbsp;since&nbsp;1985.01.01,&nbsp;00:00<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec:&lt;integer&gt;:&nbsp;year,&nbsp;month,&nbsp;day,&nbsp;hour,&nbsp;minute&nbsp;and&nbsp;second</tt></dd></dl>
+ <dl><dt><a name="-time_array_to_utc"><strong>time_array_to_utc</strong></a>(yyyy, mm, dd, hh<font color="#909090">=0</font>, mi<font color="#909090">=0</font>, sec<font color="#909090">=0</font>)</dt><dd><tt>convert&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec&nbsp;to&nbsp;utc&nbsp;string<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec:&lt;integer&gt;:&nbsp;year,&nbsp;month,&nbsp;day,&nbsp;hour,&nbsp;minute&nbsp;and&nbsp;second<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;utc:&nbsp;the&nbsp;time&nbsp;in&nbsp;utc&nbsp;format&nbsp;yyyy-mm-dd&nbsp;hh:mm:ss</tt></dd></dl>
+ <dl><dt><a name="-utc_to_tai85"><strong>utc_to_tai85</strong></a>(utc)</dt><dd><tt>convert&nbsp;utc&nbsp;string&nbsp;to&nbsp;tai85&nbsp;format&nbsp;<br>
+(i.e.,&nbsp;Seconds&nbsp;since&nbsp;1985-01-01&nbsp;00:00:00)<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------<br>
+1.&nbsp;utc:&nbsp;utc&nbsp;time&nbsp;in&nbsp;yyyy-mm-dd&nbsp;hh:mi:ss<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+1.&nbsp;tai85:&nbsp;&lt;integer&gt;&nbsp;seconds&nbsp;since</tt></dd></dl>
+ <dl><dt><a name="-utc_to_time_array"><strong>utc_to_time_array</strong></a>(utc)</dt><dd><tt>convert&nbsp;the&nbsp;utc&nbsp;string&nbsp;to&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+1.&nbsp;utc:&lt;string&gt;:&nbsp;the&nbsp;time&nbsp;in&nbsp;utc&nbsp;format&nbsp;yyyy-mm-dd&nbsp;hh:mm:ss<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh,&nbsp;mi,&nbsp;sec:&lt;integer&gt;:&nbsp;year,&nbsp;month,&nbsp;day,&nbsp;hour,&nbsp;minute,&nbsp;seconds</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>TAI0</strong> = datetime.datetime(1985, 1, 1, 0, 0)<br>
+<strong>def_yyyy</strong> = 2004<br>
+<strong>second_leap</strong> = 0</td></tr></table>
+</body></html>

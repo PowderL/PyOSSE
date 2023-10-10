@@ -1,0 +1,124 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.line_process_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.line_process_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/line_process_m.py">/home/lfeng/otool/ESA/util/line_process_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;processing&nbsp;text&nbsp;line<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.30<br>
+History:&nbsp;v0.95,&nbsp;2012.09.18<br>
+&nbsp;<br>
+&nbsp;<br>
+1.Functions:<br>
+========================================================<br>
+1.&nbsp;decode_line:&nbsp;split&nbsp;one&nbsp;line&nbsp;into&nbsp;terms<br>
+&nbsp;<br>
+2.&nbsp;decode_keyword_line:&nbsp;split&nbsp;one&nbsp;line&nbsp;into&nbsp;keyword&nbsp;and&nbsp;values&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;process_terms:&nbsp;select&nbsp;and&nbsp;convert&nbsp;items&nbsp;into&nbsp;required&nbsp;types.&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;read_table_from_lines:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;a&nbsp;table&nbsp;(recarray)<br>
+&nbsp;<br>
+5.&nbsp;read_matrix_from_lines:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;a&nbsp;matrix&nbsp;(array)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-decode_keyword_line"><strong>decode_keyword_line</strong></a>(line, delim_keyword, delim)</dt><dd><tt>Decode&nbsp;one&nbsp;line&nbsp;into&nbsp;key&nbsp;word&nbsp;and&nbsp;values&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;line:&lt;str&gt;:&nbsp;line&nbsp;to&nbsp;decode&nbsp;<br>
+2.&nbsp;delim_keyword:&lt;str&gt;:&nbsp;the&nbsp;sperator&nbsp;between&nbsp;keyword&nbsp;and&nbsp;values<br>
+3.&nbsp;delim:&lt;str&gt;:&nbsp;sperator&nbsp;for&nbsp;value&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------<br>
+1.&nbsp;keyword:&lt;str&gt;:&nbsp;keyword&nbsp;(left&nbsp;term)<br>
+2.&nbsp;terms:&lt;list,&nbsp;t:str&gt;:&nbsp;value&nbsp;(right&nbsp;term)<br>
+&nbsp;<br>
+Notes:<br>
+&nbsp;<br>
+1.&nbsp;if&nbsp;a&nbsp;line&nbsp;is&nbsp;given&nbsp;as&nbsp;line='A:1,&nbsp;2,3'<br>
+<a href="#-decode_keyword_line">decode_keyword_line</a>(line,&nbsp;':',&nbsp;',')&nbsp;will&nbsp;yield<br>
+keyword='A'<br>
+terms=['1',&nbsp;'2',&nbsp;'3']</tt></dd></dl>
+ <dl><dt><a name="-decode_line"><strong>decode_line</strong></a>(line, delim)</dt><dd><tt>splite&nbsp;one&nbsp;line&nbsp;into&nbsp;terms.&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;line:&lt;str&gt;:&nbsp;line&nbsp;to&nbsp;decode&nbsp;<br>
+2.&nbsp;delim:&lt;str&gt;:&nbsp;splitor&nbsp;for&nbsp;line&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------<br>
+out_terms:&lt;list&gt;:&nbsp;terms&nbsp;in&nbsp;the&nbsp;given&nbsp;line</tt></dd></dl>
+ <dl><dt><a name="-process_terms"><strong>process_terms</strong></a>(terms, sel_col, col_type)</dt><dd><tt>select&nbsp;terms,&nbsp;and&nbsp;convert&nbsp;them&nbsp;into&nbsp;certain&nbsp;types<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------<br>
+1.&nbsp;terms:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;terms&nbsp;to&nbsp;be&nbsp;processes<br>
+2.&nbsp;sel_col:&lt;list,&nbsp;t:integer&gt;:&nbsp;terms&nbsp;to&nbsp;be&nbsp;chosen<br>
+3.&nbsp;col_type:&lt;list,&nbsp;t:str&gt;:&nbsp;types&nbsp;to&nbsp;be&nbsp;converted&nbsp;to.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;sel_terms:&lt;list&gt;:&nbsp;selected&nbsp;terms&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;If&nbsp;one&nbsp;element&nbsp;can&nbsp;be&nbsp;converted&nbsp;into&nbsp;&nbsp;desired&nbsp;type,&nbsp;it&nbsp;will&nbsp;be&nbsp;replaced&nbsp;by&nbsp;a&nbsp;filling&nbsp;value.</tt></dd></dl>
+ <dl><dt><a name="-read_matrix_from_lines"><strong>read_matrix_from_lines</strong></a>(lines, colno_lst, lstart, lend, delim<font color="#909090">=' '</font>, comment_begin<font color="#909090">='#'</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;lines&nbsp;into&nbsp;&nbsp;a&nbsp;matrix&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;colno_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;number&nbsp;to&nbsp;be&nbsp;read<br>
+4.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+5.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+6.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------<br>
+1.data:&lt;array&gt;:&nbsp;data&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+----------------------------------------------------<br>
+1.&nbsp;Selected&nbsp;columns&nbsp;will&nbsp;be&nbsp;converted&nbsp;into&nbsp;float.</tt></dd></dl>
+ <dl><dt><a name="-read_table_from_lines"><strong>read_table_from_lines</strong></a>(lines, colnm_lst, colno_lst, coltype_lst, lstart, lend, delim<font color="#909090">=' '</font>, comment_begin<font color="#909090">='#'</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;lines&nbsp;into&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;colnm_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;to&nbsp;be&nbsp;read<br>
+3.&nbsp;colno_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;number&nbsp;to&nbsp;be&nbsp;read<br>
+4.&nbsp;coltype_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;type&nbsp;to&nbsp;be&nbsp;converted&nbsp;to<br>
+5.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+6.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+7.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------<br>
+1.dtable:&lt;recarray&gt;:&nbsp;data</tt></dd></dl>
+</td></tr></table>
+</body></html>

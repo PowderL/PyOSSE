@@ -1,0 +1,386 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.state_vector</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.state_vector</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/state_vector.py">/home/lfeng/otool/ESA/enkf/state_vector.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;state&nbsp;vector<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Classes:<br>
+===============================================<br>
+1.&nbsp;<a href="#ens_stat_cl">ens_stat_cl</a>:&nbsp;Class&nbsp;for&nbsp;state&nbsp;vector</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.enkf.etkf_half.html">ESA.enkf.etkf_half</a><br>
+<a href="ESA.enkf.etkf_cor.html">ESA.enkf.etkf_cor</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_gcfile_io.html">ESA.util.otool_gcfile_io</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="pylab.html">pylab</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.state_vector.html#ens_stat_cl">ens_stat_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ens_stat_cl">class <strong>ens_stat_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;for&nbsp;state&nbsp;vector&nbsp;used&nbsp;to&nbsp;assimilate&nbsp;observations<br>
+&nbsp;<br>
+Members:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attributes<br>
+2.&nbsp;step_tag_lst:&lt;list&gt;:&nbsp;ID&nbsp;for&nbsp;run&nbsp;step&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+#&nbsp;I.&nbsp;variables&nbsp;at&nbsp;current&nbsp;time&nbsp;window<br>
+&nbsp;<br>
+3.&nbsp;wnd_mean_x0:&lt;array,&nbsp;(wnd_nx)&gt;:&nbsp;prior&nbsp;coefficient&nbsp;values&nbsp;for&nbsp;lag&nbsp;window&nbsp;<br>
+4.&nbsp;wnd_mean_x:&lt;array,&nbsp;(wnd_nx)&gt;:&nbsp;posterior&nbsp;(prior)&nbsp;coefficient&nbsp;values&nbsp;for&nbsp;lag&nbsp;window<br>
+5.&nbsp;wnd_dx:&lt;array,&nbsp;(wnd_nx,&nbsp;wnd_ne)&gt;:&nbsp;perturbations&nbsp;ensemble&nbsp;for&nbsp;coefficients<br>
+6.&nbsp;wnd_inc_m:&lt;array,&nbsp;(wnd_ne&gt;:&nbsp;&nbsp;increment&nbsp;matrix&nbsp;for&nbsp;ETKF&nbsp;data&nbsp;assimilation&nbsp;<br>
+7.&nbsp;wnd_xtm:&nbsp;&lt;array,&nbsp;(wnd_nx,&nbsp;wnd_ne)&gt;:&nbsp;transform&nbsp;matrix&nbsp;for&nbsp;ETKF&nbsp;data&nbsp;assimilation&nbsp;<br>
+8.&nbsp;wnd_xinc:&nbsp;&lt;array,&nbsp;(wnd_nx)&gt;:&nbsp;&nbsp;increment&nbsp;for&nbsp;ETKF&nbsp;data&nbsp;assimilation<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;II:&nbsp;variables&nbsp;for&nbsp;the&nbsp;step&nbsp;<br>
+&nbsp;<br>
+9.&nbsp;&nbsp;inc_m:&lt;array,&nbsp;(wnd_nx)&gt;:&nbsp;increment&nbsp;matrix&nbsp;for&nbsp;current&nbsp;step&nbsp;<br>
+10.&nbsp;xtm:&nbsp;&lt;array,&nbsp;(wnd_nx,&nbsp;wnd_ne)&gt;:&nbsp;transform&nbsp;matrix&nbsp;for&nbsp;current&nbsp;step<br>
+11.&nbsp;xinc:&nbsp;&lt;array,&nbsp;(wnd_nx)&gt;:&nbsp;&nbsp;increment&nbsp;for&nbsp;ETKF&nbsp;data&nbsp;assimilation<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;III:&nbsp;list&nbsp;of&nbsp;objects:&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+12.&nbsp;x2flux_lst:&nbsp;&lt;list,&nbsp;t:obj&gt;:&nbsp;class&nbsp;for&nbsp;projecting&nbsp;x&nbsp;back&nbsp;to&nbsp;flux<br>
+13.&nbsp;wnd_mean_x_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;list&nbsp;of&nbsp;wnd_mean_x&nbsp;at&nbsp;beginning&nbsp;of&nbsp;each&nbsp;step<br>
+14.&nbsp;wnd_mean_x0_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;list&nbsp;of&nbsp;wnd_mean_x0&nbsp;at&nbsp;beginning&nbsp;of&nbsp;each&nbsp;step<br>
+15.&nbsp;wnd_xtm_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;list&nbsp;of&nbsp;wnd_xtm&nbsp;at&nbsp;beginning&nbsp;of&nbsp;each&nbsp;step<br>
+16.&nbsp;wnd_dx_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;list&nbsp;of&nbsp;wnd_dx&nbsp;at&nbsp;beginning&nbsp;of&nbsp;each&nbsp;step<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;IV:&nbsp;Settings&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+17.&nbsp;cur_yyyy:&lt;int&gt;:&nbsp;starting&nbsp;year<br>
+18.&nbsp;cur_mm:&lt;int&gt;:&nbsp;starting&nbsp;month<br>
+19.&nbsp;cur_dd:&lt;int&gt;:&nbsp;starting&nbsp;dd<br>
+20.&nbsp;cur_doy:&lt;int&gt;:&nbsp;starting&nbsp;doy&nbsp;<br>
+21&nbsp;.next_yyyy:&lt;int&gt;:&nbsp;next&nbsp;year<br>
+&nbsp;<br>
+22.&nbsp;max_doy:&lt;int&gt;:&nbsp;max&nbsp;doy&nbsp;<br>
+23.&nbsp;cur_step:&lt;int&gt;:&nbsp;time&nbsp;step<br>
+24.&nbsp;wnd_step:&lt;int&gt;:&nbsp;step&nbsp;inside&nbsp;window<br>
+25.&nbsp;max_step:&lt;int&gt;:&nbsp;maximum&nbsp;step<br>
+26.&nbsp;lag_window:&lt;int&gt;:&nbsp;length&nbsp;of&nbsp;lag_window&nbsp;(max&nbsp;steps&nbsp;inside&nbsp;the&nbsp;window)<br>
+&nbsp;<br>
+#&nbsp;V:&nbsp;time&nbsp;and&nbsp;size<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+27.&nbsp;tau_st_lst:&lt;list,&nbsp;t:float&gt;:&nbsp;starting&nbsp;time<br>
+28.&nbsp;tau_end_lst:&lt;list,&nbsp;t:float&gt;:&nbsp;end&nbsp;time&nbsp;<br>
+29.&nbsp;x_st_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;starting&nbsp;position&nbsp;of&nbsp;the&nbsp;current&nbsp;period&nbsp;when&nbsp;it&nbsp;becomes&nbsp;the&nbsp;first&nbsp;of&nbsp;the&nbsp;window<br>
+30.&nbsp;x_end_lst:&nbsp;&lt;list,&nbsp;t:int&gt;:&nbsp;&nbsp;ending&nbsp;position&nbsp;of&nbsp;the&nbsp;current&nbsp;period&nbsp;when&nbsp;it&nbsp;becomes&nbsp;the&nbsp;first&nbsp;of&nbsp;the&nbsp;window<br>
+31.&nbsp;en_st_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;ensemble&nbsp;starting&nbsp;position&nbsp;of&nbsp;the&nbsp;current&nbsp;period&nbsp;when&nbsp;it&nbsp;becomes&nbsp;the&nbsp;first&nbsp;of&nbsp;the&nbsp;window<br>
+32.&nbsp;en_end_lst:&nbsp;&lt;list,&nbsp;t:int&gt;:&nbsp;&nbsp;ensemble&nbsp;ending&nbsp;position&nbsp;of&nbsp;the&nbsp;current&nbsp;period&nbsp;when&nbsp;it&nbsp;becomes&nbsp;the&nbsp;first&nbsp;of&nbsp;the&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+33.&nbsp;nbias:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;bias&nbsp;correction&nbsp;terms<br>
+34.&nbsp;mod_bias:&lt;array,&nbsp;(nbias)&gt;:&nbsp;first&nbsp;guess&nbsp;of&nbsp;bias&nbsp;correction&nbsp;terms&nbsp;<br>
+35.&nbsp;bias_err:&lt;array,&nbsp;(nbias)&gt;:&nbsp;uncertainty&nbsp;of&nbsp;bias&nbsp;correction&nbsp;terms&nbsp;<br>
+.&nbsp;<br>
+&nbsp;<br>
+#&nbsp;VI&nbsp;scaling&nbsp;matrix&nbsp;(or&nbsp;spatial&nbsp;correction)<br>
+&nbsp;<br>
+36.&nbsp;wnd_scale_m:&lt;array,&nbsp;(wnd_ne,&nbsp;wnd_ne)&gt;:&nbsp;<br>
+&nbsp;<br>
+#&nbsp;VII:&nbsp;&nbsp;#&nbsp;temporal&nbsp;correlation&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+37.&nbsp;use_tcor:&lt;T/F&gt;:&nbsp;whether&nbsp;to&nbsp;include&nbsp;temporal&nbsp;correlation&nbsp;<br>
+38.&nbsp;tcor_len:&lt;int&gt;:&nbsp;length&nbsp;of&nbsp;temporal&nbsp;correlation&nbsp;<br>
+39.&nbsp;tcor_factor:&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;for&nbsp;temporal&nbsp;correlation&nbsp;<br>
+40.&nbsp;tcor_inc_m:&lt;wnd_ne,&nbsp;wnd_ne&gt;:&nbsp;increment&nbsp;matrix&nbsp;due&nbsp;to&nbsp;last&nbsp;temporal&nbsp;correlation&nbsp;<br>
+41.&nbsp;wnd_tcor_inc_m::&lt;wnd_ne,&nbsp;wnd_ne&gt;:&nbsp;increment&nbsp;matrix&nbsp;due&nbsp;to&nbsp;all&nbsp;temporal&nbsp;correlations&nbsp;inside&nbsp;the&nbsp;window<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+42.&nbsp;tcor_m:&lt;wnd_ne,&nbsp;wnd_ne&gt;:&nbsp;correlation&nbsp;matrix&nbsp;due&nbsp;to&nbsp;last&nbsp;temporal&nbsp;correlation<br>
+43.&nbsp;wnd_tcor_m:&lt;wnd_ne,&nbsp;wnd_ne&gt;:&nbsp;correlation&nbsp;matrix&nbsp;due&nbsp;to&nbsp;&nbsp;temporal&nbsp;correlations&nbsp;inside&nbsp;the&nbsp;window<br>
+44.&nbsp;wnd_nx,&nbsp;wnd_ne:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;self.<strong>wnd_dx</strong><br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+==========================================================<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;join_vector:&nbsp;joint&nbsp;two&nbsp;arrays&nbsp;together&nbsp;<br>
+3.&nbsp;fifo_vector:&nbsp;push&nbsp;out&nbsp;&nbsp;first&nbsp;part&nbsp;of&nbsp;long&nbsp;array&nbsp;<br>
+4.&nbsp;join_matrix:&nbsp;join&nbsp;two&nbsp;matrices&nbsp;along&nbsp;diagonal&nbsp;together&nbsp;<br>
+5.&nbsp;fifo_matrix:&nbsp;push&nbsp;out&nbsp;first&nbsp;part&nbsp;of&nbsp;a&nbsp;matrix<br>
+6.&nbsp;construct_tcor_matrix:&nbsp;&nbsp;Create&nbsp;temporal&nbsp;correlation&nbsp;matrix&nbsp;<br>
+7.&nbsp;add_new_x_to_window:&nbsp;&nbsp;Add&nbsp;new&nbsp;apriori&nbsp;to&nbsp;assimilation&nbsp;window&nbsp;<br>
+8.&nbsp;init_x_dx:&nbsp;initializing&nbsp;for&nbsp;first&nbsp;time&nbsp;period&nbsp;<br>
+9.&nbsp;append_x_dx:&nbsp;&nbsp;Append&nbsp;prior&nbsp;variable&nbsp;to&nbsp;the&nbsp;end&nbsp;of&nbsp;lag&nbsp;window<br>
+10.&nbsp;do_assim:&nbsp;&nbsp;assimilate&nbsp;observations&nbsp;and&nbsp;update&nbsp;state&nbsp;vector<br>
+11.&nbsp;vf_construct_aprior:&nbsp;construct&nbsp;x&nbsp;and&nbsp;dx<br>
+12.&nbsp;shift_y_dy:&nbsp;update&nbsp;model&nbsp;mean&nbsp;and&nbsp;model&nbsp;uncertainty&nbsp;in&nbsp;observation&nbsp;space<br>
+13.&nbsp;fifo_x_dx:&nbsp;Append&nbsp;variable&nbsp;to&nbsp;the&nbsp;end,&nbsp;and&nbsp;remove&nbsp;the&nbsp;first&nbsp;one&nbsp;from&nbsp;window<br>
+14.&nbsp;convolve_y_dy:&nbsp;&nbsp;tranfer&nbsp;&nbsp;model&nbsp;mean_y&nbsp;and&nbsp;transform&nbsp;dy&nbsp;to&nbsp;reflect&nbsp;changes&nbsp;on&nbsp;mean_x&nbsp;and&nbsp;dx.<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Notes:<br>
+==============================================================<br>
+1.&nbsp;A&nbsp;sequential&nbsp;data&nbsp;assimilation&nbsp;approach&nbsp;is&nbsp;assumed&nbsp;in&nbsp;this&nbsp;module.&nbsp;y&nbsp;and&nbsp;dy&nbsp;must&nbsp;be&nbsp;kept&nbsp;(by&nbsp;convolve_y_dy_<br>
+must&nbsp;be&nbsp;consistent&nbsp;with&nbsp;x&nbsp;and&nbsp;dx&nbsp;(and&nbsp;wnd_xtm)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ens_stat_cl-__init__"><strong>__init__</strong></a>(self, yyyy_st, mm_st, dd_st, max_step, lag_window, mod_bias<font color="#909090">=[]</font>, mod_bias_err<font color="#909090">=[]</font>, use_tcor<font color="#909090">=False</font>, tcor_len<font color="#909090">=720.0</font>, tcor_factor<font color="#909090">=0.5</font>, xnorm<font color="#909090">=1.0</font>, **keywords)</dt><dd><tt>Inputs:<br>
+=========================================<br>
+1.&nbsp;yyyy_st:&lt;int&gt;:&nbsp;starting&nbsp;year<br>
+2.&nbsp;mm_st:&lt;int&gt;:&nbsp;starting&nbsp;month<br>
+3.&nbsp;dd_st:&lt;int&gt;:&nbsp;starting&nbsp;day<br>
+4.&nbsp;max_step:&lt;int&gt;:&nbsp;maximum&nbsp;step<br>
+5.&nbsp;lag_window:&lt;int&gt;:&nbsp;steps&nbsp;inside&nbsp;the&nbsp;lag&nbsp;window&nbsp;<br>
+6.&nbsp;mod_bias:&lt;array/list&gt;:&nbsp;&nbsp;bias&nbsp;to&nbsp;be&nbsp;estimated&nbsp;&nbsp;<br>
+7.&nbsp;mod_bias_err:&lt;array/list&gt;:&nbsp;&nbsp;mod_bias_uncertainty&nbsp;<br>
+8.&nbsp;use_tcor:&lt;T/F&gt;:&nbsp;whether&nbsp;to&nbsp;turn&nbsp;on&nbsp;&nbsp;temporal&nbsp;correlation&nbsp;<br>
+9.&nbsp;tcor_len:&lt;float&gt;:&nbsp;temporal&nbsp;correlation&nbsp;length<br>
+10.&nbsp;tcor_factor:&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;for&nbsp;temporal&nbsp;correlation&nbsp;<br>
+11.&nbsp;keyword:&lt;dict&gt;:&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-add_new_x_to_window"><strong>add_new_x_to_window</strong></a>(self, apr_x, apr_dx, tau_st, tau_end, step_tag<font color="#909090">='new'</font>, enlarge_factor<font color="#909090">=1.0</font>, scale_m<font color="#909090">=None</font>, lag_window<font color="#909090">=None</font>, cl_x2flux<font color="#909090">=None</font>)</dt><dd><tt>Add&nbsp;new&nbsp;apriori&nbsp;to&nbsp;assimilation&nbsp;window&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+============================================<br>
+1.&nbsp;apr_x:&lt;array&gt;:&nbsp;prior&nbsp;x<br>
+2.&nbsp;apr_dx:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;prior&nbsp;dx<br>
+&nbsp;<br>
+3.&nbsp;tau_st,&nbsp;tau_end:&lt;float&gt;:&nbsp;start&nbsp;and&nbsp;end&nbsp;time&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;enlarge_factor:&lt;float&gt;:&nbsp;factor&nbsp;used&nbsp;to&nbsp;enlarge&nbsp;xtm&nbsp;<br>
+4.&nbsp;scale_m:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;scaling&nbsp;dx,&nbsp;<br>
+&nbsp;<br>
+which&nbsp;can&nbsp;be&nbsp;spatial&nbsp;correlation&nbsp;<br>
+between&nbsp;'basis&nbsp;functions'&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;lag_window:&lt;integer&gt;:&nbsp;lag&nbsp;window&nbsp;length&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;cl_x2flux:&lt;x2flux_cl&gt;:&nbsp;project&nbsp;coefficient&nbsp;back&nbsp;to&nbsp;flux<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+============================================<br>
+&nbsp;<br>
+1.&nbsp;wnd_nx:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;x&nbsp;inside&nbsp;window<br>
+2.&nbsp;wnd_ne:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;ensemble&nbsp;inside&nbsp;window&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------<br>
+1.&nbsp;temporal&nbsp;correlation&nbsp;&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;shape&nbsp;&nbsp;of:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|I&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|TS*TC,&nbsp;TS*I&nbsp;|<br>
+&nbsp;<br>
+&nbsp;TC&nbsp;is&nbsp;the&nbsp;correlation&nbsp;matrix,&nbsp;TS&nbsp;is&nbsp;scaling&nbsp;matrix.</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-append_x_dx"><strong>append_x_dx</strong></a>(self, mean_x, dx, tau_st, tau_end, enlarge_factor, scale_m)</dt><dd><tt>Append&nbsp;variable&nbsp;to&nbsp;the&nbsp;end<br>
+It&nbsp;will&nbsp;be&nbsp;called&nbsp;when&nbsp;wnd_step&lt;lag_window<br>
+&nbsp;<br>
+1.&nbsp;Inputs:<br>
+-----------------------------------------------------<br>
+1.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean_x<br>
+2.&nbsp;dx:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;'prior'&nbsp;dx<br>
+3.&nbsp;tau_st,&nbsp;tau_end:&lt;float&gt;:&nbsp;start&nbsp;and&nbsp;end&nbsp;time&nbsp;<br>
+4.&nbsp;enlarge_factor:&lt;float&gt;:&nbsp;factor&nbsp;used&nbsp;to&nbsp;enlarge&nbsp;xtm&nbsp;<br>
+5.&nbsp;scale_m:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;scaling&nbsp;dx,&nbsp;which&nbsp;can&nbsp;be&nbsp;spatial&nbsp;correlation&nbsp;<br>
+&nbsp;&nbsp;&nbsp;between&nbsp;regions<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;shape(self.<strong>wnd_dx</strong>):&lt;array,&nbsp;(wnd_nx,&nbsp;wnd_ne)&gt;:&nbsp;shape&nbsp;of&nbsp;the&nbsp;dx</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-construct_tcor_matrix"><strong>construct_tcor_matrix</strong></a>(self, dx, tau_st, first_shift<font color="#909090">=1</font>, use_wnd_inc_m<font color="#909090">=True</font>)</dt><dd><tt>Create&nbsp;temporal&nbsp;correlation&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;dx:&lt;array,&nbsp;(nx,ne)&gt;:&nbsp;sampling&nbsp;x<br>
+2.&nbsp;tau_st:&lt;float&gt;:&nbsp;starting&nbsp;time&nbsp;<br>
+3.&nbsp;keep_first:&lt;int&gt;:&nbsp;if&nbsp;first_shift&nbsp;is&nbsp;the&nbsp;starting&nbsp;step&nbsp;inside&nbsp;(previous)&nbsp;window<br>
+4.&nbsp;use_wnd_inc_m:&lt;T/F&gt;:&nbsp;&nbsp;if&nbsp;True,&nbsp;wnd_inc_m&nbsp;will&nbsp;be&nbsp;considered&nbsp;to&nbsp;be&nbsp;able&nbsp;to&nbsp;reproduce&nbsp;<br>
+mean_x-mean_x0=self.<strong>wnd_dx</strong>*wnd_inc_m<br>
+&nbsp;<br>
+returns:<br>
+&nbsp;<br>
+--------------------------------------<br>
+1.&nbsp;tcor_m:&lt;array,&nbsp;(ne,&nbsp;wnd_ne-first_ne)&gt;:&nbsp;temporal&nbsp;correlation&nbsp;matrix&nbsp;<br>
+2.&nbsp;tcor_scale:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;&nbsp;scaling&nbsp;matrix&nbsp;<br>
+3.&nbsp;tcor_inc_m:&lt;array,&nbsp;(ne)&gt;:&nbsp;&nbsp;tmporal&nbsp;correlation&nbsp;increment&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;this&nbsp;functions&nbsp;are&nbsp;only&nbsp;approximations&nbsp;<br>
+Temporal&nbsp;correlation&nbsp;between&nbsp;old&nbsp;(A)&nbsp;and&nbsp;new&nbsp;(B)&nbsp;is&nbsp;&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+|&nbsp;A&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;A&nbsp;&nbsp;&nbsp;0&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;|<br>
+|&nbsp;B*TS*TC&nbsp;&nbsp;&nbsp;B*TS&nbsp;|------------&gt;&nbsp;|&nbsp;0&nbsp;&nbsp;&nbsp;B&nbsp;|&nbsp;&nbsp;X&nbsp;|&nbsp;TS*TC&nbsp;&nbsp;&nbsp;TS&nbsp;|<br>
+TS=tcor_scale:&nbsp;re-scaling&nbsp;&nbsp;(ne,&nbsp;ne)&nbsp;<br>
+TC=tcor_m:&nbsp;correlation&nbsp;matrix&nbsp;(ne,&nbsp;old_ne)&nbsp;<br>
+tcor_inc_m:&nbsp;increment&nbsp;matrix&nbsp;due&nbsp;to&nbsp;correlation:<br>
+tcor_inc_m=TC*inc_m(A).&nbsp;inc_m(A)&nbsp;is&nbsp;the&nbsp;increment&nbsp;matrix&nbsp;for&nbsp;old&nbsp;A&nbsp;<br>
+tcor_x_inc=B*TS*tcor_inc_m</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-convolve_y_dy"><strong>convolve_y_dy</strong></a>(self, mean_y, dy, use_wnd_xtm<font color="#909090">=1</font>, use_wnd_inc_m<font color="#909090">=0</font>)</dt><dd><tt>tranfer&nbsp;&nbsp;model&nbsp;mean_y&nbsp;and&nbsp;transform&nbsp;dy&nbsp;to&nbsp;reflect&nbsp;changes&nbsp;on&nbsp;mean_x&nbsp;and&nbsp;dx.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;mean_y:&nbsp;&lt;array,&nbsp;(ny&nbsp;(nobs),)&nbsp;&gt;:&nbsp;mean&nbsp;model&nbsp;observation&nbsp;<br>
+2.&nbsp;dy:&nbsp;&nbsp;&nbsp;&nbsp;&lt;array,&nbsp;(ny,&nbsp;ne)&gt;:&nbsp;&nbsp;aprior&nbsp;dy&nbsp;(before&nbsp;any&nbsp;scaling)<br>
+3.&nbsp;use_wnd_xtm:&lt;T/F&gt;:&nbsp;if&nbsp;ture&nbsp;wnd_xtm&nbsp;will&nbsp;be&nbsp;applied&nbsp;to&nbsp;dy<br>
+(means&nbsp;that&nbsp;no&nbsp;such&nbsp;transform&nbsp;be&nbsp;made&nbsp;before)<br>
+4.&nbsp;use_wnd_inc_m:&lt;T/F&gt;:&nbsp;if&nbsp;ture&nbsp;&nbsp;(no&nbsp;adjust&nbsp;made&nbsp;to&nbsp;mean_y&nbsp;before)<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+sdy:&lt;array,&nbsp;(ny,&nbsp;ne)&gt;:&nbsp;sdy&nbsp;if&nbsp;the&nbsp;dy&nbsp;matrix&nbsp;transformed</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-do_assim"><strong>do_assim</strong></a>(self, dy, mean_y, yobs, yerr, full_r<font color="#909090">=None</font>, use_sparse<font color="#909090">=True</font>)</dt><dd><tt>assimilating&nbsp;observation&nbsp;and&nbsp;update&nbsp;state&nbsp;vector<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------<br>
+1.&nbsp;dy:&lt;array,&nbsp;(nobs(ny),&nbsp;ne)&gt;:&nbsp;ensemble&nbsp;for&nbsp;model&nbsp;<br>
+observation&nbsp;perturbation.&nbsp;(see&nbsp;Note&nbsp;1)<br>
+2.&nbsp;mean_y:&lt;array,&nbsp;(ny)&gt;:&nbsp;model&nbsp;observations&nbsp;&nbsp;(see&nbsp;Note&nbsp;2)<br>
+3.&nbsp;yobs:&nbsp;&nbsp;&lt;array,&nbsp;(ny)&gt;:&nbsp;observations&nbsp;<br>
+4.&nbsp;yerr:&nbsp;&nbsp;&lt;array,&nbsp;(ny)&gt;:&nbsp;observation&nbsp;error^2&nbsp;<br>
+5.&nbsp;full_r:&nbsp;&lt;array,&nbsp;(ny,&nbsp;ny)&gt;:&nbsp;observation&nbsp;error&nbsp;covariance&nbsp;<br>
+6.&nbsp;use_sparse:&lt;T/F&gt;:&nbsp;&nbsp;if&nbsp;True&nbsp;etkf_cor&nbsp;will&nbsp;be&nbsp;used.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;xinc:&lt;array,&nbsp;(nx)&gt;:&nbsp;increment&nbsp;from&nbsp;current&nbsp;observations<br>
+2.&nbsp;sum_inc_m:&lt;array,&nbsp;(ne,&nbsp;nx)&gt;:&nbsp;increment&nbsp;matrix&nbsp;(associated&nbsp;with&nbsp;self.<strong>wnd_dx</strong>)<br>
+3.&nbsp;inc_m:&lt;array,&nbsp;(ne,&nbsp;nx)&gt;:&nbsp;increment&nbsp;matrix&nbsp;(associated&nbsp;with&nbsp;self.<strong>wnd_dx</strong>*xtm(old))<br>
+4.&nbsp;xtm:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;transform&nbsp;matrix.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------------<br>
+1.&nbsp;It&nbsp;is&nbsp;assumed&nbsp;shift&nbsp;y_dy&nbsp;has&nbsp;been&nbsp;called&nbsp;so&nbsp;that&nbsp;<br>
+dy=H(self.<strong>wnd_dx</strong>*self.<strong>wnd_xtm</strong>),&nbsp;and&nbsp;mean_y=H(self.<strong>wnd_mean_x</strong>)<br>
+&nbsp;<br>
+2.&nbsp;self.<strong>wnd_dx</strong>=self.<strong>wnd_x0</strong>*self.<strong>wnd_scale_m</strong>*self.<strong>wnd_tcor_m</strong><br>
+&nbsp;&nbsp;&nbsp;self_wnd_dx0&nbsp;is&nbsp;a&nbsp;quasi-diagonal&nbsp;matrix</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-fifo_matrix"><strong>fifo_matrix</strong></a>(self, x1, x2, retain_xid, retain_yid)</dt><dd><tt>relpace&nbsp;the&nbsp;first&nbsp;part&nbsp;of&nbsp;&nbsp;matrix&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;x1:&lt;array,&nbsp;(old_nx,&nbsp;old_ny)&gt;:&nbsp;matrix&nbsp;one&nbsp;<br>
+2.&nbsp;x2:&lt;array,&nbsp;(nx,ny)&gt;:&nbsp;matrix&nbsp;&nbsp;two&nbsp;<br>
+3.&nbsp;retain_xid:&lt;array,&nbsp;(nsel_x)&gt;:&nbsp;x&nbsp;index&nbsp;for&nbsp;values&nbsp;to&nbsp;be&nbsp;kept&nbsp;<br>
+4.&nbsp;retain_yid:&lt;array,&nbsp;(nsel_y)&gt;:&nbsp;y&nbsp;index&nbsp;for&nbsp;values&nbsp;to&nbsp;be&nbsp;kept<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+--------------------------------<br>
+1.&nbsp;new_x:&lt;array,&nbsp;(nse_x+nx,&nbsp;nsel_y+ny)&gt;:&nbsp;jointed&nbsp;matrix&nbsp;along&nbsp;diagonal</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-fifo_vector"><strong>fifo_vector</strong></a>(self, x1, x2, retain_idx)</dt><dd><tt>replace&nbsp;first&nbsp;parts&nbsp;of&nbsp;x1&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;x1:&lt;array,&nbsp;(old_nx)&gt;:&nbsp;array&nbsp;one<br>
+2.&nbsp;x2:&lt;array,&nbsp;(nx)&gt;:&nbsp;array&nbsp;two&nbsp;<br>
+3.&nbsp;retain_idx:&lt;array,&nbsp;(nsel)&gt;:&nbsp;index&nbsp;for&nbsp;elements&nbsp;to&nbsp;be&nbsp;retained&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+--------------------------------<br>
+1.&nbsp;new_x:&lt;array,&nbsp;(nse+nx)&gt;:&nbsp;jointed&nbsp;array</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-fifo_x_dx"><strong>fifo_x_dx</strong></a>(self, mean_x, dx, tau_st, tau_end, enlarge_factor, scale_m)</dt><dd><tt>Append&nbsp;variable&nbsp;to&nbsp;the&nbsp;end,&nbsp;and&nbsp;remove&nbsp;the&nbsp;first&nbsp;one&nbsp;from&nbsp;window<br>
+It&nbsp;will&nbsp;be&nbsp;called&nbsp;when&nbsp;wnd_step&lt;lag_window<br>
+&nbsp;<br>
+1.&nbsp;Inputs:<br>
+-----------------------------------------------------<br>
+1.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean_x<br>
+2.&nbsp;dx:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;'prior'&nbsp;dx<br>
+3.&nbsp;enlarge_factor:&lt;float&gt;:&nbsp;factor&nbsp;used&nbsp;to&nbsp;enlarge&nbsp;xtm&nbsp;<br>
+4.&nbsp;scale_m:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;scaling&nbsp;dx,&nbsp;which&nbsp;can&nbsp;be&nbsp;spatial&nbsp;correlation&nbsp;<br>
+&nbsp;&nbsp;&nbsp;between&nbsp;regions<br>
+5.&nbsp;cl_x2flux:&lt;x2flux_cl&gt;:&nbsp;project&nbsp;coefficient&nbsp;back&nbsp;to&nbsp;flux</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-init_x_dx"><strong>init_x_dx</strong></a>(self, mean_x, dx, tau_st, tau_end, enlarge_factor, scale_m)</dt><dd><tt>The&nbsp;first&nbsp;time&nbsp;period&nbsp;o&nbsp;be&nbsp;included&nbsp;<br>
+It&nbsp;will&nbsp;be&nbsp;called&nbsp;when&nbsp;wnd_step&lt;lag_window<br>
+&nbsp;<br>
+1.&nbsp;Inputs:<br>
+-----------------------------------------------------<br>
+1.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;prior&nbsp;mean_x<br>
+2.&nbsp;dx:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;'prior'&nbsp;dx<br>
+3.&nbsp;enlarge_factor:&lt;float&gt;:&nbsp;factor&nbsp;used&nbsp;to&nbsp;enlarge&nbsp;xtm&nbsp;<br>
+4.&nbsp;scale_m:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;scaling&nbsp;dx,&nbsp;which&nbsp;can&nbsp;be&nbsp;spatial&nbsp;correlation&nbsp;<br>
+&nbsp;&nbsp;&nbsp;between&nbsp;regions</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-join_matrix"><strong>join_matrix</strong></a>(self, x1, x2)</dt><dd><tt>&nbsp;join&nbsp;two&nbsp;matrix&nbsp;along&nbsp;diagonal&nbsp;together&nbsp;<br>
+&nbsp;<br>
+&nbsp;Inputs:<br>
+&nbsp;---------------------------------<br>
+&nbsp;1.&nbsp;x1:&lt;array,&nbsp;(old_nx,&nbsp;old_ny)&gt;:&nbsp;matrix&nbsp;one&nbsp;<br>
+2.&nbsp;x2:&lt;array,&nbsp;(nx,ny)&gt;:&nbsp;matrix&nbsp;&nbsp;two&nbsp;<br>
+&nbsp;<br>
+&nbsp;Returns<br>
+&nbsp;--------------------------------<br>
+&nbsp;1.&nbsp;new_x:&lt;array,&nbsp;(old_nx+nx,&nbsp;old_ny+ny)&gt;:&nbsp;jointed&nbsp;matrix&nbsp;along&nbsp;diagonal</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-join_vector"><strong>join_vector</strong></a>(self, x1, x2)</dt><dd><tt>&nbsp;&nbsp;&nbsp;&nbsp;joint&nbsp;two&nbsp;arrays&nbsp;together&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Inputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;---------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;x1:&lt;array,&nbsp;(old_nx)&gt;:&nbsp;array&nbsp;one<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;x2:&lt;array,&nbsp;(nx)&gt;:&nbsp;array&nbsp;two&nbsp;<br>
+&nbsp;<br>
+4&nbsp;&nbsp;&nbsp;&nbsp;Returns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;--------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;new_x:&lt;array,&nbsp;(old_nx+nx)&gt;:&nbsp;jointed&nbsp;array</tt></dd></dl>
+
+<dl><dt><a name="ens_stat_cl-vf_construct_aprior"><strong>vf_construct_aprior</strong></a>(self, nx, ne, cfg<font color="#909090">=None</font>)</dt><dd><tt>Construction&nbsp;prior&nbsp;and&nbsp;error&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;nx:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;x&nbsp;<br>
+2.&nbsp;ne:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;ensemble&nbsp;<br>
+3.&nbsp;cfg:&lt;menu&gt;:&nbsp;configuration&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------<br>
+1.&nbsp;x:&lt;array,&nbsp;(nx)&gt;:&nbsp;aprior&nbsp;<br>
+2.&nbsp;dx:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

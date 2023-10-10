@@ -1,0 +1,79 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.assim_def_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.assim_def_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/assim_def_m.py">/home/lfeng/otool/ESA/enkf/assim_def_m.py</a></font></td></tr></table>
+    <p><tt>calculate&nbsp;jacobian&nbsp;from&nbsp;model&nbsp;outputs&nbsp;for&nbsp;dry-air&nbsp;columns&nbsp;measured&nbsp;satellite&nbsp;instruments.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.10.22<br>
+History:&nbsp;v0.95,&nbsp;2013.03.02<br>
+&nbsp;<br>
+Classes:<br>
+---------------------------------------------------<br>
+1.&nbsp;satellite_xgp_cl:&nbsp;observation&nbsp;operator</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.atmosphere.enr_slice_m.html">ESA.atmosphere.enr_slice_m</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="os.html">os</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.enkf.run_desc_m.html">ESA.enkf.run_desc_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.enkf.run_desc_file_m.html">ESA.enkf.run_desc_file_m</a><br>
+<a href="ESA.enkf.state_vector.html">ESA.enkf.state_vector</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+<a href="ESA.atmosphere.ts_slice_m.html">ESA.atmosphere.ts_slice_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gc_ts_file_m.html">ESA.util.gc_ts_file_m</a><br>
+<a href="ESA.enkf.x2flux_m.html">ESA.enkf.x2flux_m</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.assim_def_m.html#assim_def_cl">assim_def_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="assim_def_cl">class <strong>assim_def_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;configuring&nbsp;assimilation&nbsp;process&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+=============================================================<br>
+1.&nbsp;cl_obs:&nbsp;class&nbsp;for&nbsp;reading&nbsp;observation&nbsp;data<br>
+2.&nbsp;cl_fc_prof:&nbsp;class&nbsp;for&nbsp;sampling&nbsp;single&nbsp;tracer&nbsp;model&nbsp;run<br>
+3.&nbsp;cl_enr_prof:&nbsp;class&nbsp;for&nbsp;sampling&nbsp;<br>
+4.&nbsp;cl_sat_opr:&nbsp;class&nbsp;for&nbsp;observation&nbsp;operator&nbsp;(sampling&nbsp;models)<br>
+5.&nbsp;cl_x2flux:&nbsp;class&nbsp;for&nbsp;projecting&nbsp;coefficients&nbsp;to&nbsp;fluxes<br>
+6.&nbsp;cl_run_desc:&nbsp;class&nbsp;for&nbsp;description&nbsp;outputs&nbsp;from&nbsp;ensemble&nbsp;runs&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+1.&nbsp;__init__:&nbsp;initialization<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="assim_def_cl-__init__"><strong>__init__</strong></a>(self, yyyy, mm, dd, root_menu, **keywords)</dt></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

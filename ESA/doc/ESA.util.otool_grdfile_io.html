@@ -1,0 +1,304 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.otool_grdfile_io</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.otool_grdfile_io</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/otool_grdfile_io.py">/home/lfeng/otool/ESA/util/otool_grdfile_io.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;gridded&nbsp;text&nbsp;files.&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.12.04<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.02.19<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Classes:<br>
+=============================================================<br>
+1.&nbsp;<a href="#grdfile_desc_cl">grdfile_desc_cl</a>:&nbsp;class&nbsp;for&nbsp;ascii&nbsp;file&nbsp;access.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="ESA.util.line_process_m.html">ESA.util.line_process_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.otool_grdfile_io.html#grdfile_desc_cl">grdfile_desc_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="grdfile_desc_cl">class <strong>grdfile_desc_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;description&nbsp;of&nbsp;ascii&nbsp;file&nbsp;&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+=====================================================<br>
+1.&nbsp;header_start:&lt;int&gt;:&nbsp;header&nbsp;starting&nbsp;row&nbsp;<br>
+2.&nbsp;data_start:&lt;int&gt;:&nbsp;data&nbsp;starting&nbsp;row&nbsp;<br>
+3.&nbsp;comment_begin:&lt;str&gt;:&nbsp;beginning&nbsp;character&nbsp;of&nbsp;comment&nbsp;lines<br>
+4.&nbsp;mask_val:&lt;float&gt;:&nbsp;filling&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;data<br>
+5.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file<br>
+6.&nbsp;data_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;lits&nbsp;of&nbsp;raw&nbsp;data&nbsp;read&nbsp;from&nbsp;files&nbsp;<br>
+7.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attribute&nbsp;dictionarys<br>
+8.&nbsp;grd_lst:&lt;list,&nbsp;t:gp_grid_cl&gt;:&nbsp;list&nbsp;of&nbsp;grids&nbsp;extracted&nbsp;from&nbsp;raw&nbsp;data&nbsp;<br>
+9.&nbsp;gdata:&lt;list,&nbsp;t:array&gt;:&nbsp;&nbsp;list&nbsp;of&nbsp;gridded&nbsp;data.&nbsp;<br>
+10.flnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;file&nbsp;names&nbsp;of&nbsp;the&nbsp;stored&nbsp;data&nbsp;set&nbsp;<br>
+11.ref_lst:&lt;list,&nbsp;t:str/numeric&gt;:&nbsp;values&nbsp;used&nbsp;to&nbsp;identify&nbsp;the&nbsp;data&nbsp;set<br>
+12.cur_flnm:&lt;str&gt;:&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+13.cur_ref:&lt;str&gt;:&nbsp;current&nbsp;reference&nbsp;for&nbsp;file&nbsp;<br>
+---&gt;&nbsp;the&nbsp;reference&nbsp;can&nbsp;be&nbsp;time&nbsp;step&nbsp;etc<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+==================================<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;is_comment_line:&nbsp;check&nbsp;whether&nbsp;a&nbsp;line&nbsp;is&nbsp;for&nbsp;comments&nbsp;<br>
+3.&nbsp;find_colno:&nbsp;get&nbsp;column&nbsp;number&nbsp;<br>
+4.&nbsp;get_colno_list:&nbsp;&nbsp;find&nbsp;column&nbsp;number&nbsp;for&nbsp;given&nbsp;column&nbsp;name&nbsp;list&nbsp;<br>
+5.&nbsp;read_matrix_from_lines<br>
+6.&nbsp;convert_matrix_to_grid:&nbsp;convert&nbsp;matrix&nbsp;to&nbsp;grid&nbsp;data<br>
+7.&nbsp;read_header_from_lines:&nbsp;&nbsp;Read&nbsp;header&nbsp;from&nbsp;lines&nbsp;<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;<br>
+8.&nbsp;set_filename:&nbsp;&nbsp;set&nbsp;the&nbsp;current&nbsp;filename&nbsp;and&nbsp;the&nbsp;current&nbsp;reference&nbsp;ID.&nbsp;<br>
+9.&nbsp;set_file_path:&nbsp;set&nbsp;the&nbsp;file&nbsp;path&nbsp;<br>
+10.&nbsp;&nbsp;set_filename_format:&nbsp;set&nbsp;template&nbsp;for&nbsp;filename<br>
+11.&nbsp;construct_filename:&nbsp;use&nbsp;template&nbsp;and&nbsp;keywords<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;member&nbsp;manager<br>
+&nbsp;<br>
+12.&nbsp;&nbsp;get_index:&nbsp;&nbsp;&nbsp;find&nbsp;the&nbsp;index&nbsp;in&nbsp;the&nbsp;file&nbsp;list&nbsp;for&nbsp;the&nbsp;given&nbsp;reference&nbsp;values<br>
+13.&nbsp;append_data:&nbsp;&nbsp;&nbsp;add&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;data&nbsp;list<br>
+14.&nbsp;del_data:&nbsp;&nbsp;delete&nbsp;data&nbsp;set&nbsp;from&nbsp;the&nbsp;list&nbsp;<br>
+&nbsp;<br>
+#&nbsp;attributes<br>
+15.&nbsp;set_attr:&nbsp;set&nbsp;attributes<br>
+16.&nbsp;get_attr:&nbsp;get&nbsp;attributes<br>
+&nbsp;<br>
+&nbsp;<br>
+Attributes&nbsp;(reserved&nbsp;words)<br>
+-----------------------------------------------------------<br>
+1.&nbsp;flnm:&nbsp;&lt;str&gt;:&nbsp;full&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;filepath:&nbsp;&nbsp;&lt;str&gt;:&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;name&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;flnmformat:&nbsp;&nbsp;&lt;str&gt;:&nbsp;template&nbsp;for&nbsp;filename<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="grdfile_desc_cl-__init__"><strong>__init__</strong></a>(self, filename, ref, header_start, data_start, comment_begin<font color="#909090">='#'</font>, delim<font color="#909090">=','</font>, mask_val<font color="#909090">=-999.0</font>, colnm_lst<font color="#909090">=[]</font>, **keywords)</dt><dd><tt>Inputs:<br>
+----------------------------------------------------------<br>
+1.&nbsp;filename:&lt;str&gt;:&nbsp;name&nbsp;the&nbsp;file&nbsp;<br>
+2.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;reference&nbsp;value&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;header_start:&lt;integer&gt;:&nbsp;header&nbsp;starting&nbsp;line&nbsp;Number&nbsp;<br>
+4.&nbsp;data_start:&lt;integer&gt;:&nbsp;header&nbsp;starting&nbsp;line&nbsp;Number<br>
+5.&nbsp;comment_begin:&lt;str&gt;:&nbsp;&nbsp;comment&nbsp;starting&nbsp;letter&nbsp;<br>
+6.&nbsp;delim:&lt;str&gt;:&nbsp;separator&nbsp;between&nbsp;items&nbsp;<br>
+7.&nbsp;mask_val:&nbsp;&lt;float&gt;:&nbsp;fillings&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;values<br>
+8.&nbsp;colnm_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;list&nbsp;of&nbsp;columns&nbsp;to&nbsp;be&nbsp;read<br>
+9.&nbsp;keywords:&lt;dict&gt;:&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-append_data"><strong>append_data</strong></a>(self, flnm, data, grd, gdata, ref)</dt><dd><tt>add&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;lists&nbsp;of&nbsp;the&nbsp;class<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;flnm:&nbsp;&lt;str&gt;:&nbsp;&nbsp;&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;data:&nbsp;&lt;array&gt;:&nbsp;&nbsp;raw&nbsp;data&nbsp;read&nbsp;from&nbsp;the&nbsp;file&nbsp;<br>
+3.&nbsp;grd:&nbsp;&lt;ctm_grd&gt;:&nbsp;grid&nbsp;extracted&nbsp;from&nbsp;raw&nbsp;data<br>
+4.&nbsp;gdata:&lt;array&gt;:&nbsp;&nbsp;data&nbsp;gridded&nbsp;over&nbsp;grd&nbsp;<br>
+5.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;id&nbsp;(such&nbsp;as&nbsp;time&nbsp;etc)&nbsp;for&nbsp;the&nbsp;data&nbsp;set</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-construct_filename"><strong>construct_filename</strong></a>(self, **keywords)</dt><dd><tt>construction&nbsp;file&nbsp;name&nbsp;use&nbsp;the&nbsp;keyword&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------<br>
+&nbsp;<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;file&nbsp;format&nbsp;and&nbsp;path<br>
+---expected&nbsp;Keynames:<br>
+---&gt;1.&nbsp;flnmformat:&lt;str&gt;:&nbsp;file&nbsp;format<br>
+---&gt;2.&nbsp;filepath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+---&gt;3.&nbsp;words&nbsp;used&nbsp;to&nbsp;replace&nbsp;dummies&nbsp;in&nbsp;file&nbsp;format.<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;sflnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-convert_matrix_to_grid"><strong>convert_matrix_to_grid</strong></a>(self, data, colnm_lst, colno_lst, zname<font color="#909090">=None</font>, zval<font color="#909090">=None</font>)</dt><dd><tt>wrapper&nbsp;for&nbsp;build_grid_from_matrix&nbsp;in&nbsp;gp_grid_m.py&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+-----------------------------------------------------<br>
+1.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;(horizontal)&nbsp;axis&nbsp;names<br>
+2.&nbsp;colno_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;columns&nbsp;of&nbsp;the&nbsp;(horizontal)&nbsp;axis<br>
+&nbsp;<br>
+3.&nbsp;data:&lt;array,&nbsp;(nrow,&nbsp;ncol)&gt;:&nbsp;data&nbsp;to&nbsp;be&nbsp;gridded'&nbsp;<br>
+---&nbsp;if&nbsp;(zname&nbsp;and&nbsp;zval)&nbsp;are&nbsp;given,&nbsp;&nbsp;&nbsp;each&nbsp;row&nbsp;in&nbsp;data&nbsp;is&nbsp;supposed&nbsp;to&nbsp;be&nbsp;in&nbsp;form&nbsp;of&nbsp;<br>
+---&gt;:&nbsp;&nbsp;[ax_1,&nbsp;ax_2,&nbsp;ax_3,..,&nbsp;ax_n,&nbsp;y1,&nbsp;y2,&nbsp;y3,&nbsp;...]<br>
+---if&nbsp;(zname&nbsp;and&nbsp;zval)&nbsp;are&nbsp;not&nbsp;given,&nbsp;each&nbsp;row&nbsp;data&nbsp;is&nbsp;supposed&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;<br>
+---&nbsp;[ax_1,&nbsp;ax_2,&nbsp;ax_3,&nbsp;...,ax_n,&nbsp;val]<br>
+&nbsp;<br>
+4.&nbsp;zname:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;&nbsp;z&nbsp;(vertical)&nbsp;axis<br>
+5.&nbsp;zval:&lt;array&gt;:&nbsp;&nbsp;z&nbsp;(vertical)&nbsp;axis&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------<br>
+1.&nbsp;grd:&lt;gp_grid_cl&gt;:&nbsp;grid&nbsp;<br>
+2.&nbsp;data:&lt;array&gt;:&nbsp;gridded&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-del_data"><strong>del_data</strong></a>(self, idx, by_ref<font color="#909090">=False</font>)</dt><dd><tt>Remove&nbsp;data&nbsp;from&nbsp;the&nbsp;list&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------<br>
+&nbsp;<br>
+1.idx&nbsp;:&lt;int/obj&gt;:&nbsp;index&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;to&nbsp;be&nbsp;deleted&nbsp;<br>
+2.&nbsp;by_ref:&lt;T/F&gt;:&nbsp;if&nbsp;ture&nbsp;,&nbsp;index&nbsp;will&nbsp;be&nbsp;treated&nbsp;as&nbsp;ref&nbsp;values&nbsp;for&nbsp;looking&nbsp;up&nbsp;ref_lst<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------<br>
+self.<strong>nset</strong>:&lt;int&gt;:&nbsp;the&nbsp;length&nbsp;of&nbsp;the&nbsp;current&nbsp;data&nbsp;lst</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-find_colno"><strong>find_colno</strong></a>(self, colnm)</dt><dd><tt>find&nbsp;the&nbsp;column&nbsp;no&nbsp;for&nbsp;a&nbsp;given&nbsp;column&nbsp;name&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;colnm:&lt;str&gt;:&nbsp;column&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------<br>
+1.&nbsp;col_idx:&lt;integer&gt;:&nbsp;the&nbsp;column&nbsp;with&nbsp;name&nbsp;given&nbsp;by&nbsp;colnm</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>get&nbsp;one&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+Returns:<br>
+-----------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-get_colno_list"><strong>get_colno_list</strong></a>(self, colnm_lst)</dt><dd><tt>find&nbsp;column&nbsp;number&nbsp;for&nbsp;given&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;colno_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;column&nbsp;no&nbsp;for&nbsp;each&nbsp;column&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-get_index"><strong>get_index</strong></a>(self, ref)</dt><dd><tt>find&nbsp;the&nbsp;index&nbsp;of&nbsp;the&nbsp;given&nbsp;reference&nbsp;values<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;reference&nbsp;value&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------<br>
+1.index:&lt;int&gt;:&nbsp;if&nbsp;found,&nbsp;index&nbsp;of&nbsp;the&nbsp;reference&nbsp;value&nbsp;will&nbsp;be&nbsp;&nbsp;returned</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-is_comment_line"><strong>is_comment_line</strong></a>(self, line)</dt><dd><tt>check&nbsp;a&nbsp;line&nbsp;is&nbsp;just&nbsp;for&nbsp;comments<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;line:&nbsp;&lt;str&gt;:&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;is_comment:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;the&nbsp;line&nbsp;start&nbsp;with&nbsp;comment_begin</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-locate_section"><strong>locate_section</strong></a>(self, lines, marker)</dt><dd><tt>find&nbsp;the&nbsp;first&nbsp;line&nbsp;starting&nbsp;with&nbsp;the&nbsp;given&nbsp;marker&nbsp;<br>
+Inputs:<br>
+----------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;lines<br>
+2.&nbsp;marker:&lt;str&gt;:&nbsp;marker&nbsp;for&nbsp;the&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------<br>
+1.&nbsp;pos:&lt;int&gt;:&nbsp;the&nbsp;location&nbsp;&nbsp;of&nbsp;the&nbsp;line&nbsp;starting&nbsp;with&nbsp;marker</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-read_header_from_lines"><strong>read_header_from_lines</strong></a>(self, lines, head_st<font color="#909090">=None</font>, head_end<font color="#909090">=None</font>, marker<font color="#909090">=None</font>)</dt><dd><tt>Read&nbsp;header&nbsp;from&nbsp;lines&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;lines&nbsp;to&nbsp;be&nbsp;read<br>
+2.&nbsp;head_st:&lt;int/str&gt;:&nbsp;start&nbsp;of&nbsp;the&nbsp;head&nbsp;section&nbsp;<br>
+3.&nbsp;head_end:&lt;int/str&gt;:&nbsp;end&nbsp;of&nbsp;the&nbsp;head&nbsp;section&nbsp;<br>
+4.&nbsp;marker:&lt;str&gt;:&nbsp;marker&nbsp;for&nbsp;header&nbsp;lines&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;head_line:&lt;list,&nbsp;t:str&gt;:&nbsp;head&nbsp;lines&nbsp;(see&nbsp;Note&nbsp;1)<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;if&nbsp;marker==None,&nbsp;&nbsp;the&nbsp;section&nbsp;between&nbsp;header_start&nbsp;and&nbsp;data_start&nbsp;<br>
+will&nbsp;be&nbsp;treated&nbsp;as&nbsp;header&nbsp;section</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-read_matrix_from_lines"><strong>read_matrix_from_lines</strong></a>(self, lines, colno_lst<font color="#909090">=None</font>, lstart<font color="#909090">=None</font>, lend<font color="#909090">=None</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;lines&nbsp;into&nbsp;data&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;colno_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;to&nbsp;be&nbsp;read<br>
+3.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+4.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+5.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------<br>
+1.data:&lt;array&gt;:&nbsp;data&nbsp;matrix</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, value)</dt><dd><tt>assign&nbsp;one&nbsp;attribute<br>
+Inputs:<br>
+-------------------------------------------------------<br>
+1.&nbsp;attr_name:&nbsp;&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;value:&nbsp;&lt;obj&gt;:attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-set_file_path"><strong>set_file_path</strong></a>(self, path)</dt><dd><tt>set&nbsp;path&nbsp;for&nbsp;data&nbsp;file&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;path:&lt;str&gt;:&nbsp;path&nbsp;&nbsp;for&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-set_filename"><strong>set_filename</strong></a>(self, flnm, ref)</dt><dd><tt>set&nbsp;the&nbsp;current&nbsp;filename&nbsp;and&nbsp;the&nbsp;current&nbsp;reference&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;yyyy:&lt;int&gt;:&nbsp;year<br>
+2.&nbsp;mm:&lt;int&gt;:&nbsp;month<br>
+3.&nbsp;dd:&lt;int&gt;:&nbsp;dd<br>
+4.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="grdfile_desc_cl-set_filename_format"><strong>set_filename_format</strong></a>(self, flnm_format)</dt><dd><tt>set&nbsp;template&nbsp;for&nbsp;filename&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;flnm_format:&lt;str&gt;:&nbsp;format&nbsp;for&nbsp;file&nbsp;name</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

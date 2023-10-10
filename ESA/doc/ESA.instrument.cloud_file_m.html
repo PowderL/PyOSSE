@@ -1,0 +1,180 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.cloud_file_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.cloud_file_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/cloud_file_m.py">/home/lfeng/otool/ESA/instrument/cloud_file_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;reading&nbsp;&nbsp;Cloud&nbsp;PDF&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.26<br>
+&nbsp;<br>
+Functions<br>
+=================================================<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+1.&nbsp;get_cld_column_name:&nbsp;&nbsp;check&nbsp;names&nbsp;of&nbsp;columns&nbsp;in&nbsp;AK&nbsp;file<br>
+2.&nbsp;get_cld_surface_type:&nbsp;check&nbsp;names&nbsp;of&nbsp;surface&nbsp;types<br>
+&nbsp;<br>
+3.&nbsp;cld_rescale:&nbsp;rescale&nbsp;CLD&nbsp;axis&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;open_cloud_file:&nbsp;set&nbsp;up&nbsp;class&nbsp;file_desc_cl&nbsp;for&nbsp;file&nbsp;access<br>
+5.&nbsp;read_cloud_file:&nbsp;read&nbsp;cloud&nbsp;&nbsp;&nbsp;data&nbsp;into&nbsp;class&nbsp;file_desc_cl<br>
+6.&nbsp;close_cloud_file:&nbsp;delete&nbsp;class&nbsp;file_desc_cl<br>
+7.&nbsp;get_data:&nbsp;get&nbsp;cloud&nbsp;data&nbsp;at&nbsp;given&nbsp;locations<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;(dataset)&nbsp;manage<br>
+&nbsp;<br>
+8.&nbsp;get_cloud_file_ref:&nbsp;check&nbsp;file&nbsp;reference<br>
+9.&nbsp;add_cloud_data:&nbsp;add&nbsp;cloud&nbsp;data&nbsp;to&nbsp;the&nbsp;list</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_grdfile_io.html">ESA.util.otool_grdfile_io</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="pylab.html">pylab</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_cloud_data"><strong>add_cloud_data</strong></a>(fdesc, ref, **keywords)</dt><dd><tt>add&nbsp;the&nbsp;cloud&nbsp;data&nbsp;defined&nbsp;by&nbsp;ref&nbsp;to&nbsp;the&nbsp;fdesc<br>
+&nbsp;<br>
+Inputs:<br>
+=====================================<br>
+1.&nbsp;fdesc:&lt;grdfile_io_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;ref:&lt;str/numeric&gt;:&nbsp;reference&nbsp;for&nbsp;data&nbsp;sets&nbsp;read&nbsp;from&nbsp;file&nbsp;<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;parameters<br>
+&nbsp;<br>
+Returns:<br>
+=====================================<br>
+1.&nbsp;idx:&lt;int&gt;:&nbsp;index&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;with&nbsp;reference&nbsp;=ref.</tt></dd></dl>
+ <dl><dt><a name="-close_cloud_file"><strong>close_cloud_file</strong></a>(fdesc)</dt><dd><tt>Close&nbsp;fdesc&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-get_cld_column_name"><strong>get_cld_column_name</strong></a>()</dt><dd><tt>check&nbsp;column&nbsp;names&nbsp;defined&nbsp;in&nbsp;cloud&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+---------------------------------------<br>
+1.&nbsp;fl_colnm_lst:&lt;list,&nbsp;str&gt;:&nbsp;name&nbsp;of&nbsp;columns&nbsp;in&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-get_cld_file_ref"><strong>get_cld_file_ref</strong></a>(yyyy, mm, dd, **keywords)</dt><dd><tt>check&nbsp;file&nbsp;reference<br>
+for&nbsp;cloud&nbsp;climatology,&nbsp;the&nbsp;reference&nbsp;number&nbsp;is&nbsp;climatology&nbsp;months&nbsp;[1,&nbsp;4,&nbsp;7,&nbsp;10]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;yyyy:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;year<br>
+2.&nbsp;mm:&nbsp;&lt;array,&nbsp;(ntime,)&gt;:&nbsp;month<br>
+3.&nbsp;dd:&lt;array,&nbsp;(ntime,)&gt;:&nbsp;dd<br>
+4.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;information<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;ref:&lt;int&gt;:&nbsp;reference&nbsp;number&nbsp;<br>
+---&nbsp;ref&nbsp;can&nbsp;be&nbsp;[1,&nbsp;4,&nbsp;7&nbsp;or&nbsp;&nbsp;10]&nbsp;for&nbsp;climatology&nbsp;month.</tt></dd></dl>
+ <dl><dt><a name="-get_cloud_data"><strong>get_cloud_data</strong></a>(fdesc, olon, olat, oyyyy, omm, odd, osec, do_debug<font color="#909090">=False</font>, **keywords)</dt><dd><tt>read&nbsp;cloud&nbsp;data&nbsp;at&nbsp;given&nbsp;point&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;fdesc:&lt;grdfile_io_cl&gt;:&nbsp;file&nbsp;access&nbsp;<br>
+2.&nbsp;olon:&nbsp;&lt;array,&nbsp;(nob,)&gt;:&nbsp;longitude<br>
+3.&nbsp;olat:&nbsp;&lt;array,&nbsp;(nob,)&gt;:&nbsp;latitude<br>
+4.&nbsp;oyyyy:&lt;array&nbsp;(nob)&gt;:&nbsp;year&nbsp;(for&nbsp;future&nbsp;use)<br>
+---&nbsp;oyyyy&nbsp;can&nbsp;also&nbsp;be&nbsp;a&nbsp;single&nbsp;value&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;omm:&nbsp;&lt;int/array&nbsp;(nob)&gt;:&nbsp;month&nbsp;<br>
+---&nbsp;omm&nbsp;can&nbsp;also&nbsp;be&nbsp;a&nbsp;single&nbsp;value&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;odd:&lt;int/array&nbsp;(nob)&gt;:&nbsp;day&nbsp;(for&nbsp;future&nbsp;use)<br>
+7.&nbsp;osec:&lt;float/array&nbsp;(nob)&gt;:&nbsp;seconds&nbsp;&nbsp;&nbsp;(for&nbsp;future&nbsp;use)<br>
+&nbsp;<br>
+8.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+&nbsp;<br>
+---Reserved&nbsp;Entries<br>
+---common_ref:&lt;str/numeric&gt;:&nbsp;the&nbsp;reference&nbsp;shared&nbsp;by&nbsp;observations.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+================================================<br>
+cld:&lt;array,&nbsp;(nob,&nbsp;)&gt;:&nbsp;cloud&nbsp;at&nbsp;the&nbsp;(olon,&nbsp;olat,&nbsp;otime)</tt></dd></dl>
+ <dl><dt><a name="-open_cloud_file"><strong>open_cloud_file</strong></a>(datapath, flnm, yyyy, mm, dd, **keywords)</dt><dd><tt>setup&nbsp;fdesc&nbsp;for&nbsp;average&nbsp;kernal&nbsp;data<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;file&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use&nbsp;)<br>
+2.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;year<br>
+4.&nbsp;mm:&lt;int&gt;:&nbsp;month<br>
+5.&nbsp;dd:&nbsp;&lt;int&gt;:&nbsp;day&nbsp;<br>
+6:&nbsp;&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;for&nbsp;reading&nbsp;file<br>
+&nbsp;<br>
+---Reserved&nbsp;Words:<br>
+---&gt;'fl_colnm_lst':&nbsp;&lt;list,&nbsp;t:str&gt;:&nbsp;names&nbsp;of&nbsp;all&nbsp;<br>
+&nbsp;&nbsp;&nbsp;columns&nbsp;in&nbsp;the&nbsp;cloud&nbsp;file&nbsp;<br>
+&nbsp;<br>
+---&gt;'delim':&lt;str&gt;:&nbsp;separator&nbsp;in&nbsp;the&nbsp;columns&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access</tt></dd></dl>
+ <dl><dt><a name="-read_cloud_file"><strong>read_cloud_file</strong></a>(fdesc, **keywords)</dt><dd><tt>Read&nbsp;cloud&nbsp;&nbsp;data&nbsp;into&nbsp;fdesc<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;grdfile_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access<br>
+2.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;for&nbsp;data&nbsp;reading.&nbsp;<br>
+&nbsp;<br>
+---Reserved&nbsp;Entries<br>
+---&gt;replaces:&nbsp;&lt;dict,&nbsp;old:new&gt;:&nbsp;texts&nbsp;should&nbsp;be&nbsp;replaced.&nbsp;<br>
+---&gt;&nbsp;zname:&nbsp;&lt;str&gt;:&nbsp;axis&nbsp;name&nbsp;for&nbsp;vertical&nbsp;(e.g.,&nbsp;&nbsp;log10(pressure))&nbsp;axis<br>
+---&gt;&nbsp;zval:&nbsp;&lt;array,&nbsp;(nz,)&gt;:&nbsp;vertical&nbsp;axis&nbsp;<br>
+---&gt;&nbsp;ax_colnm_lst:&nbsp;&lt;list,&nbsp;t:str&gt;:&nbsp;column&nbsp;name&nbsp;for&nbsp;horizontal&nbsp;axis<br>
+---&gt;&nbsp;fl_colno_lst:&lt;lst,&nbsp;t:int&gt;:&nbsp;columns&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;fdesc:&lt;grdfile_desc_cl&gt;:&nbsp;file&nbsp;access&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------<br>
+1.fdesc.grd_lst&nbsp;and&nbsp;fdesc.gdata_lst&nbsp;will&nbsp;store&nbsp;1)&nbsp;grid;&nbsp;and&nbsp;2)&nbsp;gridded&nbsp;data</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>cld_axis_name</strong> = ['lon', 'lat']<br>
+<strong>cld_data_start</strong> = 0<br>
+<strong>cld_filename_format</strong> = 'meancloud_frac_XMONTHX_landsea.dat'<br>
+<strong>cld_header_start</strong> = -1<br>
+<strong>cld_varname_dict</strong> = {'cloud': 'val', 'lat': 'lat', 'lon': 'lon'}<br>
+<strong>cld_zname</strong> = None<br>
+<strong>cld_zval</strong> = None<br>
+<strong>def_cld_colnm_lst</strong> = ['lat', 'lon', 'val']<br>
+<strong>def_cld_colno_lst</strong> = [0, 1, 2]<br>
+<strong>def_cld_lvl</strong> = array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,... 0.7 ,  0.75,  0.8 ,  0.85,
+        0.9 ,  0.95])<br>
+<strong>def_cld_replaces</strong> = {'-9999.0': '-999.0'}</td></tr></table>
+</body></html>

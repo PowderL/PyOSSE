@@ -1,0 +1,214 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.atmosphere.ctm_field_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.atmosphere.html"><font color="#ffffff">atmosphere</font></a>.ctm_field_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/atmosphere/ctm_field_m.py">/home/lfeng/otool/ESA/atmosphere/ctm_field_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;two,&nbsp;&nbsp;three&nbsp;or&nbsp;four&nbsp;dimenisonal&nbsp;(lon-lat-press-time&nbsp;etc)&nbsp;model&nbsp;data&nbsp;set<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.5,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2012.12.16<br>
+&nbsp;<br>
+Classes:<br>
+----------------------------------------------------<br>
+1.&nbsp;<a href="#ctm_field_cl">ctm_field_cl</a>:&nbsp;class&nbsp;for&nbsp;model&nbsp;2D/3D/4D&nbsp;field.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.atmosphere.ctm_grid_3d.html">ESA.atmosphere.ctm_grid_3d</a><br>
+<a href="ESA.atmosphere.ctm_profile_m.html">ESA.atmosphere.ctm_profile_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.atmosphere.gc_grid_3d.html">ESA.atmosphere.gc_grid_3d</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.atmosphere.ctm_field_m.html#ctm_field_cl">ctm_field_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ctm_field_cl">class <strong>ctm_field_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>general&nbsp;container&nbsp;for&nbsp;geo-physical&nbsp;variables&nbsp;in&nbsp;a&nbsp;high-dimension&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+It&nbsp;can&nbsp;be&nbsp;&nbsp;used&nbsp;to&nbsp;store&nbsp;multiple&nbsp;species&nbsp;storage&nbsp;species&nbsp;fields,&nbsp;<br>
+such&nbsp;as&nbsp;T,&nbsp;O3,&nbsp;H2O,&nbsp;etc.&nbsp;&nbsp;It&nbsp;also&nbsp;contains&nbsp;member&nbsp;functions&nbsp;for&nbsp;<br>
+field&nbsp;regrid&nbsp;and&nbsp;interploations&nbsp;etc<br>
+&nbsp;<br>
+Members:<br>
+--------------------------------------------------------------------&nbsp;&nbsp;&nbsp;<br>
+1.&nbsp;name:&nbsp;&lt;str&gt;:&nbsp;name&nbsp;(container&nbsp;name&nbsp;etc)<br>
+2.&nbsp;ctm_grid:&lt;ctm_grid_cl&gt;:&nbsp;the&nbsp;grid&nbsp;for&nbsp;ctm<br>
+3.&nbsp;is_xyz_data:&lt;T/F&gt;:&nbsp;True&nbsp;when&nbsp;data&nbsp;is&nbsp;in&nbsp;form&nbsp;of&nbsp;&nbsp;[lon,&nbsp;lat,&nbsp;lz,...].&nbsp;<br>
+---Otherwise,&nbsp;data&nbsp;is&nbsp;inform&nbsp;of&nbsp;[lon,&nbsp;lat,&nbsp;...].<br>
+&nbsp;<br>
+4.&nbsp;ndim:&nbsp;&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;dimensions.<br>
+5.&nbsp;dims:&nbsp;&lt;array&gt;:&nbsp;sizes&nbsp;in&nbsp;each&nbsp;directions.<br>
+6.&nbsp;extra_axis:&lt;gp_axis&gt;:&nbsp;extra&nbsp;axis.<br>
+7.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;attributes.<br>
+8.&nbsp;data:&nbsp;&lt;array&gt;:&nbsp;data<br>
+9.&nbsp;unit:&lt;str/float&gt;:&nbsp;unit&nbsp;of&nbsp;the&nbsp;data<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Attributes&nbsp;(expected&nbsp;or&nbsp;reserved)<br>
+---------------------------------------------------<br>
+1.&nbsp;tracer_name:&lt;str&gt;:&nbsp;tracer&nbsp;name&nbsp;<br>
+2.&nbsp;tracer_id:&lt;integer&gt;:&nbsp;tracer&nbsp;number<br>
+3.&nbsp;category:&lt;str&gt;:&nbsp;tracer&nbsp;category<br>
+4.&nbsp;group:&lt;str/integer&gt;:&nbsp;group&nbsp;id&nbsp;for&nbsp;the&nbsp;tracer<br>
+&nbsp;<br>
+5.&nbsp;tau_st:&lt;float&gt;:&nbsp;start&nbsp;time&nbsp;(hours&nbsp;since&nbsp;1985.01.01&nbsp;00:00)<br>
+6.&nbsp;tau_end:&lt;float&gt;:end&nbsp;time&nbsp;(hours&nbsp;since&nbsp;1985.01.01&nbsp;00:00)<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;__init__:Initialization<br>
+2.&nbsp;get_grid:&nbsp;get&nbsp;CTM&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+#&nbsp;data&nbsp;retieval&nbsp;and&nbsp;maintainence.&nbsp;<br>
+3.&nbsp;update_data:&nbsp;update&nbsp;the&nbsp;data&nbsp;set&nbsp;and&nbsp;its&nbsp;attributes<br>
+4.&nbsp;copy_data:&nbsp;get&nbsp;the&nbsp;copy&nbsp;of&nbsp;the&nbsp;data&nbsp;set.<br>
+5.&nbsp;get_data:&nbsp;return&nbsp;the&nbsp;pointer&nbsp;of&nbsp;data&nbsp;member.<br>
+5.&nbsp;__getitem__:&nbsp;(over-riding)&nbsp;index&nbsp;function&nbsp;<br>
+6.&nbsp;get_profile:&nbsp;get&nbsp;profiles&nbsp;at&nbsp;horizontal&nbsp;locations<br>
+&nbsp;<br>
+#&nbsp;attributes<br>
+7.&nbsp;set_attr:&nbsp;set&nbsp;attribute<br>
+8.&nbsp;get_attr:&nbsp;get&nbsp;attribute<br>
+9.&nbsp;is_matched:&nbsp;compare&nbsp;attributes<br>
+10.&nbsp;copy_attr_dict:&nbsp;&nbsp;get&nbsp;attriute&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+11.&nbsp;copy:&nbsp;make&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;class<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ctm_field_cl-__getitem__"><strong>__getitem__</strong></a>(self, index)</dt><dd><tt>over-ridding&nbsp;index&nbsp;function<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;index:&lt;array,(ndim,&nbsp;)&gt;:&nbsp;element&nbsp;indexs&nbsp;of&nbsp;data&nbsp;array<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------<br>
+1.&nbsp;data[index]:&lt;array&gt;:&nbsp;data&nbsp;values&nbsp;at&nbsp;the&nbsp;&nbsp;elements&nbsp;specified&nbsp;by&nbsp;index.</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-__init__"><strong>__init__</strong></a>(self, name, data, unit<font color="#909090">=''</font>, ctm_grd<font color="#909090">=None</font>, is_xyz_data<font color="#909090">=True</font>, extra_axis<font color="#909090">=None</font>, **keywords)</dt><dd><tt>initialization<br>
+&nbsp;<br>
+Input:<br>
+&nbsp;<br>
+--------------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:name&nbsp;of&nbsp;the&nbsp;object&nbsp;<br>
+2.&nbsp;data:&lt;array&gt;:&nbsp;&nbsp;(2D,&nbsp;3D&nbsp;or&nbsp;4D)&nbsp;data&nbsp;over&nbsp;ctm_grid<br>
+---Data&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;form&nbsp;of<br>
+&nbsp;<br>
+(a).&nbsp;(lon,&nbsp;lat,&nbsp;lz)&nbsp;for&nbsp;3D&nbsp;spatial&nbsp;distributions&nbsp;&nbsp;or<br>
+(b).&nbsp;(lon,&nbsp;lat,&nbsp;ntime)&nbsp;for&nbsp;2D&nbsp;time&nbsp;serie,&nbsp;<br>
+(c).&nbsp;(lon,&nbsp;lat,&nbsp;ne)&nbsp;2D&nbsp;data&nbsp;ensemble<br>
+(d).&nbsp;(lon,&nbsp;lat,&nbsp;lz,&nbsp;ntime):3D&nbsp;time&nbsp;series<br>
+(e).&nbsp;(lon,&nbsp;lat,&nbsp;lz,&nbsp;ne):&nbsp;3D&nbsp;data&nbsp;ensemble&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;ctm_grd:&lt;ctm_grid_cl&gt;:&nbsp;grid&nbsp;<br>
+4.&nbsp;is_xyz_data:&lt;T/F&gt;:&nbsp;form&nbsp;of&nbsp;the&nbsp;field&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;keywords:&lt;dict&gt;:&nbsp;&nbsp;attributes&nbsp;(expected):<br>
+&nbsp;<br>
+---&gt;tracer_name:&lt;str&gt;:&nbsp;tracer&nbsp;name&nbsp;<br>
+---&gt;tracer_id:&lt;integer&gt;:&nbsp;tracer&nbsp;number<br>
+---&gt;category:&lt;str&gt;:&nbsp;tracer&nbsp;category<br>
+---&gt;group:&lt;str/integer&gt;:tracer&nbsp;group&nbsp;ID.&nbsp;<br>
+---&gt;tau0:&lt;float&gt;:&nbsp;start&nbsp;time&nbsp;(Hours&nbsp;since&nbsp;1985.01.01&nbsp;00:00)<br>
+---&gt;tau1:&lt;float&gt;:end&nbsp;time&nbsp;(Hours&nbsp;since&nbsp;1985.01.01&nbsp;00:00)</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-copy"><strong>copy</strong></a>(self)</dt><dd><tt>make&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;class<br>
+Returns:<br>
+--------------------------------------<br>
+1.&nbsp;new_field:&nbsp;a&nbsp;copy&nbsp;of&nbsp;field</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-copy_attr_dict"><strong>copy_attr_dict</strong></a>(self)</dt><dd><tt>get&nbsp;the&nbsp;attribute&nbsp;dictionary</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-copy_data"><strong>copy_data</strong></a>(self)</dt><dd><tt>&nbsp;get&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;data&nbsp;<br>
+&nbsp;<br>
+&nbsp;Outputs:<br>
+-------------------------------------------<br>
+1.&nbsp;data:&lt;array,&gt;:&nbsp;one&nbsp;copy&nbsp;of&nbsp;the&nbsp;data&nbsp;stored&nbsp;here</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-get_attr"><strong>get_attr</strong></a>(self, name)</dt><dd><tt>get&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------<br>
+1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-get_data"><strong>get_data</strong></a>(self)</dt><dd><tt>get&nbsp;the&nbsp;data&nbsp;<br>
+&nbsp;<br>
+Outputs<br>
+----------------------------------<br>
+1.&nbsp;self.<strong>data</strong>:&lt;array,&gt;:&nbsp;the&nbsp;data&nbsp;member</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-get_grid"><strong>get_grid</strong></a>(self)</dt><dd><tt>retrieve&nbsp;CTM&nbsp;grid<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+-----------------------------------<br>
+1.&nbsp;ctm_grd:&lt;ctm_grd_cl&gt;:&nbsp;class</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-get_profile"><strong>get_profile</strong></a>(self, olon, olat)</dt><dd><tt>get&nbsp;profiles&nbsp;at&nbsp;the&nbsp;horizontal&nbsp;locations&nbsp;&nbsp;(olon,&nbsp;olat)<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;olon:&lt;array,&nbsp;(nob,)&gt;:&nbsp;longitudes&nbsp;at&nbsp;nob&nbsp;locations<br>
+2.&nbsp;olat:&lt;array,&nbsp;(nob,)&gt;:&nbsp;latitudes&nbsp;&nbsp;at&nbsp;nob&nbsp;locations<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------<br>
+1.&nbsp;prof:&lt;array,&nbsp;(nob,&nbsp;nz)&gt;:&nbsp;profiles&nbsp;at&nbsp;nob&nbsp;locations</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-is_matched"><strong>is_matched</strong></a>(self, **keywords)</dt><dd><tt>Check&nbsp;whether&nbsp;attribute&nbsp;is&nbsp;matched&nbsp;what&nbsp;is&nbsp;required<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;keywords:&lt;dictionary&gt;:&nbsp;Attributes&nbsp;to&nbsp;be&nbsp;compared</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-set_attr"><strong>set_attr</strong></a>(self, name, val)</dt><dd><tt>set&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-set_grid"><strong>set_grid</strong></a>(self, ctm_grd)</dt><dd><tt>define&nbsp;the&nbsp;grid&nbsp;<br>
+Inputs:&nbsp;<br>
+-------------------------------<br>
+1.ctm_grid:&lt;ctm_grid_cl&gt;:&nbsp;grid</tt></dd></dl>
+
+<dl><dt><a name="ctm_field_cl-update_data"><strong>update_data</strong></a>(self, data, **keywords)</dt><dd><tt>change&nbsp;&nbsp;data&nbsp;<br>
+&nbsp;<br>
+Inputs:&nbsp;<br>
+----------------------------------------<br>
+1.data:&lt;array,&nbsp;([nlon],&nbsp;[nlat],&nbsp;[nz],&nbsp;,,,)&gt;:&nbsp;<br>
+---data&nbsp;array&nbsp;with&nbsp;shape&nbsp;assumed&nbsp;to&nbsp;be&nbsp;consistent&nbsp;with&nbsp;ctm_grid</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

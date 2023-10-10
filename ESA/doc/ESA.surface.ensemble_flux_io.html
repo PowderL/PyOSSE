@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.ensemble_flux_io</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.ensemble_flux_io</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/ensemble_flux_io.py">/home/lfeng/otool/ESA/surface/ensemble_flux_io.py</a></font></td></tr></table>
+    <p><tt>Asistent&nbsp;functions&nbsp;for&nbsp;generating&nbsp;ensemble&nbsp;fluxes&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.21<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<br>
+Functions:<br>
+===============================================<br>
+1.&nbsp;define_ens_step:&nbsp;time&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;fluxes</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-define_ens_step"><strong>define_ens_step</strong></a>(yyyy_st, mm_st, dd_st, time_step, nstep, **keywords)</dt><dd><tt>define&nbsp;&nbsp;time&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;fluxes&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;yyyy_st:&lt;int&gt;:&nbsp;start&nbsp;year&nbsp;<br>
+2.&nbsp;mm_st:&lt;int&gt;:&nbsp;start&nbsp;month&nbsp;<br>
+3.&nbsp;dd_st:&lt;int&gt;:&nbsp;start&nbsp;day&nbsp;<br>
+4.&nbsp;time_step:&lt;int&gt;:&nbsp;time&nbsp;interval&nbsp;for&nbsp;fluxes&nbsp;<br>
+5.&nbsp;nstep:&lt;int&gt;:&nbsp;numbe&nbsp;of&nbsp;step<br>
+6.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;extra&nbsp;inputs<br>
+---Reserved&nbsp;entries:<br>
+--&gt;reset_at_new_year:&nbsp;&lt;int&gt;:&nbsp;1=move&nbsp;doy&nbsp;to&nbsp;doy=1&nbsp;for&nbsp;each&nbsp;new&nbsp;year&nbsp;<br>
+--&gt;reset_at_new_month:&nbsp;&lt;int&gt;:&nbsp;1=move&nbsp;doy&nbsp;to&nbsp;the&nbsp;fist&nbsp;day&nbsp;of&nbsp;each&nbsp;new&nbsp;month&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+--------------------------------------------------<br>
+1.ens_yyyy_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;starting&nbsp;year<br>
+2.ens_doy_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;starting&nbsp;doy</tt></dd></dl>
+</td></tr></table>
+</body></html>

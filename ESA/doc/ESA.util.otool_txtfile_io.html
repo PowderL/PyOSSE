@@ -1,0 +1,347 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.otool_txtfile_io</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.otool_txtfile_io</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/otool_txtfile_io.py">/home/lfeng/otool/ESA/util/otool_txtfile_io.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;text&nbsp;file&nbsp;IO.&nbsp;It&nbsp;contains&nbsp;codes&nbsp;for&nbsp;reading&nbsp;ascii&nbsp;table&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.11.28<br>
+History:&nbsp;v0.95,&nbsp;2013.01.22<br>
+&nbsp;<br>
+&nbsp;<br>
+Classes:<br>
+=============================================================<br>
+1.&nbsp;<a href="#file_desc_cl">file_desc_cl</a>:&nbsp;class&nbsp;for&nbsp;ascii&nbsp;file&nbsp;access.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="ESA.util.line_process_m.html">ESA.util.line_process_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top><a href="Scientific.IO.NetCDF.html">Scientific.IO.NetCDF</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.otool_txtfile_io.html#file_desc_cl">file_desc_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="file_desc_cl">class <strong>file_desc_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;description&nbsp;of&nbsp;ascii&nbsp;file&nbsp;&nbsp;<br>
+Members:<br>
+=====================================================<br>
+1.&nbsp;header_start:&lt;int&gt;:&nbsp;header&nbsp;starting&nbsp;row&nbsp;<br>
+2.&nbsp;data_start:&lt;int&gt;:&nbsp;data&nbsp;starting&nbsp;row&nbsp;<br>
+3.&nbsp;comment_begin:&lt;str&gt;:&nbsp;beginning&nbsp;character&nbsp;of&nbsp;comment&nbsp;lines<br>
+4.&nbsp;mask_val:&lt;float&gt;:&nbsp;filling&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;data<br>
+5.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file<br>
+6.&nbsp;dtable:&lt;recarray&gt;:&nbsp;recarray&nbsp;read&nbsp;from&nbsp;files&nbsp;<br>
+7.&nbsp;data:&lt;array&gt;:&nbsp;array&nbsp;read&nbsp;from&nbsp;files&nbsp;<br>
+8.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attribute&nbsp;dictionarys<br>
+9.&nbsp;grd:&lt;gp_grid_cl&gt;:&nbsp;grid&nbsp;of&nbsp;the&nbsp;data&nbsp;<br>
+10.gdata:&lt;array&gt;:&nbsp;gridded&nbsp;data&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+==================================<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;is_comment_line:&nbsp;check&nbsp;whether&nbsp;a&nbsp;line&nbsp;is&nbsp;for&nbsp;comments&nbsp;&nbsp;<br>
+3.&nbsp;read_table_from_file:&nbsp;read&nbsp;columns&nbsp;of&nbsp;a&nbsp;text&nbsp;file&nbsp;&nbsp;into&nbsp;a&nbsp;table&nbsp;(recarray)<br>
+4.&nbsp;read_table_from_file_byvar:&nbsp;read&nbsp;columns&nbsp;named&nbsp;by&nbsp;a&nbsp;var_lst&nbsp;<br>
+---from&nbsp;a&nbsp;text&nbsp;file&nbsp;&nbsp;into&nbsp;a&nbsp;table&nbsp;(recarray)<br>
+5.&nbsp;read_table_from_lines_byvar:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;a&nbsp;table&nbsp;<br>
+---(recarray)&nbsp;defined&nbsp;by&nbsp;a&nbsp;var_lst<br>
+&nbsp;<br>
+6.&nbsp;read_table_from_lines:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;a&nbsp;table&nbsp;(recarray)&nbsp;(wrapper&nbsp;for&nbsp;functions&nbsp;in&nbsp;line_process_m)<br>
+&nbsp;<br>
+7.&nbsp;read_matrix_from_lines:&nbsp;decode&nbsp;lines&nbsp;into&nbsp;matrix&nbsp;(array).&nbsp;(wrapper&nbsp;for&nbsp;functions&nbsp;in&nbsp;line_process_m)<br>
+&nbsp;<br>
+&nbsp;<br>
+8.&nbsp;find_colno:&nbsp;get&nbsp;column&nbsp;number&nbsp;<br>
+9.&nbsp;get_colno_list:&nbsp;find&nbsp;the&nbsp;column&nbsp;numbers&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;names<br>
+10.&nbsp;get_colno_list_byvar:&nbsp;find&nbsp;the&nbsp;column&nbsp;numbers&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;var&nbsp;<br>
+11.&nbsp;get_colnm_list_byvar:&nbsp;find&nbsp;the&nbsp;column&nbsp;names&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;var&nbsp;<br>
+12.&nbsp;get_coltype_list_byvar:&nbsp;find&nbsp;the&nbsp;types&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;var&nbsp;<br>
+&nbsp;<br>
+13.&nbsp;get_lon:&nbsp;get&nbsp;longitude&nbsp;if&nbsp;existing&nbsp;<br>
+14.&nbsp;get_lat:&nbsp;get&nbsp;latitude&nbsp;if&nbsp;existing&nbsp;<br>
+15.&nbsp;get_time:&nbsp;get&nbsp;time&nbsp;if&nbsp;existing&nbsp;<br>
+16.&nbsp;get_column_data:&nbsp;get&nbsp;data&nbsp;for&nbsp;a&nbsp;given&nbsp;column&nbsp;<br>
+17.&nbsp;convert_matrix_to_grd:&nbsp;convert&nbsp;matrix&nbsp;to&nbsp;grid&nbsp;data<br>
+&nbsp;<br>
+18.&nbsp;read_header_from_lines:read&nbsp;header&nbsp;from&nbsp;given&nbsp;lines<br>
+19.&nbsp;locate_section:&nbsp;find&nbsp;the&nbsp;beginning&nbsp;(or&nbsp;end)&nbsp;of&nbsp;section&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;<br>
+20.&nbsp;set_filename:&nbsp;&nbsp;set&nbsp;the&nbsp;current&nbsp;filename&nbsp;and&nbsp;the&nbsp;current&nbsp;reference&nbsp;ID.&nbsp;<br>
+21.&nbsp;set_file_path:&nbsp;set&nbsp;the&nbsp;file&nbsp;path&nbsp;<br>
+22.&nbsp;&nbsp;set_filename_format:&nbsp;set&nbsp;template&nbsp;for&nbsp;filename<br>
+23.&nbsp;construct_filename:&nbsp;use&nbsp;template&nbsp;and&nbsp;keywords<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;attributes<br>
+24.&nbsp;set_attr:&nbsp;set&nbsp;attributes<br>
+25.&nbsp;get_attr:&nbsp;get&nbsp;attributes<br>
+&nbsp;<br>
+Attributes&nbsp;(reserved&nbsp;words)<br>
+-----------------------------------------------------------<br>
+1.&nbsp;flnm:&nbsp;&lt;str&gt;:&nbsp;full&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;filepath:&nbsp;&nbsp;&lt;str&gt;:&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;name&nbsp;<br>
+3.&nbsp;flnmformat:&nbsp;&nbsp;&lt;str&gt;:&nbsp;template&nbsp;for&nbsp;filename<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="file_desc_cl-__init__"><strong>__init__</strong></a>(self, header_start, data_start, comment_begin<font color="#909090">='#'</font>, delim<font color="#909090">=','</font>, mask_val<font color="#909090">=-999.0</font>, colnm_lst<font color="#909090">=[]</font>, **keywords)</dt><dd><tt>Inputs:<br>
+----------------------------------------------------------<br>
+1.&nbsp;header_start:&lt;integer&gt;:&nbsp;header&nbsp;starting&nbsp;line&nbsp;Number&nbsp;<br>
+2.&nbsp;data_start:&lt;integer&gt;:&nbsp;header&nbsp;starting&nbsp;line&nbsp;Number<br>
+3.&nbsp;comment_begin:&lt;str&gt;:&nbsp;&nbsp;comment&nbsp;starting&nbsp;letter&nbsp;<br>
+4.&nbsp;delim:&lt;str&gt;:&nbsp;separator&nbsp;between&nbsp;items&nbsp;<br>
+5.&nbsp;mask_val:&nbsp;&lt;float&gt;:&nbsp;fillings&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;values<br>
+6.&nbsp;colnm_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;list&nbsp;of&nbsp;columns&nbsp;to&nbsp;be&nbsp;read<br>
+7.&nbsp;keywords:&lt;dict&gt;:&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-construct_filename"><strong>construct_filename</strong></a>(self, **keywords)</dt><dd><tt>construction&nbsp;file&nbsp;name&nbsp;use&nbsp;the&nbsp;keyword</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-convert_matrix_to_grid"><strong>convert_matrix_to_grid</strong></a>(self, colnm_lst, colno_lst, zname<font color="#909090">=None</font>, zval<font color="#909090">=None</font>)</dt><dd><tt>wrapper&nbsp;for&nbsp;build_grid_from_matrix&nbsp;in&nbsp;gp_grid_m.py&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------<br>
+1.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;axis&nbsp;names<br>
+2.&nbsp;colno_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;columns&nbsp;of&nbsp;the&nbsp;axis<br>
+&nbsp;<br>
+3.&nbsp;data:&lt;array,&nbsp;(nrow,&nbsp;ncol)&gt;:&nbsp;data&nbsp;to&nbsp;be&nbsp;gridded'&nbsp;<br>
+---&nbsp;if&nbsp;(yname&nbsp;and&nbsp;yval)&nbsp;are&nbsp;given,&nbsp;&nbsp;&nbsp;data&nbsp;is&nbsp;supposed&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;column&nbsp;of&nbsp;<br>
+---&nbsp;[ax_1,&nbsp;ax_2,&nbsp;ax_3,..,&nbsp;ax_n,&nbsp;y1,&nbsp;y2,&nbsp;y3,&nbsp;...]<br>
+---if&nbsp;(yname&nbsp;and&nbsp;yval)&nbsp;are&nbsp;not&nbsp;given,&nbsp;data&nbsp;is&nbsp;supposed&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;<br>
+---&nbsp;[ax_1,&nbsp;ax_2,&nbsp;ax_3,&nbsp;...,ax_n,&nbsp;val]<br>
+&nbsp;<br>
+4.&nbsp;zname:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;&nbsp;z&nbsp;(vertical)&nbsp;axis<br>
+5.&nbsp;zval:&lt;array&gt;:&nbsp;&nbsp;z&nbsp;(vertical)&nbsp;axis&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------<br>
+1.&nbsp;grd:&lt;gp_grid_cl&gt;:&nbsp;grid&nbsp;<br>
+2.&nbsp;data:&lt;array&gt;:&nbsp;gridded&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-find_colno"><strong>find_colno</strong></a>(self, colnm)</dt><dd><tt>find&nbsp;the&nbsp;column&nbsp;no&nbsp;for&nbsp;a&nbsp;given&nbsp;column&nbsp;name&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;colnm:&lt;str&gt;:&nbsp;column&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------<br>
+1.&nbsp;col_idx:&lt;integer&gt;:&nbsp;the&nbsp;column&nbsp;with&nbsp;name&nbsp;given&nbsp;by&nbsp;colnm</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>get&nbsp;one&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+Returns:<br>
+-----------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_colnm_list_byvar"><strong>get_colnm_list_byvar</strong></a>(self, var_lst)</dt><dd><tt>find&nbsp;column&nbsp;names&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;ot_io_var<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;names&nbsp;for&nbsp;each&nbsp;var</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_colno_list"><strong>get_colno_list</strong></a>(self, colnm_lst)</dt><dd><tt>find&nbsp;column&nbsp;number&nbsp;for&nbsp;given&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;colnm_lst:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;colno_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;column&nbsp;no&nbsp;for&nbsp;each&nbsp;column&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_colno_list_byvar"><strong>get_colno_list_byvar</strong></a>(self, var_lst)</dt><dd><tt>find&nbsp;column&nbsp;number&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;ot_io_var<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;colno_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;column&nbsp;number&nbsp;of&nbsp;each&nbsp;var</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_coltype_list_byvar"><strong>get_coltype_list_byvar</strong></a>(self, var_lst)</dt><dd><tt>find&nbsp;column&nbsp;type&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;ot_io_var<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;coltype_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;type&nbsp;for&nbsp;each&nbsp;var</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_column_data"><strong>get_column_data</strong></a>(self, colnm)</dt><dd><tt>get&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_lat"><strong>get_lat</strong></a>(self, colnm<font color="#909090">='lat'</font>)</dt><dd><tt>get&nbsp;latitude</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_lon"><strong>get_lon</strong></a>(self, colnm<font color="#909090">='lon'</font>)</dt><dd><tt>get&nbsp;longitude</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-get_time"><strong>get_time</strong></a>(self, colnm<font color="#909090">='time'</font>)</dt><dd><tt>get&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-is_comment_line"><strong>is_comment_line</strong></a>(self, line)</dt><dd><tt>check&nbsp;a&nbsp;line&nbsp;is&nbsp;just&nbsp;for&nbsp;comments<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;line:&nbsp;&lt;str&gt;:&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;is_comment:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;the&nbsp;line&nbsp;start&nbsp;with&nbsp;comment_begin</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-locate_section"><strong>locate_section</strong></a>(self, lines, marker)</dt><dd><tt>find&nbsp;the&nbsp;first&nbsp;line&nbsp;starting&nbsp;with&nbsp;the&nbsp;given&nbsp;marker&nbsp;<br>
+Inputs:<br>
+----------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;lines<br>
+2.&nbsp;marker:&lt;str&gt;:&nbsp;marker&nbsp;for&nbsp;the&nbsp;line&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------<br>
+1.&nbsp;pos:&lt;int&gt;:&nbsp;the&nbsp;location&nbsp;&nbsp;of&nbsp;the&nbsp;line&nbsp;starting&nbsp;with&nbsp;marker</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_header_from_lines"><strong>read_header_from_lines</strong></a>(self, lines, head_st<font color="#909090">=None</font>, head_end<font color="#909090">=None</font>, marker<font color="#909090">=None</font>)</dt><dd><tt>Read&nbsp;header&nbsp;from&nbsp;lines&nbsp;<br>
+Inputs:<br>
+-----------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;lines&nbsp;to&nbsp;be&nbsp;read<br>
+2.&nbsp;head_st:&lt;int/str&gt;:&nbsp;start&nbsp;of&nbsp;the&nbsp;head&nbsp;section&nbsp;<br>
+3.&nbsp;head_end:&lt;int/str&gt;:&nbsp;end&nbsp;of&nbsp;the&nbsp;head&nbsp;section&nbsp;<br>
+4.&nbsp;marker:&lt;str&gt;:&nbsp;marker&nbsp;for&nbsp;header&nbsp;lines&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------<br>
+1.&nbsp;head_line:&lt;list,&nbsp;t:str&gt;:&nbsp;head&nbsp;lines&nbsp;(see&nbsp;Note&nbsp;1)<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;if&nbsp;marker==None,&nbsp;&nbsp;the&nbsp;section&nbsp;between&nbsp;header_start&nbsp;and&nbsp;data_start&nbsp;<br>
+will&nbsp;be&nbsp;treated&nbsp;as&nbsp;header&nbsp;section</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_matrix_from_lines"><strong>read_matrix_from_lines</strong></a>(self, lines, colno_lst<font color="#909090">=None</font>, lstart<font color="#909090">=None</font>, lend<font color="#909090">=None</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;lines&nbsp;into&nbsp;&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;colno_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;to&nbsp;be&nbsp;read<br>
+3.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+4.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+5.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------<br>
+1.data:&lt;array&gt;:&nbsp;data&nbsp;matrix</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_table_from_file"><strong>read_table_from_file</strong></a>(self, flnm, colnm_lst, colno_lst)</dt><dd><tt>read&nbsp;txt&nbsp;table&nbsp;files&nbsp;into&nbsp;var&nbsp;and&nbsp;return&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------<br>
+1.&nbsp;dtable:&lt;recarray&gt;:&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_table_from_file_byvar"><strong>read_table_from_file_byvar</strong></a>(self, flnm, var_lst)</dt><dd><tt>read&nbsp;txt&nbsp;table&nbsp;files&nbsp;into&nbsp;var&nbsp;and&nbsp;return&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------<br>
+1.&nbsp;dtable:&lt;recarray&gt;:&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_table_from_lines"><strong>read_table_from_lines</strong></a>(self, lines, colnm_lst, colno_lst, coltype_lst<font color="#909090">=None</font>, lstart<font color="#909090">=None</font>, lend<font color="#909090">=None</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;lines&nbsp;into&nbsp;&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;colnm_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;name&nbsp;to&nbsp;be&nbsp;read<br>
+3.&nbsp;colno_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;number&nbsp;to&nbsp;be&nbsp;read<br>
+4.&nbsp;coltype_lst:&lt;list,&nbsp;t:str_&gt;:list&nbsp;of&nbsp;column&nbsp;type&nbsp;to&nbsp;be&nbsp;read<br>
+5.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+6.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+7.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------<br>
+1.dtable:&lt;recarray&gt;:&nbsp;data<br>
+&nbsp;<br>
+Notes:<br>
+&nbsp;<br>
+--------------------------------------------<br>
+1.&nbsp;If&nbsp;one&nbsp;value&nbsp;is&nbsp;not&nbsp;able&nbsp;to&nbsp;converted&nbsp;the&nbsp;required&nbsp;type,&nbsp;it&nbsp;will&nbsp;be&nbsp;replaced&nbsp;by&nbsp;a&nbsp;filling&nbsp;value.&nbsp;&nbsp;<br>
+2.&nbsp;If&nbsp;coltype&nbsp;is&nbsp;not&nbsp;provided,&nbsp;all&nbsp;columns&nbsp;will&nbsp;be&nbsp;converted&nbsp;to&nbsp;float.</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-read_table_from_lines_byvar"><strong>read_table_from_lines_byvar</strong></a>(self, lines, var_lst, lstart<font color="#909090">=None</font>, lend<font color="#909090">=None</font>, **replaces)</dt><dd><tt>read&nbsp;txt&nbsp;table&nbsp;files&nbsp;into&nbsp;var&nbsp;and&nbsp;return&nbsp;a&nbsp;record&nbsp;table<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;from&nbsp;file&nbsp;<br>
+2.&nbsp;var_lst:&lt;list,&nbsp;t:io_var_cl_&gt;:list&nbsp;of&nbsp;var&nbsp;to&nbsp;be&nbsp;read<br>
+3.&nbsp;lstar:&lt;int&gt;:&nbsp;start&nbsp;row<br>
+4.&nbsp;lend:&lt;inte&gt;:&nbsp;end&nbsp;row<br>
+5.&nbsp;replaces:&nbsp;&lt;dict&gt;:&nbsp;the&nbsp;words&nbsp;need&nbsp;to&nbsp;be&nbsp;replace&nbsp;before&nbsp;conversion.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------<br>
+1.dtable:&lt;recarray&gt;:&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, value)</dt><dd><tt>assign&nbsp;one&nbsp;attribute<br>
+Inputs:<br>
+-------------------------------------------------------<br>
+1.&nbsp;attr_name:&nbsp;&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;value:&nbsp;&lt;obj&gt;:attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-set_file_path"><strong>set_file_path</strong></a>(self, path)</dt><dd><tt>set&nbsp;path&nbsp;for&nbsp;data&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="file_desc_cl-set_filename_format"><strong>set_filename_format</strong></a>(self, flnm_format)</dt><dd><tt>set&nbsp;template&nbsp;for&nbsp;filename</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

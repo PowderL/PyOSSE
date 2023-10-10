@@ -1,0 +1,102 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.cloud_file_ecmwf</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.cloud_file_ecmwf</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/cloud_file_ecmwf.py">/home/lfeng/otool/ESA/instrument/cloud_file_ecmwf.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;to&nbsp;read&nbsp;cloud&nbsp;file&nbsp;&nbsp;<br>
+Functions:<br>
+===============================================<br>
+&nbsp;<br>
+1.&nbsp;&nbsp;open_cloud_file:&nbsp;setup&nbsp;file&nbsp;access&nbsp;class<br>
+2.&nbsp;&nbsp;read_cloud_file:&nbsp;read&nbsp;file&nbsp;to&nbsp;variable&nbsp;list&nbsp;<br>
+3.&nbsp;&nbsp;close_cloud_file:&nbsp;close&nbsp;file&nbsp;<br>
+4.&nbsp;&nbsp;get_value:&nbsp;get&nbsp;value&nbsp;at&nbsp;given&nbsp;location&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Parameters:<br>
+=========================================================<br>
+1.&nbsp;cld_filename_format='cld_ecmwf.'+'XYYYYX'+'XMMX'+'.nc'<br>
+2.&nbsp;cf_lon_nm='longitude'&nbsp;&nbsp;#&nbsp;longitude&nbsp;name&nbsp;used&nbsp;in&nbsp;cloud&nbsp;file&nbsp;&nbsp;<br>
+3.&nbsp;cf_lat_nm='latitude'&nbsp;&nbsp;&nbsp;#&nbsp;latitude&nbsp;name&nbsp;used&nbsp;in&nbsp;cloud&nbsp;file&nbsp;&nbsp;<br>
+4.&nbsp;cf_time_nm='time'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;time&nbsp;name&nbsp;used&nbsp;in&nbsp;cloud&nbsp;file&nbsp;<br>
+5.&nbsp;cf_var_nm='tcc'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;total&nbsp;column&nbsp;cloud</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.util.process_nf_array.html">ESA.util.process_nf_array</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-close_cloud_file"><strong>close_cloud_file</strong></a>(fdesc)</dt></dl>
+ <dl><dt><a name="-get_value"><strong>get_value</strong></a>(fdesc, olon, olat, otau)</dt><dd><tt>get&nbsp;cloud&nbsp;data&nbsp;at&nbsp;given&nbsp;coordinate&nbsp;<br>
+&nbsp;<br>
+Inputs:&nbsp;<br>
+----------------------------------------------<br>
+1.fdesc:&lt;&lt;ncfile_desc_cl&gt;:&nbsp;file&nbsp;access<br>
+2.&nbsp;olon:&lt;float&gt;:&nbsp;longitude<br>
+3.&nbsp;olat:&lt;float&gt;:&nbsp;latitude<br>
+4.&nbsp;otau:&lt;float&gt;:&nbsp;time&nbsp;(in&nbsp;hours&nbsp;since&nbsp;1985.01.01)<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;pcld:&lt;float&gt;:&nbsp;cloud&nbsp;cover&nbsp;percentage</tt></dd></dl>
+ <dl><dt><a name="-open_cloud_file"><strong>open_cloud_file</strong></a>(datapath, flnm, yyyy, mm, dd, read_to_array<font color="#909090">=False</font>, use_current_time<font color="#909090">=False</font>)</dt><dd><tt>open&nbsp;cloud&nbsp;netcdf&nbsp;file&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+2.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;(not&nbsp;used)<br>
+3.&nbsp;yyyy:&lt;int&gt;:&nbsp;year<br>
+4.&nbsp;mm:&lt;int&gt;:&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;day&nbsp;<br>
+6.&nbsp;read_to_array:&lt;T/F&gt;:&nbsp;if&nbsp;Ture,&nbsp;a&nbsp;copy&nbsp;of&nbsp;data,&nbsp;instead&nbsp;of&nbsp;the&nbsp;method,&nbsp;&nbsp;will&nbsp;be&nbsp;read.<br>
+7.&nbsp;&nbsp;use_current_time:&lt;T/F&gt;:&nbsp;<br>
+---if&nbsp;Ture,&nbsp;the&nbsp;input&nbsp;year&nbsp;(year)&nbsp;will&nbsp;be&nbsp;used<br>
+---if&nbsp;False,&nbsp;the&nbsp;default&nbsp;year&nbsp;(cld_def_year)&nbsp;will&nbsp;be&nbsp;used<br>
+&nbsp;<br>
+Returns<br>
+-----------------------------------------<br>
+1.&nbsp;fdesc:&nbsp;&lt;ncfile_desc_cl&gt;:&nbsp;file&nbsp;access&nbsp;to&nbsp;netcdf&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-read_cloud_file"><strong>read_cloud_file</strong></a>(fdesc)</dt><dd><tt>Read&nbsp;data&nbsp;from&nbsp;netcdf&nbsp;file<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;fdesc:&lt;ncfile_desc_cl&gt;:&nbsp;netcdf&nbsp;file&nbsp;access</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>cf_lat_nm</strong> = 'latitude'<br>
+<strong>cf_lon_nm</strong> = 'longitude'<br>
+<strong>cf_time_nm</strong> = 'time'<br>
+<strong>cf_var_nm</strong> = 'tcc'<br>
+<strong>cld_def_dd</strong> = 1<br>
+<strong>cld_def_mm</strong> = 1<br>
+<strong>cld_def_yyyy</strong> = 2003<br>
+<strong>cld_filename_format</strong> = 'cld_ecmwf.XYYYYXXMMX.nc'</td></tr></table>
+</body></html>

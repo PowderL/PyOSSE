@@ -1,0 +1,57 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.bpch2_rw_py</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.bpch2_rw_py</strong></big></big> (version )</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/bpch2_rw_py.so">/home/lfeng/otool/ESA/util/bpch2_rw_py.so</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;'bpch2_rw_py'&nbsp;is&nbsp;auto-generated&nbsp;with&nbsp;f2py&nbsp;(version:1).<br>
+Functions:<br>
+&nbsp;&nbsp;out_array,unit_out,stat&nbsp;=&nbsp;read_bpch2(filename,category_in,tracer_in,tau0_in,ix,jx,lx)<br>
+&nbsp;&nbsp;category_out,tracer_out,unit_out,tau0_out,ix,jx,lx,out_array,stat&nbsp;=&nbsp;read_bpch2_firstmatch(filename,category_in,tracer_in,tau0_in)<br>
+&nbsp;&nbsp;stat,title,tracer_id,lonres_out,latres_out,ix,jx,lx,ifirst,jfirst,lfirst,halfpolar,center180,tau0_out,tau1_out,ntracers&nbsp;=&nbsp;read_bpch2_head(filename,tmpflnm,maxtracer)<br>
+&nbsp;&nbsp;stat&nbsp;=&nbsp;write_bpch2_hdr(iunit,title)<br>
+&nbsp;&nbsp;stat&nbsp;=&nbsp;open_bpch2_for_write(iunit,filename,title='')<br>
+&nbsp;&nbsp;fti_out,title_out,stat&nbsp;=&nbsp;open_bpch2_for_read(funit,filename)<br>
+&nbsp;&nbsp;ntracer_out,halfpolar_out,center180_out,ni_out,nj_out,nl_out,ifirst_out,jfirst_out,lfirst_out,lonres_out,latres_out,tau0_out,tau1_out,modelname_out,category_out,unit_out,reserved_out,out_array,stat&nbsp;=&nbsp;read_bpch2_record(funit)<br>
+&nbsp;&nbsp;ntracer_out,halfpolar_out,center180_out,ni_out,nj_out,nl_out,ifirst_out,jfirst_out,lfirst_out,lonres_out,latres_out,tau0_out,tau1_out,modelname_out,category_out,unit_out,reserved_out,out_array,stat&nbsp;=&nbsp;sel_bpch2_record(funit,category_in,tracer_in,tau_in)<br>
+&nbsp;&nbsp;stat&nbsp;=&nbsp;write_bpch2_data(iunit,modelname_in,category_in,reserved_in,lonres,latres,halfpolar,center180,ntracer,unit_in,tau0_in,tau1_in,ifirst,jfirst,lfirst,array_in,ni=shape(array_in,0),nj=shape(array_in,1),nl=shape(array_in,2))<br>
+&nbsp;&nbsp;stat&nbsp;=&nbsp;close_bpch2_file(iunit)<br>
+&nbsp;&nbsp;modelname&nbsp;=&nbsp;get_modelname()<br>
+&nbsp;&nbsp;name_ext&nbsp;=&nbsp;get_name_ext()<br>
+&nbsp;&nbsp;name_ext_2d&nbsp;=&nbsp;get_name_ext_2d()<br>
+&nbsp;&nbsp;res_ext&nbsp;=&nbsp;get_res_ext()<br>
+&nbsp;&nbsp;halfpolar&nbsp;=&nbsp;get_halfpolar()<br>
+&nbsp;&nbsp;stat,flux_st,tracer_st,tracer_end,ix,jx,lx,array&nbsp;=&nbsp;read_bpch2_co2_flux(filename)<br>
+&nbsp;&nbsp;stat,flux_st,tracer_st,tracer_end,ix,jx,lx,array&nbsp;=&nbsp;read_bpch2_co2_stv(filename)<br>
+.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__version__</strong> = '$Revision: $'<br>
+<strong>close_bpch2_file</strong> = &lt;fortran object&gt;<br>
+<strong>get_halfpolar</strong> = &lt;fortran get_halfpolar&gt;<br>
+<strong>get_modelname</strong> = &lt;fortran get_modelname&gt;<br>
+<strong>get_name_ext</strong> = &lt;fortran get_name_ext&gt;<br>
+<strong>get_name_ext_2d</strong> = &lt;fortran get_name_ext_2d&gt;<br>
+<strong>get_res_ext</strong> = &lt;fortran get_res_ext&gt;<br>
+<strong>open_bpch2_for_read</strong> = &lt;fortran object&gt;<br>
+<strong>open_bpch2_for_write</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2_co2_flux</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2_co2_stv</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2_firstmatch</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2_head</strong> = &lt;fortran object&gt;<br>
+<strong>read_bpch2_record</strong> = &lt;fortran object&gt;<br>
+<strong>sel_bpch2_record</strong> = &lt;fortran object&gt;<br>
+<strong>write_bpch2_data</strong> = &lt;fortran object&gt;<br>
+<strong>write_bpch2_hdr</strong> = &lt;fortran object&gt;</td></tr></table>
+</body></html>

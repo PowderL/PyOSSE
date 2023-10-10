@@ -1,0 +1,81 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.pres_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.pres_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/pres_m.py">/home/lfeng/otool/ESA/util/pres_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;and&nbsp;interfaces&nbsp;to&nbsp;calculate&nbsp;model&nbsp;pressures<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2012.09.12<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;Functions<br>
+&nbsp;&nbsp;&nbsp;=================================================<br>
+&nbsp;&nbsp;&nbsp;1.&nbsp;get_mod_pres:&nbsp;&nbsp;get&nbsp;pressure&nbsp;at&nbsp;model&nbsp;levels&nbsp;from&nbsp;given&nbsp;surface&nbsp;pressure<br>
+&nbsp;&nbsp;&nbsp;2.&nbsp;get_mod_pres_edge:&nbsp;get&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;edges&nbsp;from&nbsp;given&nbsp;surface&nbsp;pressure<br>
+&nbsp;&nbsp;&nbsp;3.&nbsp;get_geos5_ap_bp:&nbsp;&nbsp;&nbsp;get&nbsp;pressure&nbsp;coefficients&nbsp;for&nbsp;GEOS5&nbsp;grid&nbsp;<br>
+&nbsp;&nbsp;&nbsp;4.&nbsp;get_geos4_ap_bp:&nbsp;&nbsp;&nbsp;get&nbsp;pressure&nbsp;coefficients&nbsp;for&nbsp;GEOS4&nbsp;grid</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.sigma_pres_mod.html">ESA.util.sigma_pres_mod</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_geos4_ap_bp"><strong>get_geos4_ap_bp</strong></a>(reduced_grid<font color="#909090">=1</font>)</dt><dd><tt>get&nbsp;pressure&nbsp;coefficients&nbsp;for&nbsp;GEOS4&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Inputs<br>
+-------------------------------------<br>
+1.&nbsp;reduced_grid:&lt;integer&gt;:&nbsp;1==use&nbsp;reduced&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.ap,&nbsp;bp:&nbsp;&lt;array,&nbsp;(nz,)&gt;:&nbsp;ap&nbsp;and&nbsp;bp&nbsp;coefficient</tt></dd></dl>
+ <dl><dt><a name="-get_geos5_ap_bp"><strong>get_geos5_ap_bp</strong></a>(reduced_grid<font color="#909090">=1</font>)</dt><dd><tt>get&nbsp;pressure&nbsp;coefficients&nbsp;for&nbsp;GEOS5&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Inputs<br>
+-------------------------------------<br>
+1.&nbsp;reduced_grid:&lt;integer&gt;:&nbsp;1==use&nbsp;reduced&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.ap,&nbsp;bp:&nbsp;&lt;array,&nbsp;(nz,)&gt;:&nbsp;ap&nbsp;and&nbsp;bp&nbsp;coefficient</tt></dd></dl>
+ <dl><dt><a name="-get_mod_pres"><strong>get_mod_pres</strong></a>(ps, ap, bp)</dt><dd><tt>get&nbsp;pressures&nbsp;at&nbsp;model&nbsp;levels&nbsp;from&nbsp;given&nbsp;surface&nbsp;pressure<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;ps:&lt;array,&nbsp;(nx,)&nbsp;or&nbsp;(nx,&nbsp;ny)&gt;:&nbsp;surface&nbsp;pressure&nbsp;in&nbsp;hPa<br>
+2.&nbsp;ap:&lt;array,&nbsp;(nz,)&gt;:&nbsp;&nbsp;surface&nbsp;pressure&nbsp;coefficients:a&nbsp;<br>
+3.&nbsp;bp:&lt;array,&nbsp;(nz,)&gt;:&nbsp;&nbsp;surface&nbsp;pressure&nbsp;coefficients:&nbsp;b<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------<br>
+1.&nbsp;pres&lt;array,&nbsp;&lt;nx,&nbsp;(ny),&nbsp;nz&gt;:&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;center</tt></dd></dl>
+ <dl><dt><a name="-get_mod_pres_edge"><strong>get_mod_pres_edge</strong></a>(ps, ap, bp)</dt><dd><tt>get&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;edges&nbsp;from&nbsp;given&nbsp;surface&nbsp;pressure<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;ps:&lt;array,&nbsp;(nx,)&nbsp;or&nbsp;(nx,&nbsp;ny)&gt;:&nbsp;surface&nbsp;pressure&nbsp;in&nbsp;hPa<br>
+2.&nbsp;ap:&lt;array,&nbsp;(nz,)&gt;:&nbsp;&nbsp;surface&nbsp;pressure&nbsp;coefficients:a&nbsp;<br>
+3.&nbsp;bp:&lt;array,&nbsp;(nz,)&gt;:&nbsp;&nbsp;surface&nbsp;pressure&nbsp;coefficients:&nbsp;b<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;pres&lt;array,&nbsp;&lt;nx,&nbsp;(ny),&nbsp;nz+1&gt;:&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;edge</tt></dd></dl>
+</td></tr></table>
+</body></html>

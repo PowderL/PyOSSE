@@ -1,0 +1,134 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.sample_reg_flux</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.sample_reg_flux</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/sample_reg_flux.py">/home/lfeng/otool/ESA/surface/sample_reg_flux.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;sampling&nbsp;flux&nbsp;perturbations&nbsp;to&nbsp;generable&nbsp;flux&nbsp;ensemble&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.24<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+===========================================<br>
+1.&nbsp;sample_by_reg:&nbsp;Sample&nbsp;every&nbsp;regional&nbsp;bf<br>
+2.&nbsp;random_sample_reg:&nbsp;Randomly&nbsp;sample&nbsp;regional&nbsp;bf&nbsp;<br>
+3.&nbsp;svd_sample_reg:&nbsp;Sample&nbsp;regional&nbsp;bf&nbsp;by&nbsp;using&nbsp;SVD&nbsp;of&nbsp;error&nbsp;covariance.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.flux_regrid.html">ESA.util.flux_regrid</a><br>
+<a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+</td><td width="25%" valign=top><a href="numpy.linalg.html">numpy.linalg</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pylab.html">pylab</a><br>
+<a href="numpy.random.html">numpy.random</a><br>
+</td><td width="25%" valign=top><a href="ESA.surface.spatial_cor.html">ESA.surface.spatial_cor</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-random_sample_reg"><strong>random_sample_reg</strong></a>(grd_lon, grd_lat, reg_flux, reg_map, pid, **keywords)</dt><dd><tt>Randomly&nbsp;sample&nbsp;regional&nbsp;bf&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------------------<br>
+1.&nbsp;grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+2.&nbsp;grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude<br>
+&nbsp;<br>
+3.&nbsp;reg_flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;flux.&nbsp;<br>
+It&nbsp;could&nbsp;be&nbsp;single&nbsp;layer&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;reg_map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;map&nbsp;<br>
+5.&nbsp;pid:&nbsp;&nbsp;&nbsp;&lt;array,&nbsp;(nlayer/nreg)&gt;:&nbsp;the&nbsp;parent&nbsp;(T3)&nbsp;region&nbsp;ID<br>
+&nbsp;<br>
+6.&nbsp;keywords:&lt;dict&gt;:&nbsp;the&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;sampling&nbsp;<br>
+&nbsp;<br>
+---reserved&nbsp;keywords:<br>
+---&gt;sel_reg_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;List&nbsp;of&nbsp;region&nbsp;ID&nbsp;to&nbsp;be&nbsp;included&nbsp;<br>
+---&gt;nsample:&lt;int&gt;:&nbsp;the&nbsp;upper-limit&nbsp;of&nbsp;the&nbsp;set&nbsp;of&nbsp;the&nbsp;sampled&nbsp;fluxes<br>
+---&gt;scale:&lt;array,&nbsp;(nsample)&gt;:&nbsp;values&nbsp;to&nbsp;scaling&nbsp;BF&nbsp;functions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Outputs:<br>
+--------------------------------------------------------------------<br>
+1.&nbsp;out_dict:&lt;dict&gt;:&nbsp;It&nbsp;has&nbsp;seven&nbsp;entries<br>
+&nbsp;<br>
+---grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+---grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude<br>
+---flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsample)&gt;:&nbsp;combined&nbsp;regional&nbsp;flux&nbsp;perturbations&nbsp;<br>
+---map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsel_reg&gt;:&nbsp;individual&nbsp;regional&nbsp;map&nbsp;<br>
+---sel_reg_lst:&lt;list/array,&nbsp;t:int(nsel_reg)&gt;:&nbsp;selected&nbsp;layers&nbsp;<br>
+---coef:&lt;array,&nbsp;(nsel_reg,&nbsp;nsample&gt;:&nbsp;random&nbsp;coefficient&nbsp;<br>
+---pid:&lt;array,&nbsp;nsel_reg&gt;:&nbsp;parent&nbsp;ID&nbsp;for&nbsp;selected&nbsp;region</tt></dd></dl>
+ <dl><dt><a name="-sample_by_reg"><strong>sample_by_reg</strong></a>(grd_lon, grd_lat, reg_flux, reg_map, pid, **keywords)</dt><dd><tt>Sample&nbsp;every&nbsp;regional&nbsp;bf<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------------------<br>
+1.&nbsp;grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+2.&nbsp;grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude<br>
+&nbsp;<br>
+3.&nbsp;reg_flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;flux.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;It&nbsp;could&nbsp;be&nbsp;single&nbsp;layer&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;reg_map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;map&nbsp;<br>
+5.&nbsp;pid:&nbsp;&nbsp;&nbsp;&lt;array,&nbsp;(nlayer/nreg)&gt;:&nbsp;the&nbsp;parent&nbsp;(T3)&nbsp;region&nbsp;ID<br>
+&nbsp;<br>
+6.&nbsp;keywords:&lt;dict&gt;:&nbsp;the&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;sampling&nbsp;<br>
+---reserved&nbsp;keywords:<br>
+---&gt;sel_reg_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;List&nbsp;of&nbsp;region&nbsp;ID&nbsp;to&nbsp;be&nbsp;included&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+--------------------------------------------------------------------<br>
+1.&nbsp;out_dict:&lt;dict&gt;:&nbsp;It&nbsp;has&nbsp;6&nbsp;entries<br>
+&nbsp;<br>
+---lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+---lat:&lt;array,&nbsp;(nlon)&gt;:&nbsp;latitude<br>
+---flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsel)&gt;:&nbsp;selected&nbsp;regional&nbsp;flux&nbsp;perturbations&nbsp;<br>
+---map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsel)&gt;:&nbsp;&nbsp;regional&nbsp;map&nbsp;<br>
+---pid:&lt;array,&nbsp;(nsel)&gt;:&nbsp;Parent&nbsp;ID&nbsp;of&nbsp;the&nbsp;selected&nbsp;regions<br>
+---sel_reg_lst:&lt;array,&nbsp;t:int&gt;:&nbsp;selected&nbsp;layers&nbsp;<br>
+---coef:&lt;array,&nbsp;(nsel,&nbsp;nsel)&gt;:&nbsp;projection&nbsp;from&nbsp;seleced&nbsp;region&nbsp;to&nbsp;the&nbsp;out&nbsp;put</tt></dd></dl>
+ <dl><dt><a name="-svd_sample_reg"><strong>svd_sample_reg</strong></a>(grd_lon, grd_lat, reg_flux, reg_map, pid, **keywords)</dt><dd><tt>SVD&nbsp;sample&nbsp;regional&nbsp;bf&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------------------<br>
+1.&nbsp;grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+2.&nbsp;grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude<br>
+&nbsp;<br>
+3.&nbsp;reg_flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;flux.&nbsp;<br>
+It&nbsp;could&nbsp;be&nbsp;single&nbsp;layer&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;reg_map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;regional&nbsp;map&nbsp;<br>
+3.&nbsp;pid:&nbsp;&nbsp;&nbsp;&lt;array,&nbsp;(nlayer/nreg)&gt;:&nbsp;the&nbsp;parent&nbsp;(T3)&nbsp;region&nbsp;ID<br>
+&nbsp;<br>
+5.&nbsp;keywords:&lt;dict&gt;:&nbsp;the&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;sampling&nbsp;<br>
+&nbsp;<br>
+---reserved&nbsp;keywords:<br>
+---&gt;sample_numb:&lt;int&gt;:&nbsp;the&nbsp;upper-limit&nbsp;of&nbsp;the&nbsp;size&nbsp;of&nbsp;sampled&nbsp;flux<br>
+---&gt;sel_reg_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;List&nbsp;of&nbsp;region&nbsp;ID&nbsp;to&nbsp;be&nbsp;included&nbsp;<br>
+---&gt;err_cor:&lt;array&gt;:&nbsp;error&nbsp;correlation&nbsp;matrix&nbsp;to&nbsp;be&nbsp;SVD<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Outputs:<br>
+--------------------------------------------------------------------<br>
+1.&nbsp;out_dict:&lt;dict&gt;:&nbsp;It&nbsp;has&nbsp;three&nbsp;entries<br>
+---flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsel_reg)&gt;:&nbsp;combined&nbsp;regional&nbsp;flux&nbsp;perturbations&nbsp;<br>
+---map:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nsel_reg&gt;:&nbsp;<br>
+---sel_reg_lst:&lt;array,&nbsp;t:int&gt;:&nbsp;selected&nbsp;layers&nbsp;<br>
+---sel_coef:&lt;array,&nbsp;t:int&gt;:&nbsp;selected</tt></dd></dl>
+</td></tr></table>
+</body></html>

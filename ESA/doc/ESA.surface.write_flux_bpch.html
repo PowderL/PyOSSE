@@ -1,0 +1,109 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.write_flux_bpch</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.write_flux_bpch</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/write_flux_bpch.py">/home/lfeng/otool/ESA/surface/write_flux_bpch.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;write&nbsp;file&nbsp;to&nbsp;GEOS-Chem&nbsp;BPCH2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.10.12<br>
+History:&nbsp;v0.95,&nbsp;2013.02.01<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+==========================================================<br>
+1.&nbsp;open_flux_bpch2_file:&nbsp;open&nbsp;file&nbsp;to&nbsp;write<br>
+2.&nbsp;write_flux_record:&nbsp;save&nbsp;flux&nbsp;data&nbsp;into&nbsp;bpch2&nbsp;file<br>
+3.&nbsp;close_flux_bpch2_file:&nbsp;close&nbsp;bpch2&nbsp;file&nbsp;<br>
+4.&nbsp;write_ens_flux_ml:&nbsp;save&nbsp;ensemble&nbsp;fluxes&nbsp;to&nbsp;bpch2&nbsp;file&nbsp;<br>
+5.&nbsp;write_ens_map_ml:&nbsp;save&nbsp;map&nbsp;for&nbsp;ensemble&nbsp;fluxes&nbsp;to&nbsp;bpch2&nbsp;file</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.bpch2_rw_py.html">ESA.util.bpch2_rw_py</a><br>
+<a href="ESA.atmosphere.compute_gc_grid.html">ESA.atmosphere.compute_gc_grid</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pylab.html">pylab</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-close_flux_bpch2_file"><strong>close_flux_bpch2_file</strong></a>(funit)</dt></dl>
+ <dl><dt><a name="-open_flux_bpch2_file"><strong>open_flux_bpch2_file</strong></a>(flnm, funit, title<font color="#909090">='flux'</font>)</dt><dd><tt>open&nbsp;the&nbsp;flux&nbsp;file&nbsp;to&nbsp;write&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+2.&nbsp;funit:&lt;int&gt;:&nbsp;file&nbsp;unit<br>
+3.&nbsp;title:&lt;str&gt;:&nbsp;title&nbsp;for&nbsp;flux&nbsp;data<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;funit:&lt;int&gt;:&nbsp;file&nbsp;unit</tt></dd></dl>
+ <dl><dt><a name="-write_ens_flux_ml"><strong>write_ens_flux_ml</strong></a>(fname, regflux, lon, lat, nz, tau0, tau1, ntracer, modelname<font color="#909090">='geos5'</font>, category<font color="#909090">='CO2_FLUX'</font>, unit<font color="#909090">='mole/s'</font>)</dt><dd><tt>Save&nbsp;map&nbsp;for&nbsp;ensemble&nbsp;&nbsp;to&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+============================================<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;to&nbsp;be&nbsp;save&nbsp;<br>
+2.&nbsp;regflux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;[nlayer])&gt;:&nbsp;emission&nbsp;ensemble&nbsp;<br>
+3.&nbsp;lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;&nbsp;grid<br>
+4.&nbsp;lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude&nbsp;&nbsp;grid<br>
+5.&nbsp;nz:&lt;int&gt;:&nbsp;nlayer&nbsp;<br>
+6.&nbsp;category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;data&nbsp;<br>
+7.&nbsp;unit:&lt;str&gt;:&nbsp;unit&nbsp;of&nbsp;the&nbsp;data&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+============================<br>
+1.&nbsp;stat:&lt;int&gt;:&nbsp;status</tt></dd></dl>
+ <dl><dt><a name="-write_ens_map_ml"><strong>write_ens_map_ml</strong></a>(flnm, regmap, lon, lat, nz, modelname<font color="#909090">='geos5'</font>, category<font color="#909090">='LANDMAP'</font>)</dt><dd><tt>Save&nbsp;map&nbsp;for&nbsp;ensemble&nbsp;&nbsp;to&nbsp;bpch2&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+============================================<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;to&nbsp;be&nbsp;save&nbsp;<br>
+2.&nbsp;regmap:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;[nlayer])&gt;:&nbsp;emission&nbsp;map<br>
+3.&nbsp;lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;&nbsp;grid<br>
+4.&nbsp;lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude&nbsp;&nbsp;grid<br>
+5.&nbsp;nz:&lt;int&gt;:&nbsp;nlayer&nbsp;<br>
+6.&nbsp;category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;data</tt></dd></dl>
+ <dl><dt><a name="-write_flux_record"><strong>write_flux_record</strong></a>(funit, flux, lon, lat, tau0, tau1, ntracer, modelname, category<font color="#909090">='CO2_FLUX'</font>, unit<font color="#909090">='mole/s'</font>, ifirst<font color="#909090">=1</font>, jfirst<font color="#909090">=1</font>, lfirst<font color="#909090">=1</font>, centre180<font color="#909090">=None</font>, lonres<font color="#909090">=None</font>, latres<font color="#909090">=None</font>)</dt><dd><tt>Save&nbsp;emission&nbsp;to&nbsp;bpch2&nbsp;file<br>
+&nbsp;<br>
+Inputs:<br>
+============================================<br>
+1.funit:&lt;int&gt;:&nbsp;file&nbsp;unit<br>
+2.flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;[nlayer])&gt;:&nbsp;emission&nbsp;flux<br>
+3.&nbsp;lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;&nbsp;grid<br>
+4.&nbsp;lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude&nbsp;&nbsp;grid<br>
+5.&nbsp;tau0:&lt;float&gt;:&nbsp;&nbsp;starting&nbsp;time&nbsp;<br>
+6.&nbsp;tau1:&lt;float&gt;:&nbsp;&nbsp;end&nbsp;time&nbsp;<br>
+7.&nbsp;ntracer:&lt;int&gt;:&nbsp;tracer&nbsp;id<br>
+8.&nbsp;modelname:&lt;str&gt;:&nbsp;the&nbsp;source&nbsp;of&nbsp;the&nbsp;data<br>
+9.&nbsp;category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;data&nbsp;<br>
+10.&nbsp;unit:&lt;str&gt;:&nbsp;unit&nbsp;of&nbsp;the&nbsp;flux<br>
+11.&nbsp;ifirst:&nbsp;&lt;int&gt;:&nbsp;first&nbsp;longitude&nbsp;location&nbsp;<br>
+12.&nbsp;jfirst:&nbsp;&lt;int&gt;:&nbsp;first&nbsp;latitude&nbsp;location<br>
+13.&nbsp;lfirst:&nbsp;&lt;int&gt;:&nbsp;first&nbsp;vertical&nbsp;location&nbsp;<br>
+14.&nbsp;lonres:&nbsp;&lt;float&gt;:&nbsp;longitude&nbsp;resolution&nbsp;<br>
+14.&nbsp;latres:&nbsp;&lt;float&gt;:&nbsp;latitude&nbsp;resolution&nbsp;<br>
+15.&nbsp;centre180:&lt;int&gt;:&nbsp;central&nbsp;location&nbsp;of&nbsp;longitude&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+========================================<br>
+1.&nbsp;stat:&lt;int&gt;:&nbsp;status</tt></dd></dl>
+</td></tr></table>
+</body></html>

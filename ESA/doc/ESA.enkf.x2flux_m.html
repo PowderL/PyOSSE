@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.x2flux_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.x2flux_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/x2flux_m.py">/home/lfeng/otool/ESA/enkf/x2flux_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;projecting&nbsp;coefficient&nbsp;to&nbsp;flux<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.11.12<br>
+History:&nbsp;v0.95,&nbsp;2013.01.07<br>
+&nbsp;<br>
+Classes:<br>
+===============================================<br>
+1.&nbsp;<a href="#x2flux_cl">x2flux_cl</a>:&nbsp;Class&nbsp;for&nbsp;projecting&nbsp;coefficients&nbsp;vector&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+===================================================<br>
+1.&nbsp;set_localization_wgt:</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.surface.bf_file_m.html">ESA.surface.bf_file_m</a><br>
+<a href="ESA.util.flux_regrid.html">ESA.util.flux_regrid</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_gcfile_io.html">ESA.util.otool_gcfile_io</a><br>
+<a href="ESA.util.great_circle_distance.html">ESA.util.great_circle_distance</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="pylab.html">pylab</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.x2flux_m.html#x2flux_cl">x2flux_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="x2flux_cl">class <strong>x2flux_cl</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="x2flux_cl-__init__"><strong>__init__</strong></a>(self, datapath, flnm, yyyy, mm, dd, bf_get<font color="#909090">=&lt;function read_bf&gt;</font>, bfcl<font color="#909090">=None</font>, lon_nm<font color="#909090">='lon'</font>, lat_nm<font color="#909090">='lat'</font>, flux_nm<font color="#909090">='flux'</font>, fio_keywords<font color="#909090">={}</font>, **keywords)</dt><dd><tt>initialization&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;aod&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;&nbsp;file&nbsp;name&nbsp;for&nbsp;aod&nbsp;file<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;]int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;bf_get:&lt;func&gt;:&nbsp;function&nbsp;for&nbsp;reading&nbsp;basis&nbsp;function&nbsp;(or&nbsp;ensemble&nbsp;function)<br>
+7.&nbsp;bfcl:&lt;bf_cl&gt;:&nbsp;&nbsp;basis&nbsp;function&nbsp;class<br>
+8.&nbsp;lon_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;longitude<br>
+9.&nbsp;lat_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;latitude<br>
+10.&nbsp;flux_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;flux<br>
+11.&nbsp;fio_keywords:&nbsp;&lt;dict&gt;:&nbsp;&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;accessing<br>
+12.&nbsp;keywords:&lt;dict&gt;:&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="x2flux_cl-copy"><strong>copy</strong></a>(self, yyyy, mm, dd, **keywords)</dt><dd><tt>Make&nbsp;a&nbsp;copy&nbsp;of&nbsp;itself,&nbsp;and&nbsp;replace&nbsp;the&nbsp;keywords&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;date<br>
+2.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+-------------------------------------------<br>
+cl_new:&lt;<a href="#x2flux_cl">x2flux_cl</a>&gt;:&nbsp;a&nbsp;copy&nbsp;of&nbsp;itself</tt></dd></dl>
+
+<dl><dt><a name="x2flux_cl-load_flux_from_file"><strong>load_flux_from_file</strong></a>(self, **keywords)</dt><dd><tt>Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;aod&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;&nbsp;file&nbsp;name&nbsp;for&nbsp;aod&nbsp;file<br>
+3.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+---reserved&nbsp;keys:<br>
+---&gt;lon_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;longitude<br>
+---&gt;lat_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;latitude<br>
+---&gt;flux_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;flux<br>
+---&gt;flnm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;flux&nbsp;file<br>
+---&gt;path:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;data&nbsp;path<br>
+---&gt;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year,&nbsp;month,&nbsp;day&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------<br>
+1.&nbsp;if&nbsp;existing&nbsp;self.<strong>bfcl</strong>,&nbsp;self.<strong>bfck</strong>.load_bf&nbsp;will&nbsp;be&nbsp;called.&nbsp;<br>
+otherwise,&nbsp;self.<strong>bf_get</strong>&nbsp;will&nbsp;be&nbsp;invoked.</tt></dd></dl>
+
+<dl><dt><a name="x2flux_cl-x2flux"><strong>x2flux</strong></a>(self, x, flux<font color="#909090">=None</font>, locz_wgt<font color="#909090">=None</font>, keep_flux<font color="#909090">=False</font>, **keywords)</dt><dd><tt>Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;x:&lt;array,&nbsp;(ne,&nbsp;(ne))&gt;:&nbsp;coefficient&nbsp;matrix&nbsp;<br>
+2.&nbsp;flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;ne)&gt;:&nbsp;flux&nbsp;basis&nbsp;function&nbsp;or&nbsp;ensemble&nbsp;<br>
+3.&nbsp;locz_wgt:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;localization&nbsp;scaling&nbsp;factor<br>
+4.&nbsp;keep_flux:&lt;T/F&gt;:&nbsp;if&nbsp;true,&nbsp;flux&nbsp;will&nbsp;be&nbsp;saved</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-read_bf"><strong>read_bf</strong></a>(datapath, flnm, yyyy, mm, dd, lon_nm<font color="#909090">='lon'</font>, lat_nm<font color="#909090">='lat'</font>, flux_nm<font color="#909090">='flux'</font>, **keywords)</dt><dd><tt>read&nbsp;basis&nbsp;function&nbsp;(ensemble&nbsp;function&nbsp;from&nbsp;a&nbsp;netcdf&nbsp;file<br>
+Inputs:<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;aod&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;aod&nbsp;file<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;]int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;lon_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;longitude<br>
+7.&nbsp;lat_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;latitude<br>
+8.&nbsp;flux_nm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;flux</tt></dd></dl>
+ <dl><dt><a name="-read_bf_to_dict"><strong>read_bf_to_dict</strong></a>(datapath, flnm, yyyy, mm, dd, varname_lst<font color="#909090">=['lon', 'lat', 'flux', 'map', 'area']</font>, **keywords)</dt><dd><tt>read&nbsp;basis&nbsp;function&nbsp;(ensemble&nbsp;function&nbsp;from&nbsp;a&nbsp;netcdf&nbsp;file<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;aod&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;aod&nbsp;file<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;]int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;varname_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;vars&nbsp;to&nbsp;be&nbsp;read<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------<br>
+var_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;vars&nbsp;read&nbsp;from&nbsp;BF&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-set_localization_wgt"><strong>set_localization_wgt</strong></a>(grd_lon, grd_lat, olon, olat, wlen, threshold, by_relative, **keywords)</dt><dd><tt>Set&nbsp;up&nbsp;weighting&nbsp;function&nbsp;for&nbsp;localization&nbsp;according&nbsp;to&nbsp;distance&nbsp;from&nbsp;<br>
+observations.&nbsp;<br>
+&nbsp;<br>
+Usually,&nbsp;localization&nbsp;is&nbsp;necessary&nbsp;when&nbsp;a&nbsp;partial&nbsp;representation&nbsp;is&nbsp;used.&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;map&nbsp;longititude<br>
+2.&nbsp;grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;map&nbsp;latititude<br>
+3.&nbsp;olon,&nbsp;olat:&lt;array,&nbsp;(nlat)&gt;:<br>
+4.&nbsp;wlen:&lt;float&gt;:&nbsp;length&nbsp;<br>
+5.&nbsp;threshold:&lt;float&gt;:&nbsp;threshold&nbsp;above&nbsp;which&nbsp;wgt&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;1.0&nbsp;(see&nbsp;Note&nbsp;1)<br>
+6.&nbsp;by_relative:&lt;T/F&gt;:&nbsp;if&nbsp;true,&nbsp;threshold&nbsp;will&nbsp;be&nbsp;interprested&nbsp;as&nbsp;percentage<br>
+7.&nbsp;keyword:&lt;dict&gt;:&nbsp;dictionary&nbsp;extra&nbsp;inputs<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------<br>
+1.&nbsp;wmap:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;wmap&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;threshold&nbsp;normally&nbsp;should&nbsp;be&nbsp;less&nbsp;than&nbsp;1.0</tt></dd></dl>
+</td></tr></table>
+</body></html>

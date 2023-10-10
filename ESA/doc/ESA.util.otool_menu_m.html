@@ -1,0 +1,231 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.otool_menu_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.otool_menu_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/otool_menu_m.py">/home/lfeng/otool/ESA/util/otool_menu_m.py</a></font></td></tr></table>
+    <p><tt>class&nbsp;and&nbsp;functions&nbsp;for&nbsp;extracting&nbsp;options&nbsp;from&nbsp;&nbsp;xml&nbsp;or&nbsp;text&nbsp;configuration&nbsp;&nbsp;files<br>
+&nbsp;<br>
+&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.12.08<br>
+&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.03.24<br>
+&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;Class<br>
+&nbsp;&nbsp;=================================================================<br>
+&nbsp;&nbsp;1.&nbsp;<a href="#menu_cl">menu_cl</a>:&nbsp;class&nbsp;for&nbsp;menu&nbsp;list&nbsp;(ie.,&nbsp;configure&nbsp;options)<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;Functions:<br>
+&nbsp;&nbsp;==================================================================<br>
+&nbsp;&nbsp;1.&nbsp;txt_to_menu:&nbsp;read&nbsp;text&nbsp;file&nbsp;to&nbsp;class&nbsp;<a href="#menu_cl">menu_cl</a>&nbsp;<br>
+&nbsp;&nbsp;2.&nbsp;xml_to_menu:&nbsp;read&nbsp;xml&nbsp;file&nbsp;to&nbsp;&nbsp;class&nbsp;<a href="#menu_cl">menu_cl</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;3.&nbsp;update_menu_from_text:&nbsp;update&nbsp;menu&nbsp;class&nbsp;using&nbsp;text&nbsp;lines&nbsp;<br>
+&nbsp;&nbsp;4.&nbsp;update_menu_from_element:&nbsp;update&nbsp;menu&nbsp;class&nbsp;using&nbsp;element</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.otool_menu_m.html#menu_cl">menu_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="menu_cl">class <strong>menu_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Members:<br>
+--------------------------------------------------------<br>
+1.&nbsp;menu_item:&lt;dict&gt;:&nbsp;menu&nbsp;chain&nbsp;<br>
+2.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attributes<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+--------------------------------------------------------<br>
+1.&nbsp;__getitem__:&nbsp;overriding&nbsp;index&nbsp;function&nbsp;('[]')&nbsp;to&nbsp;check&nbsp;dictionary&nbsp;entry&nbsp;of&nbsp;self.<strong>menu_item</strong><br>
+2.&nbsp;delete_menu:&nbsp;&nbsp;remove&nbsp;item&nbsp;from&nbsp;self.<strong>menu_item</strong><br>
+3.&nbsp;update_menu:&nbsp;&nbsp;Add&nbsp;or&nbsp;update&nbsp;menu&nbsp;item<br>
+4.&nbsp;get_attr:&nbsp;&nbsp;get&nbsp;attribute&nbsp;<br>
+5.&nbsp;set_attr:&nbsp;&nbsp;set&nbsp;attribute&nbsp;<br>
+6.&nbsp;print_menu:&nbsp;&nbsp;print&nbsp;out&nbsp;what&nbsp;is&nbsp;in&nbsp;the&nbsp;menu&nbsp;chain<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------------------------------<br>
+1.&nbsp;<a href="#menu_cl">menu_cl</a>&nbsp;is&nbsp;designed&nbsp;to&nbsp;be&nbsp;a&nbsp;container&nbsp;for&nbsp;dictionary&nbsp;trees&nbsp;so&nbsp;it&nbsp;can&nbsp;have&nbsp;a&nbsp;nested&nbsp;structure&nbsp;like:<br>
+&nbsp;&nbsp;&nbsp;Menu&nbsp;P----&gt;Menu&nbsp;C1&nbsp;<br>
+&nbsp;&nbsp;&nbsp;----&gt;Menu&nbsp;C2<br>
+&nbsp;&nbsp;&nbsp;etc<br>
+&nbsp;&nbsp;&nbsp;Consquently&nbsp;item&nbsp;under&nbsp;sub-menu&nbsp;(for&nbsp;example&nbsp;menu&nbsp;C1)&nbsp;will&nbsp;be&nbsp;accessed&nbsp;using&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;full&nbsp;name&nbsp;of&nbsp;menu&nbsp;chain&nbsp;separated&nbsp;by&nbsp;'.'&nbsp;(for&nbsp;example&nbsp;&nbsp;P.C1.itemname)&nbsp;&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;special&nbsp;words:&nbsp;&nbsp;&nbsp;__load;&nbsp;__dict;&nbsp;__list;<br>
+&nbsp;&nbsp;&nbsp;---&gt;&nbsp;__load:&nbsp;If&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;&nbsp;'__load:module_name:module_member'&nbsp;,&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;self.<strong>update_menu</strong>&nbsp;will&nbsp;try&nbsp;to&nbsp;import&nbsp;this&nbsp;module,&nbsp;and&nbsp;then&nbsp;assign&nbsp;its&nbsp;corresponding&nbsp;member&nbsp;to&nbsp;the&nbsp;menu&nbsp;item.&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;---&gt;&nbsp;__dict:&nbsp;if&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;'__dict:a=x,&nbsp;b=y,&nbsp;...,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;self.<strong>update_menu</strong>&nbsp;will&nbsp;create&nbsp;a&nbsp;dictionary&nbsp;as&nbsp;{'a':x,&nbsp;'b':y,,.}&nbsp;under&nbsp;the&nbsp;item's&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;---&gt;&nbsp;__list:&nbsp;if&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;'__list:a,&nbsp;b,&nbsp;...,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;self.<strong>update_menu</strong>&nbsp;will&nbsp;create&nbsp;a&nbsp;list&nbsp;as&nbsp;[a,&nbsp;b,&nbsp;c]&nbsp;under&nbsp;the&nbsp;item's&nbsp;name<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="menu_cl-__getitem__"><strong>__getitem__</strong></a>(self, itemname)</dt><dd><tt>Overriding&nbsp;index&nbsp;function<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;itemname:&nbsp;&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;menu&nbsp;item&nbsp;to&nbsp;be&nbsp;checked&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;value:&nbsp;the&nbsp;menu&nbsp;value&nbsp;if&nbsp;found&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------<br>
+1.&nbsp;if&nbsp;itemname&nbsp;contains&nbsp;'.'&nbsp;(for&nbsp;example&nbsp;&nbsp;M1.M2.M3),&nbsp;the&nbsp;value&nbsp;will&nbsp;be&nbsp;searched&nbsp;down&nbsp;through&nbsp;chain&nbsp;<br>
+of&nbsp;menu&nbsp;classes&nbsp;(such&nbsp;as&nbsp;M1--&gt;M2--M3)</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-__init__"><strong>__init__</strong></a>(self, **menu_dict)</dt><dd><tt>initialization<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;menu_dict:&lt;dict&gt;:&nbsp;menu</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-delete_menu"><strong>delete_menu</strong></a>(self, menu_name)</dt><dd><tt>remove&nbsp;item&nbsp;from&nbsp;self.<strong>menu_item</strong><br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;menu_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;menu&nbsp;to&nbsp;be&nbsp;deleted</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>get&nbsp;attribute&nbsp;of&nbsp;the&nbsp;object&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.attr_name:&lt;str&gt;:&nbsp;attribut&nbsp;name&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;val:&lt;obj&gt;:&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-print_menu"><strong>print_menu</strong></a>(self, parentname<font color="#909090">=''</font>)</dt><dd><tt>print&nbsp;out&nbsp;what&nbsp;is&nbsp;in&nbsp;the&nbsp;menu&nbsp;chain</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, attr_value)</dt><dd><tt>set&nbsp;attribute&nbsp;&nbsp;of&nbsp;the&nbsp;object&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.attr_name:&lt;str&gt;:&nbsp;attribute&nbsp;name&nbsp;<br>
+2.attr_value:&lt;obj&gt;:&nbsp;attribute&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="menu_cl-update_menu"><strong>update_menu</strong></a>(self, menu_name, menu_val)</dt><dd><tt>&nbsp;Add&nbsp;or&nbsp;update&nbsp;menu&nbsp;item<br>
+&nbsp;<br>
+&nbsp;Inputs:<br>
+&nbsp;--------------------------------------------<br>
+&nbsp;1.&nbsp;menu_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;menu&nbsp;<br>
+&nbsp;2.&nbsp;menu_val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;Notes:<br>
+&nbsp;--------------------------------------<br>
+&nbsp;1.&nbsp;if&nbsp;itemname&nbsp;contains&nbsp;'.'&nbsp;(for&nbsp;example&nbsp;&nbsp;M1.M2.M3),&nbsp;the&nbsp;value&nbsp;will&nbsp;be&nbsp;added&nbsp;or&nbsp;updated&nbsp;down&nbsp;through&nbsp;<br>
+&nbsp;the&nbsp;chain&nbsp;of&nbsp;menu&nbsp;classes&nbsp;(such&nbsp;as&nbsp;M1--&gt;M2--M3)<br>
+&nbsp;<br>
+&nbsp;2.&nbsp;special&nbsp;words:&nbsp;&nbsp;&nbsp;__load;&nbsp;__dict;&nbsp;__list;<br>
+---&gt;&nbsp;__load:&nbsp;If&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;&nbsp;'__load:module_name:module_member'&nbsp;,&nbsp;&nbsp;<br>
+self.<strong>update_menu</strong>&nbsp;will&nbsp;try&nbsp;to&nbsp;import&nbsp;this&nbsp;module,&nbsp;and&nbsp;then&nbsp;assign&nbsp;its&nbsp;corresponding&nbsp;member&nbsp;to&nbsp;the&nbsp;menu&nbsp;item.&nbsp;<br>
+&nbsp;<br>
+---&gt;&nbsp;__dict:&nbsp;if&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;'__dict:a=x,&nbsp;b=y,&nbsp;...,&nbsp;<br>
+self.<strong>update_menu</strong>&nbsp;will&nbsp;create&nbsp;a&nbsp;dictionary&nbsp;as&nbsp;{'a':x,&nbsp;'b':y,,.}&nbsp;under&nbsp;the&nbsp;item's&nbsp;name<br>
+&nbsp;<br>
+---&gt;&nbsp;__list:&nbsp;if&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;'__list:a,&nbsp;b,&nbsp;...,&nbsp;<br>
+self.<strong>update_menu</strong>&nbsp;will&nbsp;create&nbsp;a&nbsp;list&nbsp;as&nbsp;[a,&nbsp;b,&nbsp;c]&nbsp;under&nbsp;the&nbsp;item's&nbsp;name<br>
+&nbsp;<br>
+---&gt;&nbsp;__range:&nbsp;if&nbsp;an&nbsp;item&nbsp;value&nbsp;is&nbsp;given&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;form&nbsp;of&nbsp;'__range:a,&nbsp;b,&nbsp;c,&nbsp;<br>
+self.<strong>update_menu</strong>&nbsp;will&nbsp;create&nbsp;a&nbsp;array&nbsp;as&nbsp;arange(a,&nbsp;b,&nbsp;c)&nbsp;under&nbsp;the&nbsp;item's&nbsp;name</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-preprocess_text"><strong>preprocess_text</strong></a>(lines)</dt><dd><tt>preprocess&nbsp;text&nbsp;line&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;lines:&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;to&nbsp;be&nbsp;prepressing&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;new_lines&lt;list,&nbsp;t:str&gt;:&nbsp;lines&nbsp;after&nbsp;being&nbsp;&nbsp;prepressing<br>
+2.&nbsp;para_dict:&lt;dict&gt;:&nbsp;parameters&nbsp;found.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+1.&nbsp;the&nbsp;parameter&nbsp;block&nbsp;begin&nbsp;with&nbsp;#SETP&nbsp;and&nbsp;end&nbsp;with&nbsp;#ENDP<br>
+2.&nbsp;defined&nbsp;parameters&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;replace&nbsp;$PARANAME$&nbsp;in&nbsp;text&nbsp;lines.</tt></dd></dl>
+ <dl><dt><a name="-txt_to_menu"><strong>txt_to_menu</strong></a>(flnm)</dt><dd><tt>function&nbsp;to&nbsp;convert&nbsp;txt&nbsp;file&nbsp;into&nbsp;menu&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+-------------------------------------<br>
+1.flnm&nbsp;:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;txt&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1.&nbsp;root_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;menu&nbsp;read&nbsp;from&nbsp;file</tt></dd></dl>
+ <dl><dt><a name="-update_menu_from_element"><strong>update_menu_from_element</strong></a>(parent_menu, parent_mname, element)</dt><dd><tt>Updatemenu&nbsp;class&nbsp;using&nbsp;element&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;parent_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;menu&nbsp;class&nbsp;<br>
+2.&nbsp;parent_mname:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;menu&nbsp;class<br>
+3.&nbsp;element:&lt;elment&gt;:&nbsp;element&nbsp;class<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------<br>
+1.&nbsp;parent_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;updated&nbsp;menu&nbsp;class</tt></dd></dl>
+ <dl><dt><a name="-update_menu_from_text"><strong>update_menu_from_text</strong></a>(parent_menu, lines)</dt><dd><tt>Update&nbsp;menu&nbsp;class&nbsp;using&nbsp;text&nbsp;lines&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------<br>
+1.&nbsp;parent_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;parent&nbsp;menu&nbsp;<br>
+2.&nbsp;lines:&nbsp;lines&nbsp;will&nbsp;be&nbsp;go&nbsp;through<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;parent_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;update&nbsp;parent&nbsp;menu</tt></dd></dl>
+ <dl><dt><a name="-xml_to_menu"><strong>xml_to_menu</strong></a>(flnm)</dt><dd><tt>function&nbsp;to&nbsp;convert&nbsp;xml&nbsp;file&nbsp;into&nbsp;menu&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.flnm&nbsp;:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;xml<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1.&nbsp;root_menu:&lt;<a href="#menu_cl">menu_cl</a>&gt;:&nbsp;menu&nbsp;read&nbsp;from&nbsp;file</tt></dd></dl>
+</td></tr></table>
+</body></html>

@@ -1,0 +1,160 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.run_desc_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.run_desc_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/run_desc_m.py">/home/lfeng/otool/ESA/enkf/run_desc_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;decoding&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Classes:<br>
+=================================================<br>
+1.&nbsp;<a href="#enr_desc_cl">enr_desc_cl</a>:&nbsp;&nbsp;Information&nbsp;about&nbsp;ensemble&nbsp;runs</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_descfile_io.html">ESA.util.otool_descfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="ESA.enkf.run_desc_file_m.html">ESA.enkf.run_desc_file_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.run_desc_m.html#enr_desc_cl">enr_desc_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="enr_desc_cl">class <strong>enr_desc_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Information&nbsp;about&nbsp;ensemble&nbsp;runs&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+==========================================<br>
+#&nbsp;current&nbsp;time&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;&nbsp;yyyy:&lt;int&gt;:&nbsp;year<br>
+2.&nbsp;&nbsp;mm:&nbsp;&lt;int&gt;:&nbsp;month<br>
+3.&nbsp;&nbsp;dd:&nbsp;&lt;int&gt;:&nbsp;day&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;&nbsp;flnm_ems_lst:&lt;list,&nbsp;t:list&gt;:&nbsp;list&nbsp;of&nbsp;emission&nbsp;file&nbsp;names<br>
+5.&nbsp;&nbsp;flnm_mod_lst:&lt;list,&nbsp;t:list&gt;:&nbsp;list&nbsp;of&nbsp;tracer&nbsp;file&nbsp;names<br>
+&nbsp;<br>
+#&nbsp;current&nbsp;coverage&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;&nbsp;step_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;steps<br>
+7.&nbsp;&nbsp;st_year_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;starting&nbsp;year&nbsp;<br>
+8.&nbsp;&nbsp;end_year_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;ending&nbsp;year<br>
+&nbsp;<br>
+9.&nbsp;&nbsp;st_doy_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;starting&nbsp;day&nbsp;of&nbsp;year&nbsp;<br>
+10.&nbsp;&nbsp;end_doy_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;ending&nbsp;day&nbsp;of&nbsp;year<br>
+&nbsp;<br>
+11.&nbsp;&nbsp;st_no_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;&nbsp;first&nbsp;ensemble&nbsp;member&nbsp;&nbsp;<br>
+12.&nbsp;end_no_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;last&nbsp;ensemble&nbsp;member&nbsp;<br>
+13.&nbsp;nset:&nbsp;set&nbsp;of&nbsp;the&nbsp;number&nbsp;<br>
+14.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attributes<br>
+&nbsp;<br>
+15.&nbsp;enr_table_lst:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;ensemble&nbsp;run&nbsp;&nbsp;description&nbsp;tables<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;access<br>
+16.&nbsp;fdesc:&nbsp;file&nbsp;descript&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;<br>
+17.&nbsp;fopen:&nbsp;open&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;file&nbsp;<br>
+18.&nbsp;fread:&nbsp;read&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;&nbsp;file&nbsp;<br>
+19.&nbsp;fget:&nbsp;&nbsp;get&nbsp;description&nbsp;table&nbsp;lis&nbsp;for&nbsp;current&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+===========================================================<br>
+1.&nbsp;__init__:initialization<br>
+2.&nbsp;load_enr_table:&nbsp;read&nbsp;description&nbsp;table&nbsp;<br>
+3.&nbsp;get_enr_table_list:&nbsp;check&nbsp;(or&nbsp;add&nbsp;in)&nbsp;description&nbsp;table&nbsp;for&nbsp;given&nbsp;time&nbsp;&nbsp;(such&nbsp;as&nbsp;year)<br>
+&nbsp;<br>
+4.&nbsp;extract_coverage:&nbsp;&nbsp;get&nbsp;ensemble&nbsp;runs&nbsp;covering&nbsp;a&nbsp;given&nbsp;time&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+5.&nbsp;copy:&nbsp;make&nbsp;a&nbsp;copy&nbsp;of&nbsp;itself<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="enr_desc_cl-__init__"><strong>__init__</strong></a>(self, flnm, datapath, yyyy, mm, dd, fopen<font color="#909090">=&lt;function open_enr_desc_file&gt;</font>, fread<font color="#909090">=&lt;function read_enr_desc_file&gt;</font>, fclose<font color="#909090">=&lt;function close_enr_desc_file&gt;</font>, fget<font color="#909090">=&lt;function get_enr_desc_table&gt;</font>, fio_keywords<font color="#909090">={}</font>, **keywords)</dt><dd><tt>1.&nbsp;&nbsp;yyyy:&lt;int&gt;:&nbsp;year<br>
+2.&nbsp;&nbsp;mm:&nbsp;&lt;int&gt;:&nbsp;month<br>
+3.&nbsp;&nbsp;dd:&nbsp;&lt;int&gt;:&nbsp;day&nbsp;<br>
+4.&nbsp;&nbsp;enr_table_lst:&lt;list,&nbsp;t:recarray&gt;:&nbsp;configure&nbsp;table&nbsp;for&nbsp;ensemble&nbsp;runs&nbsp;<br>
+&nbsp;<br>
+---required&nbsp;columns&nbsp;for&nbsp;each&nbsp;members<br>
+---&gt;year_st:&lt;int&gt;:&nbsp;starting&nbsp;year<br>
+---&gt;doy_st:&lt;int&gt;:&nbsp;starting&nbsp;doy&nbsp;<br>
+---&gt;year_end:&lt;int&gt;:&nbsp;end&nbsp;year<br>
+---&gt;doy_end:&lt;int&gt;:&nbsp;end&nbsp;doy<br>
+---&gt;mem_st:&lt;int&gt;:&nbsp;the&nbsp;first&nbsp;ensemble&nbsp;no&nbsp;<br>
+---&gt;mem_end:&lt;int&gt;:&nbsp;the&nbsp;last&nbsp;ensemble&nbsp;no</tt></dd></dl>
+
+<dl><dt><a name="enr_desc_cl-extract_coverage"><strong>extract_coverage</strong></a>(self, yyyy, mm, dd, enr_table_lst<font color="#909090">=None</font>)</dt><dd><tt>extract&nbsp;informations&nbsp;for&nbsp;runs&nbsp;covering&nbsp;given&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;time&nbsp;<br>
+2.&nbsp;enr_table_lst:&lt;list,&nbsp;t:recarray&gt;:&nbsp;configure&nbsp;table&nbsp;for&nbsp;ensemble&nbsp;runs&nbsp;<br>
+&nbsp;<br>
+---required&nbsp;columns&nbsp;for&nbsp;each&nbsp;members<br>
+---&gt;year_st:&lt;int&gt;:&nbsp;starting&nbsp;year<br>
+---&gt;doy_st:&lt;int&gt;:&nbsp;starting&nbsp;doy&nbsp;<br>
+---&gt;year_end:&lt;int&gt;:&nbsp;end&nbsp;year<br>
+---&gt;doy_end:&lt;int&gt;:&nbsp;end&nbsp;doy<br>
+---&gt;mem_st:&lt;int&gt;:&nbsp;the&nbsp;first&nbsp;ensemble&nbsp;no&nbsp;<br>
+---&gt;mem_end:&lt;int&gt;:&nbsp;the&nbsp;last&nbsp;ensemble&nbsp;no&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;self.<strong>nsets</strong>:&lt;int&gt;:&nbsp;number&nbsp;of&nbsp;the&nbsp;<br>
+&nbsp;<br>
+Notes:</tt></dd></dl>
+
+<dl><dt><a name="enr_desc_cl-extract_current_time_step"><strong>extract_current_time_step</strong></a>(self, yyyy, mm, dd)</dt><dd><tt>extract&nbsp;informations&nbsp;for&nbsp;runs&nbsp;covering&nbsp;given&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------<br>
+1.&nbsp;st_yyyy,&nbsp;st_doy,&nbsp;end_yyyy,&nbsp;end_doy:&lt;list,&nbsp;t&gt;:starting&nbsp;year,&nbsp;doy&nbsp;and&nbsp;ending&nbsp;year,&nbsp;doy</tt></dd></dl>
+
+<dl><dt><a name="enr_desc_cl-get_enr_table"><strong>get_enr_table</strong></a>(self, yyyy, mm, dd, **fio_keywords)</dt><dd><tt>check&nbsp;ensemble&nbsp;run&nbsp;description&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------<br>
+1.&nbsp;enr_table:&lt;recarray&gt;:&nbsp;description&nbsp;table&nbsp;for&nbsp;ensemble&nbsp;runs&nbsp;<br>
+which&nbsp;covers&nbsp;given&nbsp;date.</tt></dd></dl>
+
+<dl><dt><a name="enr_desc_cl-load_enr_table"><strong>load_enr_table</strong></a>(self, **fio_keywords)</dt><dd><tt>Read&nbsp;ensemble&nbsp;description&nbsp;files&nbsp;into&nbsp;fdesc<br>
+&nbsp;<br>
+Inputs:<br>
+=================================<br>
+1.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;keywords&nbsp;for&nbsp;fio</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

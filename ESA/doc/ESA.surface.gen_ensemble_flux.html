@@ -1,0 +1,83 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.gen_ensemble_flux</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.gen_ensemble_flux</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/gen_ensemble_flux.py">/home/lfeng/otool/ESA/surface/gen_ensemble_flux.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;generating&nbsp;pulse-like&nbsp;ensemble&nbsp;fluxes.&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.02.21<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Functions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;===============================================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;flux_pb_normalization:&nbsp;normalize&nbsp;regional&nbsp;flux&nbsp;to&nbsp;a&nbsp;given&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;gen_ensemble_flux_by_reg:&nbsp;generate&nbsp;ensemble&nbsp;flux</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.surface.bf_m.html">ESA.surface.bf_m</a><br>
+<a href="ESA.util.flux_regrid.html">ESA.util.flux_regrid</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+<a href="ESA.util.otool_menu_m.html">ESA.util.otool_menu_m</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+<a href="pylab.html">pylab</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-flux_pb_normalization"><strong>flux_pb_normalization</strong></a>(reg_flux, reg_map, sf_area, unit_flux)</dt><dd><tt>normalize&nbsp;regional&nbsp;fluxes&nbsp;to&nbsp;a&nbsp;given&nbsp;unit&nbsp;flux&nbsp;<br>
+&nbsp;&nbsp;<br>
+Inputs:<br>
+----------------------------------------<br>
+1.&nbsp;reg_flux:&lt;array,&nbsp;(nlon,&nbsp;nlat&nbsp;[,nlayer])&gt;:&nbsp;regional&nbsp;flux<br>
+2.&nbsp;reg_map:&lt;array,&nbsp;(nlon,&nbsp;nlat&nbsp;[,nlayer])&gt;:&nbsp;region&nbsp;map<br>
+3.&nbsp;sf_area:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;area&nbsp;for&nbsp;grid&nbsp;boxes<br>
+4.&nbsp;unit_flux:&lt;float&gt;:&nbsp;unit&nbsp;for&nbsp;regional&nbsp;fluxes&nbsp;to&nbsp;be&nbsp;normalized.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------<br>
+1.&nbsp;reg_flux:&lt;array&gt;:&nbsp;normalized&nbsp;regional&nbsp;fluxes.</tt></dd></dl>
+ <dl><dt><a name="-gen_ensemble_flux_by_reg"><strong>gen_ensemble_flux_by_reg</strong></a>(cfg)</dt><dd><tt>generate&nbsp;basis&nbsp;functions&nbsp;by&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------<br>
+1.&nbsp;cfg:&lt;menu&gt;:&nbsp;the&nbsp;configuration&nbsp;files</tt></dd></dl>
+ <dl><dt><a name="-process_configuration_file"><strong>process_configuration_file</strong></a>(cfg_flnm)</dt><dd><tt>process&nbsp;configuration&nbsp;menu&nbsp;<br>
+Inputs:<br>
+----------------------------------------------<br>
+1.&nbsp;cfg_flnm:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;configuration&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------<br>
+1.&nbsp;root_menu:&nbsp;&lt;menu_cl&gt;:&nbsp;menu&nbsp;class&nbsp;for&nbsp;configuration</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>mol_mass_factor</strong> = 1.992650440956937e-23</td></tr></table>
+</body></html>

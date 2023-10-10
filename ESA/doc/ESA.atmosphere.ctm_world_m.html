@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.atmosphere.ctm_world_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.atmosphere.html"><font color="#ffffff">atmosphere</font></a>.ctm_world_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/atmosphere/ctm_world_m.py">/home/lfeng/otool/ESA/atmosphere/ctm_world_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;a&nbsp;group&nbsp;of&nbsp;fields&nbsp;generated&nbsp;by&nbsp;CTM&nbsp;models<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.5,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2012.12.12<br>
+&nbsp;<br>
+&nbsp;<br>
+Classes:<br>
+---------------------------------------------------------------<br>
+1.&nbsp;<a href="#ctm_world_cl">ctm_world_cl</a>:&nbsp;general&nbsp;container&nbsp;for&nbsp;gridded&nbsp;geo-physical&nbsp;variables</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.atmosphere.ctm_grid_3d.html">ESA.atmosphere.ctm_grid_3d</a><br>
+<a href="ESA.atmosphere.ctm_profile_m.html">ESA.atmosphere.ctm_profile_m</a><br>
+<a href="ESA.atmosphere.ctm_field_m.html">ESA.atmosphere.ctm_field_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.atmosphere.gc_grid_3d.html">ESA.atmosphere.gc_grid_3d</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.atmosphere.ctm_world_m.html#ctm_world_cl">ctm_world_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ctm_world_cl">class <strong>ctm_world_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>general&nbsp;container&nbsp;for&nbsp;gridded&nbsp;geo-physical&nbsp;variables<br>
+&nbsp;<br>
+Members:<br>
+------------------------------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;name&nbsp;&nbsp;:&lt;str&gt;:&nbsp;#&nbsp;name&nbsp;for&nbsp;the&nbsp;object<br>
+2.&nbsp;ctm_grd:&nbsp;&lt;ctm_grd_cl&gt;:&nbsp;time&nbsp;tag&nbsp;for&nbsp;the&nbsp;object&nbsp;<br>
+3.&nbsp;time_tag:&lt;str/float&gt;:&nbsp;to&nbsp;track&nbsp;time&nbsp;<br>
+4.&nbsp;__data_list:&nbsp;&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;ctm_field_cl&nbsp;objections<br>
+5.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;attributes<br>
+6.&nbsp;ndata:&nbsp;&lt;integer&gt;:&nbsp;length&nbsp;of&nbsp;the&nbsp;data&nbsp;set&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+---------------------------------------<br>
+&nbsp;<br>
+#&nbsp;member&nbsp;retrieve&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;find_data:&nbsp;&nbsp;&nbsp;search&nbsp;data&nbsp;matching&nbsp;selection&nbsp;criteria&nbsp;of&nbsp;name,&nbsp;tracer_id,&nbsp;tracer_name,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;category,&nbsp;group&nbsp;and&nbsp;time&nbsp;range&nbsp;etc&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;member&nbsp;manage&nbsp;<br>
+3.&nbsp;add_data:&nbsp;add&nbsp;data&nbsp;to&nbsp;the&nbsp;list&nbsp;<br>
+4.&nbsp;del_data:&nbsp;delete&nbsp;data&nbsp;from&nbsp;the&nbsp;list<br>
+5.&nbsp;update_data:&nbsp;update&nbsp;data<br>
+6.&nbsp;copy_data:&nbsp;get&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;data<br>
+7.&nbsp;get_data:&nbsp;return&nbsp;the&nbsp;data&nbsp;(shared&nbsp;the&nbsp;same&nbsp;address&nbsp;of&nbsp;the&nbsp;data&nbsp;member)<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;Interpolation&nbsp;<br>
+&nbsp;<br>
+7.&nbsp;get_ctm_grd:&nbsp;return&nbsp;the&nbsp;ctm_grd&nbsp;member&nbsp;<br>
+8.&nbsp;copy_ctm_grd:&nbsp;get&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;ctm_grd&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+7.&nbsp;get_gp_slice:&nbsp;get&nbsp;vertical&nbsp;profiles&nbsp;of&nbsp;for&nbsp;select&nbsp;tracer&nbsp;name&nbsp;at&nbsp;locations&nbsp;<br>
+&nbsp;<br>
+#&nbsp;IO&nbsp;<br>
+8.&nbsp;load_gp_from_file:&nbsp;load&nbsp;variable&nbsp;from&nbsp;file(s)<br>
+9.&nbsp;save_gp_to_file:&nbsp;&nbsp;save&nbsp;variable&nbsp;to&nbsp;file(s)<br>
+10.&nbsp;__getitem__:&nbsp;over-riding&nbsp;index<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ctm_world_cl-__delitem__"><strong>__delitem__</strong></a>(self, index)</dt><dd><tt>Inputs:<br>
+------------------------------------------------<br>
+1.&nbsp;index:&lt;integer/slice/string&gt;:&nbsp;<br>
+---Index&nbsp;for&nbsp;elements&nbsp;in&nbsp;__data_lst&nbsp;when&nbsp;integer&nbsp;or&nbsp;slice&nbsp;is&nbsp;provided&nbsp;&nbsp;<br>
+---name&nbsp;of&nbsp;the&nbsp;elements&nbsp;in&nbsp;__data_lst&nbsp;when&nbsp;string&nbsp;is&nbsp;provided<br>
+&nbsp;<br>
+Outputs:<br>
+------------------------------------------------<br>
+1.&nbsp;ndel:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;elements&nbsp;deleted&nbsp;from&nbsp;__data_lst</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-__getitem__"><strong>__getitem__</strong></a>(self, index)</dt><dd><tt>over-ridding&nbsp;index&nbsp;function<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------<br>
+1.&nbsp;index:&lt;integer/slice/string&gt;:&nbsp;<br>
+---Index&nbsp;for&nbsp;elements&nbsp;in&nbsp;__data_lst&nbsp;when&nbsp;integer&nbsp;or&nbsp;slice&nbsp;is&nbsp;provided&nbsp;&nbsp;<br>
+---name&nbsp;of&nbsp;the&nbsp;elements&nbsp;in&nbsp;__data_lst&nbsp;when&nbsp;string&nbsp;is&nbsp;provided<br>
+&nbsp;<br>
+Outputs:<br>
+------------------------------------------------<br>
+1.&nbsp;data_lst:&lt;list,&nbsp;t:ctm_field_cl&gt;:&nbsp;list&nbsp;of&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-__init__"><strong>__init__</strong></a>(self, name, data_lst, ctm_grd<font color="#909090">=None</font>, time_tag<font color="#909090">=''</font>, extra_axis<font color="#909090">=None</font>, **keywords)</dt><dd><tt>Initialize&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;name&nbsp;&nbsp;:&lt;str&gt;:&nbsp;#&nbsp;name&nbsp;for&nbsp;the&nbsp;object<br>
+2.&nbsp;data_list:&nbsp;&lt;dict&gt;:&nbsp;list&nbsp;of&nbsp;ctm_field_cl&nbsp;objections<br>
+3.&nbsp;ctm_grd:&nbsp;&lt;ctm_grd_cl&gt;:&nbsp;time&nbsp;tag&nbsp;for&nbsp;the&nbsp;object&nbsp;<br>
+4.&nbsp;time_tag:&lt;str/float&gt;:&nbsp;time</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-add_attr"><strong>add_attr</strong></a>(self, name, val)</dt><dd><tt>add&nbsp;or&nbsp;replace&nbsp;attributes<br>
+Inputs<br>
+---------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-add_data"><strong>add_data</strong></a>(self, data)</dt><dd><tt>Add&nbsp;data&nbsp;(ctm_field_cl)&nbsp;into&nbsp;the&nbsp;class&nbsp;<br>
+Inputs:<br>
+------------------------------<br>
+1.&nbsp;data:&lt;ctm_field_cl&gt;:&nbsp;class&nbsp;for&nbsp;ctm&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-copy_attr_dict"><strong>copy_attr_dict</strong></a>(self)</dt><dd><tt>copy&nbsp;the&nbsp;attribute&nbsp;dictionary</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-find_data"><strong>find_data</strong></a>(self, **keywords)</dt><dd><tt>find&nbsp;the&nbsp;data&nbsp;meeting&nbsp;the&nbsp;requirements&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;list&nbsp;of&nbsp;criteria&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;found_data:&lt;list,&nbsp;t:ctm_field_cl&gt;:&nbsp;datasets&nbsp;meeting&nbsp;the&nbsp;criteria</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-get_attr"><strong>get_attr</strong></a>(self, name)</dt><dd><tt>check&nbsp;attribute<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;val:&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-get_gp_slice"><strong>get_gp_slice</strong></a>(self, olon, olat, **gp_keys)</dt><dd><tt>get&nbsp;profiles&nbsp;for&nbsp;variables&nbsp;at&nbsp;given&nbsp;locations.&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;olon:&lt;array,&nbsp;(nob,)&gt;:&nbsp;longitudes<br>
+2.&nbsp;olat:&lt;array,&nbsp;(nob,)&gt;:&nbsp;latitudes<br>
+3.&nbsp;gp_keys:&lt;dict&gt;:&nbsp;selection&nbsp;criteria<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------<br>
+1.&nbsp;name_lst:&nbsp;&lt;list,t:str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;profiles<br>
+2.&nbsp;prof_lst:&nbsp;&lt;list,&nbsp;t:ctm_profile_cl&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;profiles</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-get_grid"><strong>get_grid</strong></a>(self)</dt><dd><tt>get&nbsp;ctm&nbsp;grid<br>
+Returns:<br>
+1.&nbsp;ctm_grd:&lt;ctm_grid_cl&gt;:&nbsp;ctm&nbsp;grid</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-is_data_in_list"><strong>is_data_in_list</strong></a>(self, data, keys)</dt><dd><tt>check&nbsp;whether&nbsp;a&nbsp;data&nbsp;is&nbsp;in&nbsp;the&nbsp;__data_list&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;data:&lt;ctm_field_cl&gt;:&nbsp;CTM&nbsp;fileds<br>
+2.&nbsp;keys:&lt;list,&nbsp;t:string&gt;:&nbsp;a&nbsp;list&nbsp;of&nbsp;key&nbsp;should&nbsp;be&nbsp;checked.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;is_found:&lt;integer&gt;:&nbsp;if&nbsp;a&nbsp;data&nbsp;set&nbsp;with&nbsp;the&nbsp;same&nbsp;attributes&nbsp;of&nbsp;data&nbsp;input&nbsp;&nbsp;<br>
+is&nbsp;found&nbsp;in&nbsp;the&nbsp;list,&nbsp;its&nbsp;index&nbsp;will&nbsp;be&nbsp;given;&nbsp;<br>
+Otherwise,&nbsp;oob.fill_val_int&nbsp;will&nbsp;be&nbsp;returned</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-read_data_from_file"><strong>read_data_from_file</strong></a>(self, yyyy, mm, dd, varnames_lst, key_lst, file_read_m)</dt><dd><tt>virtual&nbsp;function</tt></dd></dl>
+
+<dl><dt><a name="ctm_world_cl-set_grid"><strong>set_grid</strong></a>(self, ctm_grd)</dt><dd><tt>define&nbsp;the&nbsp;grid&nbsp;<br>
+Inputs:&nbsp;<br>
+1.ctm_grid:&lt;ctm_grid_cl&gt;:&nbsp;grid</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

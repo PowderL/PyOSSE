@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.svd_region_flux</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.svd_region_flux</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/svd_region_flux.py">/home/lfeng/otool/ESA/surface/svd_region_flux.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;doing&nbsp;composition&nbsp;of&nbsp;regional&nbsp;Basis&nbsp;functions&nbsp;(i.e,&nbsp;error)<br>
+&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.24<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+===========================================<br>
+1.&nbsp;do_region_err_svd:&nbsp;decomposition&nbsp;of&nbsp;regional&nbsp;error</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.flux_regrid.html">ESA.util.flux_regrid</a><br>
+<a href="numpy.linalg.html">numpy.linalg</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="pylab.html">pylab</a><br>
+</td><td width="25%" valign=top><a href="numpy.random.html">numpy.random</a><br>
+<a href="ESA.surface.spatial_cor.html">ESA.surface.spatial_cor</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-do_region_err_svd"><strong>do_region_err_svd</strong></a>(grd_lon, grd_lat, reg_map, reg_err, cor_length, threshold<font color="#909090">=0.1</font>, scale<font color="#909090">=1.0</font>, dist_threshold<font color="#909090">=4.0</font>, maxsel<font color="#909090">=20</font>, **keywords)</dt><dd><tt>SVD&nbsp;error&nbsp;map&nbsp;over&nbsp;region&nbsp;to&nbsp;several&nbsp;&nbsp;sub-regions&nbsp;defined&nbsp;by&nbsp;(nsb_lon,&nbsp;nsb_lat)<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+--------------------------------------<br>
+1.&nbsp;grd_lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude<br>
+2.&nbsp;grd_lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude<br>
+3.&nbsp;reg_map:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;ratio&nbsp;&nbsp;map&nbsp;defining&nbsp;one&nbsp;region.&nbsp;<br>
+4.&nbsp;reg_err:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;err&nbsp;(or&nbsp;BF)&nbsp;defined&nbsp;over&nbsp;given&nbsp;region<br>
+5.&nbsp;cor_length&nbsp;&lt;float&gt;:&nbsp;length&nbsp;of&nbsp;the&nbsp;correlation&nbsp;<br>
+6.&nbsp;threshold:&lt;float&gt;:&nbsp;all&nbsp;grid&nbsp;boxes&nbsp;with&nbsp;flux&nbsp;(err)&nbsp;below&nbsp;this&nbsp;threshold&nbsp;will&nbsp;be&nbsp;treated&nbsp;as&nbsp;one&nbsp;single&nbsp;region&nbsp;<br>
+7.&nbsp;scale:&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;applied&nbsp;to&nbsp;this&nbsp;region&nbsp;<br>
+8.&nbsp;dist_threshold:&lt;float&gt;:&nbsp;Max&nbsp;distance/cor_length&nbsp;where&nbsp;correlation&nbsp;will&nbsp;be&nbsp;considered&nbsp;<br>
+9.&nbsp;maxsel:&lt;int&gt;:&nbsp;the&nbsp;maximum&nbsp;number&nbsp;of&nbsp;eigen&nbsp;vector&nbsp;to&nbsp;be&nbsp;kept&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;neig)&gt;:&nbsp;new&nbsp;regions&nbsp;masked&nbsp;with&nbsp;sub-region&nbsp;number&nbsp;<br>
+2.&nbsp;new_map_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;the&nbsp;layer&nbsp;map&nbsp;with&nbsp;each&nbsp;layer&nbsp;for&nbsp;each&nbsp;sub-regions</tt></dd></dl>
+</td></tr></table>
+</body></html>

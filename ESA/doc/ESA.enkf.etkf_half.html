@@ -1,0 +1,203 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.etkf_half</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.etkf_half</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/etkf_half.py">/home/lfeng/otool/ESA/enkf/etkf_half.py</a></font></td></tr></table>
+    <p><tt>Solve&nbsp;Ensemble&nbsp;transform&nbsp;matrix&nbsp;by&nbsp;using&nbsp;SVD&nbsp;approach<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Classes:<br>
+===============================================<br>
+1.&nbsp;<a href="#etkf_cl">etkf_cl</a>:class&nbsp;for&nbsp;solving&nbsp;ETKF&nbsp;data&nbsp;assimilation&nbsp;equation</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="numpy.linalg.html">numpy.linalg</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.etkf_half.html#etkf_cl">etkf_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="etkf_cl">class <strong>etkf_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;Ensemble&nbsp;Transform&nbsp;Kalman&nbsp;Filter&nbsp;solver<br>
+See&nbsp;Feng&nbsp;et&nbsp;al.,&nbsp;ACP&nbsp;2009<br>
+&nbsp;<br>
+Members:<br>
+-----------------------------------------------------<br>
+&nbsp;<br>
+#&nbsp;control&nbsp;variables&nbsp;<br>
+1.&nbsp;nx:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;control&nbsp;variable&nbsp;<br>
+2.&nbsp;ne:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;perturbation&nbsp;ensemble&nbsp;<br>
+3.&nbsp;x:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;perturbation&nbsp;ensemble&nbsp;<br>
+4.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;value&nbsp;of&nbsp;control&nbsp;variable&nbsp;<br>
+5.&nbsp;xnorm:&lt;float&gt;:&nbsp;normalized&nbsp;factor&nbsp;<br>
+&nbsp;<br>
+#&nbsp;model&nbsp;observation&nbsp;<br>
+6.&nbsp;&nbsp;y:&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;ensemble&nbsp;for&nbsp;model&nbsp;observation&nbsp;perturbation&nbsp;<br>
+7.&nbsp;&nbsp;ny:&lt;int&gt;:&nbsp;ny=nobs<br>
+8.&nbsp;&nbsp;mean_y:&lt;array,&nbsp;(nobs)&gt;:&nbsp;model&nbsp;observations&nbsp;for&nbsp;self.<strong>mean_x</strong><br>
+9.&nbsp;&nbsp;r:&lt;array,&nbsp;(nobs,&nbsp;)&gt;:&nbsp;observation&nbsp;err&nbsp;covariance&nbsp;<br>
+10.&nbsp;sqr:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;sqr=sqrt(r)&nbsp;<br>
+11.&nbsp;scyt:&lt;array,&nbsp;(ne,&nbsp;nobs):&nbsp;scaled&nbsp;y^t&nbsp;&nbsp;scyt=transpose(self.<strong>y</strong>)/self.<strong>sqr</strong>&nbsp;<br>
+12.&nbsp;uy:&lt;array,&nbsp;(ne,ne)&gt;:&nbsp;U&nbsp;matrix&nbsp;of&nbsp;svd(scyt)&nbsp;<br>
+13.&nbsp;vy:&lt;array,&nbsp;(ny,&nbsp;ny)&gt;:V&nbsp;matrix&nbsp;of&nbsp;svd(scyt)<br>
+12.&nbsp;wy:&lt;array,&nbsp;(nwy)&gt;:&nbsp;eigenvalues&nbsp;of&nbsp;scyt.&nbsp;newy=min(ne,&nbsp;ny)<br>
+&nbsp;<br>
+13.&nbsp;md:&lt;array,&nbsp;(nwy)&gt;:&nbsp;md=1.0/(1.0+wy*wy)<br>
+14&nbsp;&nbsp;n_wy:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;non-zeros&nbsp;wy&nbsp;<br>
+15.&nbsp;uw:&nbsp;&lt;array,&nbsp;(ne,&nbsp;n_wy)&gt;:&nbsp;reduced&nbsp;U&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+---------------------------------------------------------------<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;&nbsp;reset:&nbsp;re-do&nbsp;initialization<br>
+3.&nbsp;&nbsp;get_posterior:&nbsp;get&nbsp;posterior&nbsp;<br>
+4.&nbsp;&nbsp;get_tm:&nbsp;get&nbsp;transform&nbsp;matrix<br>
+5.&nbsp;&nbsp;get_k:&nbsp;get&nbsp;gain&nbsp;matrix&nbsp;<br>
+6.&nbsp;&nbsp;get_inc_m:&nbsp;get&nbsp;increment&nbsp;matrix&nbsp;<br>
+7.&nbsp;&nbsp;get_x_inc:&nbsp;get&nbsp;analysis&nbsp;increment<br>
+8.&nbsp;&nbsp;get_y_inc:&nbsp;get&nbsp;analysis&nbsp;increment&nbsp;in&nbsp;observation&nbsp;space<br>
+9.&nbsp;&nbsp;do_y_transform:&nbsp;transform&nbsp;maxtrix&nbsp;in&nbsp;y&nbsp;space<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="etkf_cl-__init__"><strong>__init__</strong></a>(self, mean_x, mean_y, x, y, r, xref<font color="#909090">=1</font>, xnorm<font color="#909090">=1.0</font>, do_debug<font color="#909090">=False</font>)</dt><dd><tt>initialize&nbsp;the&nbsp;class&nbsp;<br>
+&nbsp;<br>
+Inputs<br>
+---------------------------------------------------------<br>
+1.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;values&nbsp;of&nbsp;control&nbsp;variables&nbsp;x<br>
+2.&nbsp;mean_y:&lt;array,&nbsp;(ny)&gt;:&nbsp;mean&nbsp;model&nbsp;observation&nbsp;values.&nbsp;&nbsp;<br>
+3.&nbsp;x:&nbsp;&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;x&nbsp;perturbations&nbsp;<br>
+4.&nbsp;y:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;model&nbsp;forecast&nbsp;perturbations.&nbsp;ny=nobs&nbsp;<br>
+5.&nbsp;r:&nbsp;&lt;array,&nbsp;(nobs)&gt;:&nbsp;observation&nbsp;error&nbsp;covariances&nbsp;given&nbsp;in&nbsp;1&nbsp;dimension<br>
+6.&nbsp;xref:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;mean_x&nbsp;<br>
+7.&nbsp;xnorm:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;ensemble&nbsp;purbations&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<br>
+Notes:&nbsp;&nbsp;<br>
+----------------------------------------<br>
+1.&nbsp;self.<strong>x</strong>=(x-mean(x))/sqrt(xnorm)&nbsp;<br>
+2.&nbsp;self.<strong>y</strong>=(y-mean(y))/sqrt(xnorm)</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-do_y_transform"><strong>do_y_transform</strong></a>(self, y_in, tm, mean_y<font color="#909090">=None</font>)</dt><dd><tt>multiply&nbsp;y_in&nbsp;by&nbsp;tm&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------<br>
+1.&nbsp;y_in:&lt;array&gt;,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;'new'&nbsp;observation&nbsp;perturbations&nbsp;<br>
+2.&nbsp;tm&nbsp;&nbsp;:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;Transformation&nbsp;matrix<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------<br>
+1.&nbsp;yt:&lt;array,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;yt=y_in*tm</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_inc_m"><strong>get_inc_m</strong></a>(self, yobs)</dt><dd><tt>get&nbsp;the&nbsp;analysis&nbsp;increment&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;yobs:&lt;array,&nbsp;(nobs)&gt;:&nbsp;the&nbsp;observations<br>
+&nbsp;<br>
+Returns:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+------------------------------------------------<br>
+1.&nbsp;inc_m&nbsp;:&lt;array,&nbsp;(ne,)&gt;:increase&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------------------<br>
+1.&nbsp;inc_m=U*W*(I+WT*W)^-1*VT*R^-0.5*(Yobs-mean_Y)</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_k"><strong>get_k</strong></a>(self)</dt><dd><tt>calculate&nbsp;analysis&nbsp;gain&nbsp;k&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+----------------------------------------------------<br>
+1.&nbsp;k&nbsp;matrix:&lt;array,&nbsp;(nx,&nbsp;nobs)&gt;:&nbsp;&nbsp;gain&nbsp;matrix<br>
+&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;Notes:<br>
+------------------------------------------------------<br>
+K=X'*U*W*(I+WT*W)^-1*VT*R^-0.5</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_posterior"><strong>get_posterior</strong></a>(self, yobs)</dt><dd><tt>calculate&nbsp;posterior&nbsp;from&nbsp;assimilation&nbsp;of&nbsp;observations&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;yobs:&lt;array,&nbsp;nobs&gt;:&nbsp;observations<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------<br>
+1.&nbsp;postprior:&lt;array,&nbsp;nx&gt;:&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;xa=xf+k*(yobs-f(x))=xf+dx*inc_m</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_tm"><strong>get_tm</strong></a>(self)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;on&nbsp;the&nbsp;variables&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;tm&nbsp;:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;posterior&nbsp;ensemble:&nbsp;x(f)=x(a)*tm&nbsp;<br>
+&nbsp;<br>
+Notes:&nbsp;<br>
+-----------------------------------<br>
+1.&nbsp;tm=U*(1+W*WT)^-0.5)*UT</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_x_inc"><strong>get_x_inc</strong></a>(self, inc_m, x_in<font color="#909090">=None</font>, mean_x_in<font color="#909090">=None</font>)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;of&nbsp;control&nbsp;variables&nbsp;&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;inc_m:&lt;array,&nbsp;(ne)&gt;:&nbsp;increment&nbsp;matrix&nbsp;<br>
+2.&nbsp;x_in:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;ensemble&nbsp;perturbations<br>
+3.&nbsp;mean_x_in:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;value<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------<br>
+1.&nbsp;xinc:&nbsp;&lt;array,&nbsp;nx&gt;:&nbsp;the&nbsp;x&nbsp;increments</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-get_y_inc"><strong>get_y_inc</strong></a>(self, y_in, inc_m, mean_y<font color="#909090">=None</font>)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;on&nbsp;the&nbsp;variables&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------<br>
+1.&nbsp;y_in:&lt;array,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;the&nbsp;'new'&nbsp;observation&nbsp;perturbation&nbsp;<br>
+2.&nbsp;inc_m&nbsp;:&lt;array,&nbsp;(ne)&gt;:&nbsp;increment&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------<br>
+1.&nbsp;yinc:&nbsp;&lt;array,&nbsp;new_ny&gt;:&nbsp;y&nbsp;increments&nbsp;from&nbsp;xinc</tt></dd></dl>
+
+<dl><dt><a name="etkf_cl-reset"><strong>reset</strong></a>(self, mean_x, mean_y, x, y, r, xref<font color="#909090">=1.0</font>, xnorm<font color="#909090">=1.0</font>, do_debug<font color="#909090">=False</font>)</dt><dd><tt>re&nbsp;set&nbsp;(reinitialize)&nbsp;the&nbsp;class&nbsp;<br>
+Input:&nbsp;&nbsp;<br>
+------------------------------------------------------------<br>
+1.&nbsp;mean_x:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;values&nbsp;of&nbsp;control&nbsp;variables&nbsp;x<br>
+2.&nbsp;mean_y:&lt;array,&nbsp;(nobs)&gt;:&nbsp;mean&nbsp;model&nbsp;observation&nbsp;values&nbsp;<br>
+3.&nbsp;x:&nbsp;&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;x&nbsp;perturbations&nbsp;<br>
+4.&nbsp;y:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;model&nbsp;forecast&nbsp;perturbations&nbsp;<br>
+5.&nbsp;r:&nbsp;&lt;array,&nbsp;(nobs)&gt;:&nbsp;observation&nbsp;error&nbsp;covariances&nbsp;given&nbsp;in&nbsp;1&nbsp;dimension<br>
+6.&nbsp;xref:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;mean_x&nbsp;<br>
+7.&nbsp;xnorm:&lt;float&gt;:&nbsp;valuse&nbsp;used&nbsp;to&nbsp;scale&nbsp;en</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

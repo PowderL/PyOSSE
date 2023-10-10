@@ -1,0 +1,235 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.vertical_interp_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.vertical_interp_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/vertical_interp_m.py">/home/lfeng/otool/ESA/util/vertical_interp_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;vertical&nbsp;interpolation&nbsp;of&nbsp;model&nbsp;profiles.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.30<br>
+History:&nbsp;v0.95,&nbsp;2012.12.17<br>
+&nbsp;<br>
+1.&nbsp;Classes:<br>
+==============================================<br>
+1.&nbsp;<a href="#vintpl_cl">vintpl_cl</a>:&nbsp;class&nbsp;for&nbsp;vertical&nbsp;interpolation</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.util.sample_model_field.html">ESA.util.sample_model_field</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.vertical_column.html">ESA.util.vertical_column</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.vertical_profile.html">ESA.util.vertical_profile</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.vertical_interp_m.html#vintpl_cl">vintpl_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="vintpl_cl">class <strong>vintpl_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;vertical&nbsp;interpolation&nbsp;and&nbsp;integration&nbsp;<br>
+&nbsp;<br>
+Members:&nbsp;&nbsp;<br>
+-------------------------------------------------------------------------------<br>
+&nbsp;<br>
+#&nbsp;model&nbsp;grid&nbsp;<br>
+1.&nbsp;&nbsp;grd_pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz)&gt;:&nbsp;&nbsp;vertical&nbsp;pressure&nbsp;levels&nbsp;at&nbsp;horizontal&nbsp;locations.&nbsp;<br>
+---It&nbsp;can&nbsp;be&nbsp;1D,&nbsp;2D,&nbsp;3D&nbsp;or&nbsp;more,&nbsp;but&nbsp;the&nbsp;last&nbsp;dimension&nbsp;must&nbsp;be&nbsp;vertical&nbsp;levels.&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;&nbsp;lg_grd_pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz)&gt;:&nbsp;log10(grd_pres)<br>
+&nbsp;<br>
+3.&nbsp;&nbsp;grd_dims:&lt;tuple/array&gt;:&nbsp;shape&nbsp;of&nbsp;lg_grd_pres<br>
+4.&nbsp;&nbsp;grd_ndim:&lt;integer&gt;:&nbsp;length&nbsp;of&nbsp;grd_dims<br>
+&nbsp;<br>
+5.&nbsp;&nbsp;do_reverse:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;the&nbsp;original&nbsp;grid&nbsp;pressure&nbsp;is&nbsp;in&nbsp;descending&nbsp;order.&nbsp;<br>
+---&nbsp;class&nbsp;member&nbsp;grd_pres&nbsp;will&nbsp;&nbsp;always&nbsp;be&nbsp;stored&nbsp;in&nbsp;ascending&nbsp;order.<br>
+&nbsp;<br>
+#&nbsp;interpolation&nbsp;<br>
+&nbsp;<br>
+6.&nbsp;&nbsp;grd_vpl:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz_ob)&gt;:&nbsp;lower&nbsp;boundary&nbsp;for&nbsp;interpolations&nbsp;from&nbsp;&nbsp;<br>
+ob&nbsp;(target)&nbsp;grid&nbsp;to&nbsp;model&nbsp;grid<br>
+&nbsp;<br>
+7.&nbsp;&nbsp;grd_vpr:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz_ob)&gt;:&nbsp;upper&nbsp;boundary&nbsp;for&nbsp;interpolations&nbsp;from&nbsp;&nbsp;<br>
+ob&nbsp;(target)&nbsp;grid&nbsp;to&nbsp;model&nbsp;grid<br>
+&nbsp;<br>
+8.&nbsp;&nbsp;grd_vwgt:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz_ob)&gt;:&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;lower&nbsp;boundary&nbsp;<br>
+&nbsp;<br>
+#&nbsp;column<br>
+9.&nbsp;&nbsp;grd_colwgt&lt;array,&nbsp;,&nbsp;([nx],&nbsp;[ny],&nbsp;nz)&gt;:&nbsp;mass&nbsp;weight&nbsp;at&nbsp;levels&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;Observation&nbsp;(target)&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+10.&nbsp;ob_pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz_ob)&gt;:&nbsp;&nbsp;ob&nbsp;pressue&nbsp;levels&nbsp;<br>
+&nbsp;<br>
+11.&nbsp;lg_ob_pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz_ob)&gt;:&nbsp;log10(lg_ob_pres)<br>
+&nbsp;<br>
+12.&nbsp;ob_dims:&lt;tuple&gt;:&nbsp;shape&nbsp;of&nbsp;lg_grd_pres<br>
+&nbsp;<br>
+13.&nbsp;ob_ndim:&lt;integer&gt;:&nbsp;length&nbsp;of&nbsp;ob_dims<br>
+&nbsp;<br>
+&nbsp;<br>
+14.&nbsp;ob_vpl:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz)&gt;:&nbsp;lower&nbsp;boundary&nbsp;for&nbsp;interpolations&nbsp;from&nbsp;&nbsp;model&nbsp;grid&nbsp;to&nbsp;ob&nbsp;grid<br>
+15.&nbsp;ob_vpr:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz)&gt;:&nbsp;upper&nbsp;boundary<br>
+16.&nbsp;ob_vwgt:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;...,&nbsp;nz)&gt;:&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;lower&nbsp;boundary<br>
+17.&nbsp;do_ob_reverse:&lt;T/F&gt;:&nbsp;Ture&nbsp;when&nbsp;&nbsp;the&nbsp;original&nbsp;ob_pressure&nbsp;is&nbsp;in&nbsp;descending&nbsp;order<br>
+&nbsp;<br>
+#&nbsp;others&nbsp;<br>
+&nbsp;<br>
+18.&nbsp;mask_val:&nbsp;&lt;float&gt;:&nbsp;mask&nbsp;for&nbsp;missing&nbsp;or&nbsp;bad&nbsp;data<br>
+19.&nbsp;do_reshape:&lt;T/F&gt;:&nbsp;&nbsp;True&nbsp;when&nbsp;the&nbsp;dimension&nbsp;of&nbsp;the&nbsp;pressure&nbsp;is&nbsp;larger&nbsp;than&nbsp;3<br>
+---&nbsp;when&nbsp;it&nbsp;is&nbsp;true,&nbsp;the&nbsp;lg_grd_pres&nbsp;will&nbsp;&nbsp;be&nbsp;reshaped&nbsp;as&nbsp;(reshape_nx,&nbsp;nz)&nbsp;<br>
+---&nbsp;before&nbsp;calling&nbsp;profile&nbsp;or&nbsp;column&nbsp;fortran&nbsp;functions.<br>
+---&nbsp;the&nbsp;result&nbsp;will&nbsp;be&nbsp;reshaped&nbsp;back&nbsp;to&nbsp;high-dimension&nbsp;data<br>
+&nbsp;<br>
+20.&nbsp;reshape_nx:&lt;integer&gt;:&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;leading&nbsp;column<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+-------------------------------------------------------------------------------<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;init_interp:&nbsp;set&nbsp;parameters&nbsp;for&nbsp;interoplation&nbsp;<br>
+3.&nbsp;interpolate_ob_prof:&nbsp;&nbsp;Interpolate&nbsp;ob&nbsp;profiles&nbsp;to&nbsp;model&nbsp;pressure&nbsp;grid<br>
+4.&nbsp;interpolate_mod_prof:&nbsp;&nbsp;interpolate&nbsp;field&nbsp;from&nbsp;model&nbsp;grid&nbsp;to&nbsp;ob&nbsp;grid&nbsp;<br>
+5.&nbsp;get_mod_column:&nbsp;calculate&nbsp;column&nbsp;values&nbsp;for&nbsp;profiles&nbsp;at&nbsp;model&nbsp;vertical&nbsp;grid<br>
+6.&nbsp;get_ob_column:&nbsp;calculate&nbsp;column&nbsp;values&nbsp;for&nbsp;profile&nbsp;&nbsp;at&nbsp;ob&nbsp;vertical&nbsp;grid<br>
+7.&nbsp;get_ob_ak_column:&nbsp;calculate&nbsp;column&nbsp;values&nbsp;for&nbsp;profiles&nbsp;weighted&nbsp;by&nbsp;averging&nbsp;kernel&nbsp;at&nbsp;ob&nbsp;vertical&nbsp;grid.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="vintpl_cl-__init__"><strong>__init__</strong></a>(self, pres, is_in_log, do_reverse, mask_val<font color="#909090">=-999.0</font>)</dt><dd><tt>initialize&nbsp;horizontal&nbsp;interpolation&nbsp;class&nbsp;<br>
+Inputs:<br>
+1.&nbsp;pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz&gt;:&nbsp;<br>
+---Pressure&nbsp;grid&nbsp;for&nbsp;profiles&nbsp;to&nbsp;be&nbsp;interpolated&nbsp;to&nbsp;or&nbsp;from.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+---The&nbsp;last&nbsp;column&nbsp;of&nbsp;the&nbsp;array&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;vertical&nbsp;levels&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+2.&nbsp;is_in_log:&nbsp;&lt;T/F&gt;:&nbsp;Ture&nbsp;the&nbsp;pressure&nbsp;is&nbsp;given&nbsp;in&nbsp;log10&nbsp;<br>
+3.&nbsp;do_reverse:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;the&nbsp;pressure&nbsp;is&nbsp;given&nbsp;in&nbsp;decending&nbsp;order/&nbsp;<br>
+4.&nbsp;mask_val:&nbsp;&lt;float&gt;:&nbsp;masks&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-get_ak_ob_column"><strong>get_ak_ob_column</strong></a>(self, fld, ak)</dt><dd><tt>Get&nbsp;column&nbsp;values&nbsp;weigted&nbsp;by&nbsp;averging&nbsp;kernels&nbsp;at&nbsp;the&nbsp;observation&nbsp;pressure&nbsp;grid&nbsp;defined&nbsp;at&nbsp;init_interp<br>
+&nbsp;<br>
+Inputs:<br>
+===============================================================<br>
+1.&nbsp;fld:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz,[ne])&gt;:1D,&nbsp;2D&nbsp;or&nbsp;3D&nbsp;data&nbsp;at&nbsp;ob&nbsp;grid.<br>
+2.&nbsp;ak:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz)&gt;:&nbsp;averaging&nbsp;kernels&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+==================================================================<br>
+1.&nbsp;col_ob&nbsp;&lt;array&gt;:&nbsp;column&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-get_attr"><strong>get_attr</strong></a>(self, name)</dt><dd><tt>check&nbsp;attribute<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;val:&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-get_mod_column"><strong>get_mod_column</strong></a>(self, gp_fld)</dt><dd><tt>get&nbsp;column&nbsp;values&nbsp;for&nbsp;profiles&nbsp;at&nbsp;model&nbsp;pressure&nbsp;grid<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------------------<br>
+1.&nbsp;gp_fld:&lt;array&gt;:&nbsp;1D,&nbsp;2D&nbsp;or&nbsp;3D&nbsp;gridded&nbsp;data&nbsp;at&nbsp;model&nbsp;(or&nbsp;slice)&nbsp;grid.&nbsp;&nbsp;Its&nbsp;shape&nbsp;is&nbsp;<br>
+assumed&nbsp;to&nbsp;be&nbsp;([nx],&nbsp;[ny],&nbsp;nz,&nbsp;[ne])<br>
+&nbsp;<br>
+---[nx]&nbsp;*&nbsp;[ny]:&nbsp;Number&nbsp;of&nbsp;horizontal&nbsp;locations;&nbsp;<br>
+---nz:&nbsp;&nbsp;Size&nbsp;of&nbsp;the&nbsp;model&nbsp;vertical&nbsp;grid.&nbsp;<br>
+---[ne]:&nbsp;Tracer&nbsp;(time&nbsp;step)&nbsp;number&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;mask_val:&lt;float&gt;:&nbsp;missing&nbsp;or&nbsp;bad&nbsp;value<br>
+&nbsp;<br>
+Outputs:<br>
+&nbsp;<br>
+1.&nbsp;col_at_grd&nbsp;&lt;array,([nx],&nbsp;[ny],&nbsp;[ne])&nbsp;&gt;:&nbsp;column&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-get_ob_column"><strong>get_ob_column</strong></a>(self, fld)</dt><dd><tt>get&nbsp;column&nbsp;values&nbsp;at&nbsp;the&nbsp;observation&nbsp;pressure&nbsp;grid&nbsp;defined&nbsp;at&nbsp;init_interp<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;fld:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;nz,&nbsp;[ne])&gt;:1D,&nbsp;2D&nbsp;or&nbsp;3D&nbsp;data&nbsp;at&nbsp;ob&nbsp;grid.<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+1.&nbsp;col_ob&nbsp;&lt;array&gt;:&nbsp;column&nbsp;values</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-init_interp"><strong>init_interp</strong></a>(self, opres, is_in_log<font color="#909090">=False</font>, do_ob_reverse<font color="#909090">=False</font>)</dt><dd><tt>initialize&nbsp;interpolation&nbsp;coefficients&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+1.&nbsp;opres:&lt;array&gt;:&nbsp;ob&nbsp;pressure&nbsp;grid&nbsp;to&nbsp;be&nbsp;projected.&nbsp;<br>
+2.&nbsp;is_in_log:&lt;T/F&gt;:&nbsp;optional.&nbsp;Ture&nbsp;if&nbsp;opres&nbsp;is&nbsp;given&nbsp;in&nbsp;log10&nbsp;space<br>
+3.&nbsp;do_ob_reverse:&lt;T/F&gt;:&nbsp;optional.&nbsp;True&nbsp;of&nbsp;opres&nbsp;is&nbsp;given&nbsp;at&nbsp;descending&nbsp;order</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-interpolate_mod_prof"><strong>interpolate_mod_prof</strong></a>(self, fld)</dt><dd><tt>Interpolate&nbsp;model&nbsp;profiles&nbsp;to&nbsp;the&nbsp;ob&nbsp;(target)&nbsp;pressure&nbsp;grid&nbsp;defined&nbsp;at&nbsp;init_interp<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------------------------<br>
+1.&nbsp;fld:&lt;array,&nbsp;([nx],[ny],&nbsp;nz,&nbsp;[ne]&gt;:&nbsp;1D,&nbsp;2D&nbsp;or&nbsp;3D&nbsp;gridded&nbsp;data&nbsp;at&nbsp;model&nbsp;grid.&nbsp;&nbsp;Its&nbsp;shape&nbsp;is&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assumed&nbsp;to&nbsp;be&nbsp;(nz,&nbsp;[ne])&nbsp;1D;&nbsp;&nbsp;&nbsp;(nx,&nbsp;nz,&nbsp;[ne]),&nbsp;(2D);&nbsp;or&nbsp;(nx,&nbsp;ny,&nbsp;nz,&nbsp;[ne]),&nbsp;&nbsp;(3D).<br>
+&nbsp;<br>
+---[nx]&nbsp;*&nbsp;[ny]:&nbsp;Number&nbsp;of&nbsp;horizontal&nbsp;locations;&nbsp;<br>
+---nz:&nbsp;&nbsp;Size&nbsp;of&nbsp;the&nbsp;model&nbsp;vertical&nbsp;grid.&nbsp;<br>
+---[ne]:&nbsp;Tracer&nbsp;(time&nbsp;step)&nbsp;number&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+-----------------------------------------------------------------------------------<br>
+1.&nbsp;prof_at_ob:&lt;array,([nx],[ny],&nbsp;nz_ob,&nbsp;[ne])&nbsp;&gt;:&nbsp;gp_fld&nbsp;at&nbsp;the&nbsp;new&nbsp;(ob)&nbsp;vertical&nbsp;grid&nbsp;<br>
+of&nbsp;nz_ob&nbsp;levels</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-interpolate_ob_prof"><strong>interpolate_ob_prof</strong></a>(self, ob_fld, mask_val<font color="#909090">=-999.0</font>)</dt><dd><tt>Interpolate&nbsp;ob&nbsp;profiles&nbsp;to&nbsp;model&nbsp;pressure&nbsp;grid<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------------------------<br>
+1.&nbsp;ob_fld:&lt;array,&nbsp;([nx],[ny],&nbsp;nz0&gt;:&nbsp;2D&nbsp;or&nbsp;3D&nbsp;gridded&nbsp;data&nbsp;at&nbsp;ob&nbsp;grid.&nbsp;&nbsp;Its&nbsp;reshape&nbsp;is&nbsp;<br>
+assumed&nbsp;to&nbsp;be&nbsp;(nz)&nbsp;1D;&nbsp;&nbsp;&nbsp;(nx,&nbsp;nz),&nbsp;(2D);&nbsp;or&nbsp;(nx,&nbsp;ny,&nbsp;nz),&nbsp;&nbsp;(3D).<br>
+&nbsp;<br>
+---[nx]&nbsp;*&nbsp;[ny]:&nbsp;Number&nbsp;of&nbsp;horizontal&nbsp;locations;&nbsp;<br>
+---nz0:&nbsp;&nbsp;Size&nbsp;of&nbsp;the&nbsp;vertical&nbsp;grid.&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;mask_val:&lt;float&gt;:&nbsp;missing&nbsp;or&nbsp;bad&nbsp;value<br>
+&nbsp;<br>
+Outputs:<br>
+-----------------------------------------------------------------------------------<br>
+1.&nbsp;prof_at_ob:&lt;array,([nx],[ny],&nbsp;nz&gt;:&nbsp;gp_fld&nbsp;at&nbsp;the&nbsp;new&nbsp;(model)&nbsp;vertical&nbsp;grid</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-set_attr"><strong>set_attr</strong></a>(self, name, val)</dt><dd><tt>add&nbsp;or&nbsp;replace&nbsp;attributes<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="vintpl_cl-set_mask"><strong>set_mask</strong></a>(self, mask)</dt><dd><tt>set&nbsp;values&nbsp;for&nbsp;data&nbsp;mask<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;mask:&lt;float&gt;:&nbsp;mask&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;values</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

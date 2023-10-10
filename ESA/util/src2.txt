@@ -1,0 +1,13 @@
+bpch2_rw_py.so
+bpch2_test.so
+flib.so
+flux_regrid.so
+great_circle_distance.so
+interpolate_f.so
+process_nf_array.so
+read_data.so
+sample_model_field.so
+sampl_model_field.so
+sigma_pres_mod.so
+vertical_column.so
+vertical_profile.so

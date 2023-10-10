@@ -1,0 +1,7 @@
+F90=/geos/usrgeos/intel/Compiler/12.0/191/bin/ifort
+LIBPATH=/geos/usrgeos/intel/Compiler/12.0/191/lib/intel64/
+LIBS='-lifcore -lirc -lifcoremt -lintlc -limf -lsvml'
+F2PY=/geos/u23/epd7/bin/f2py
+
+echo $0, $1
+$F2PY  -c --f90exec=$F90 -L$LIBPATH $LIBS --f90flags='-convert big_endian -cpp'  -m $1 $2

@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.err_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.err_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/err_m.py">/home/lfeng/otool/ESA/instrument/err_m.py</a></font></td></tr></table>
+    <p><tt>class&nbsp;&nbsp;for&nbsp;scene-dependent&nbsp;observation&nbsp;error&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.19<br>
+&nbsp;<br>
+Classes:<br>
+=================================================<br>
+1.&nbsp;&nbsp;<a href="#err_cl">err_cl</a>:&nbsp;class&nbsp;for&nbsp;tablized&nbsp;observation&nbsp;errors</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.instrument.err_file_m.html">ESA.instrument.err_file_m</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.instrument.err_m.html#err_cl">err_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="err_cl">class <strong>err_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;err&nbsp;data&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+==================================================================<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use)<br>
+2&nbsp;.datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;<br>
+&nbsp;<br>
+#&nbsp;current&nbsp;time<br>
+3.&nbsp;yyyy=yyyy<br>
+4.&nbsp;mm=mm<br>
+5.dd=dd<br>
+&nbsp;<br>
+#&nbsp;observation<br>
+6.&nbsp;viewmode_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;viewmode&nbsp;and&nbsp;its&nbsp;ID<br>
+7.&nbsp;surf_type_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;surface&nbsp;type&nbsp;and&nbsp;its&nbsp;ID<br>
+&nbsp;<br>
+#&nbsp;ERR&nbsp;file&nbsp;access&nbsp;function<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+8.&nbsp;&nbsp;fopen:&lt;func&gt;:&nbsp;open&nbsp;file&nbsp;<br>
+9.&nbsp;&nbsp;fread;&lt;func&gt;:&nbsp;read&nbsp;file&nbsp;<br>
+10.&nbsp;fclose:&lt;func&gt;:&nbsp;close&nbsp;file&nbsp;<br>
+11.&nbsp;fget:&lt;func&gt;:&nbsp;read&nbsp;data&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+=======================================================================<br>
+1.&nbsp;__init__:&nbsp;initialization.<br>
+2.&nbsp;get_data:&nbsp;get&nbsp;observation&nbsp;errors&nbsp;at&nbsp;given&nbsp;observation&nbsp;scenes.<br>
+3.&nbsp;load_data:&nbsp;read&nbsp;data&nbsp;from&nbsp;observation&nbsp;error&nbsp;files.<br>
+4.&nbsp;get_viewmode_id:&nbsp;find&nbsp;IDs&nbsp;for&nbsp;viewmodes.&nbsp;<br>
+5.&nbsp;get_surf_type_id:&nbsp;find&nbsp;IDs&nbsp;for&nbsp;surface&nbsp;types.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="err_cl-__init__"><strong>__init__</strong></a>(self, viewtype, datapath, flnm, yyyy, mm, dd, viewmode_dict<font color="#909090">={'glint': 1, 'nadir': 0}</font>, surf_type_dict<font color="#909090">={'conifer': 1, 'desert': 4, 'ocean': 0, 'snow': 2, 'soil': 3}</font>, fopen<font color="#909090">=&lt;function open_err_file&gt;</font>, fread<font color="#909090">=&lt;function read_err_file&gt;</font>, fclose<font color="#909090">=&lt;function close_err_file&gt;</font>, fget<font color="#909090">=&lt;function get_err_data&gt;</font>, fio_keywords<font color="#909090">={}</font>, **keywords)</dt><dd><tt>initialization&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;viewtype:&lt;str&gt;:&nbsp;instrument&nbsp;type&nbsp;(or&nbsp;name)<br>
+2.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;ERR&nbsp;data&nbsp;<br>
+3.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;ERR&nbsp;data<br>
+4.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+5.&nbsp;mm:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+6.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+7.&nbsp;viewmode_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;view&nbsp;modes<br>
+8.&nbsp;surf_type_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;surface&nbsp;type<br>
+&nbsp;<br>
+9.&nbsp;fopen:&lt;func&gt;:&nbsp;open&nbsp;data&nbsp;file&nbsp;<br>
+10.&nbsp;fread:&lt;func&gt;:&nbsp;read&nbsp;data&nbsp;into&nbsp;<br>
+11.&nbsp;fclose:&lt;func&gt;:&nbsp;close&nbsp;file&nbsp;<br>
+12.&nbsp;fget:&nbsp;&lt;func&gt;:&nbsp;get&nbsp;err&nbsp;values<br>
+&nbsp;<br>
+13.&nbsp;rw_keywords:&lt;dict&gt;:&nbsp;additional&nbsp;parameters&nbsp;for&nbsp;ERR&nbsp;file&nbsp;read/write<br>
+14.&nbsp;keywords:&lt;dict&gt;:&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="err_cl-get_data"><strong>get_data</strong></a>(self, osza, oaod, iviewmode, isurf_type, **keywords)</dt><dd><tt>get&nbsp;err&nbsp;for&nbsp;observation&nbsp;conditions&nbsp;(osza&nbsp;and&nbsp;oaod)<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------------<br>
+1.osza:&lt;array,&nbsp;(nob)&gt;:&nbsp;solar&nbsp;zenith&nbsp;angle&nbsp;<br>
+2.oaod:&lt;array,&nbsp;(nob)&gt;:&nbsp;aerosol&nbsp;optical&nbsp;depth&nbsp;<br>
+3.iviewmode:&lt;array,&nbsp;(nob)/integer&gt;:&nbsp;&nbsp;view&nbsp;mode<br>
+4.isurf_type:&lt;array,&nbsp;(nob)/integer&gt;:&nbsp;surface&nbsp;type&nbsp;<br>
+5.&nbsp;keywords:&lt;dict&gt;:&nbsp;<br>
+---Reserved&nbsp;Entries<br>
+---common_ref:&lt;str/numeric&gt;:&nbsp;the&nbsp;reference&nbsp;shared&nbsp;by&nbsp;observations.&nbsp;<br>
+---&gt;'err_viewmode_dict':&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;view&nbsp;mode<br>
+---&gt;'err_surf_type_dict':&nbsp;&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;surface&nbsp;type<br>
+---&gt;&nbsp;ax_colnm_lst:&nbsp;&lt;list,&nbsp;t:str&gt;:&nbsp;column&nbsp;name&nbsp;for&nbsp;horizontal&nbsp;axis<br>
+---&gt;&nbsp;zname:&nbsp;&lt;str&gt;:&nbsp;axis&nbsp;name&nbsp;for&nbsp;vertical&nbsp;(e.g.,&nbsp;&nbsp;log10(pressure))&nbsp;axis<br>
+---&gt;&nbsp;zval:&nbsp;&lt;array,&nbsp;(nz,)&gt;:&nbsp;vertical&nbsp;axis&nbsp;<br>
+---&gt;'replaces':&nbsp;&lt;dict&gt;:&nbsp;words&nbsp;to&nbsp;be&nbsp;replaced&nbsp;when&nbsp;decoding&nbsp;line&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------------<br>
+1.&nbsp;err:&nbsp;&lt;array,&nbsp;&nbsp;(nob,&nbsp;nz)&gt;:&nbsp;observation&nbsp;errors</tt></dd></dl>
+
+<dl><dt><a name="err_cl-get_surf_type_id"><strong>get_surf_type_id</strong></a>(self, surf_type, surf_type_dict<font color="#909090">=None</font>)</dt><dd><tt>find&nbsp;ID&nbsp;for&nbsp;surface&nbsp;type<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.viewmode:&lt;array/obj&gt;:&nbsp;viewmodes&nbsp;to&nbsp;be&nbsp;checked&nbsp;against&nbsp;viewmode_dict<br>
+2.viewmode_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;{viewmode:id}<br>
+---if&nbsp;surf_type_dict==None,&nbsp;self.<strong>surf_type_dict</strong>&nbsp;will&nbsp;be&nbsp;used<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+vid_lst:&lt;array/obj&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;given&nbsp;surface&nbsp;types</tt></dd></dl>
+
+<dl><dt><a name="err_cl-get_viewmode_id"><strong>get_viewmode_id</strong></a>(self, viewmode, viewmode_dict<font color="#909090">=None</font>)</dt><dd><tt>find&nbsp;ID&nbsp;for&nbsp;viewmode&nbsp;<br>
+Inputs:<br>
+-----------------------------------------<br>
+1.viewmode:&lt;array/obj&gt;:&nbsp;viewmodes&nbsp;to&nbsp;be&nbsp;checked&nbsp;against&nbsp;viewmode_dict<br>
+2.viewmode_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;in&nbsp;the&nbsp;form&nbsp;of&nbsp;{viewmode:id}<br>
+---if&nbsp;viewmode_dict==None,&nbsp;self.<strong>viewmode</strong>&nbsp;will&nbsp;be&nbsp;used<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+vid_lst:&lt;array/obj&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;given&nbsp;viewmodes</tt></dd></dl>
+
+<dl><dt><a name="err_cl-load_data"><strong>load_data</strong></a>(self, flnm, datapath, viewtype, viewmode, surface, yyyy, mm, dd, **keywords)</dt><dd><tt>Construct&nbsp;fdesc&nbsp;and&nbsp;read&nbsp;ERR&nbsp;file&nbsp;in&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;flnm:&lt;str&gt;:&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;file&nbsp;(reserved&nbsp;for&nbsp;future&nbsp;use&nbsp;)<br>
+2.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path<br>
+3.&nbsp;viewtype:&lt;str&gt;:&nbsp;instrument&nbsp;type&nbsp;<br>
+4.&nbsp;viewmode:&lt;str&gt;:&nbsp;nadir&nbsp;or&nbsp;glint&nbsp;view<br>
+5.&nbsp;surface:&lt;str&gt;:&nbsp;surface&nbsp;type<br>
+6.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;year<br>
+7.&nbsp;mm:&nbsp;&lt;int&gt;:&nbsp;month<br>
+8.&nbsp;dd:&lt;int&gt;:&nbsp;day&nbsp;<br>
+9.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;reading&nbsp;<br>
+----Reserved&nbsp;words<br>
+---&gt;'fl_colnm_lst':&lt;list,&nbsp;t:str&gt;:&nbsp;names&nbsp;of&nbsp;all&nbsp;columns&nbsp;in&nbsp;the<br>
+---&gt;'err_viewmode_dict':&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;view&nbsp;mode<br>
+---&gt;'err_surf_type_dict':&nbsp;&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;surface&nbsp;type<br>
+---&gt;'delim':&lt;str&gt;:&nbsp;splitor&nbsp;in&nbsp;averaging&nbsp;kernel&nbsp;(text)&nbsp;file<br>
+&nbsp;---&gt;&nbsp;zname:&nbsp;&lt;str&gt;:&nbsp;axis&nbsp;name&nbsp;for&nbsp;vertical&nbsp;(e.g.,&nbsp;&nbsp;log10(pressure))&nbsp;axis<br>
+&nbsp;---&gt;&nbsp;zval:&nbsp;&lt;array,&nbsp;(nz,)&gt;:&nbsp;vertical&nbsp;axis&nbsp;<br>
+&nbsp;---&gt;'replaces':&nbsp;&lt;dict&gt;:&nbsp;words&nbsp;to&nbsp;be&nbsp;replaced&nbsp;when&nbsp;decoding&nbsp;line&nbsp;<br>
+&nbsp;<br>
+&nbsp;Returns:<br>
+&nbsp;-----------------------------------------<br>
+&nbsp;1.&nbsp;is_ready:&lt;T/F&gt;:&nbsp;True&nbsp;when&nbsp;the&nbsp;file&nbsp;has&nbsp;been&nbsp;opened&nbsp;successfully&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;Notes:<br>
+&nbsp;1.&nbsp;self.<strong>fdesc</strong>&nbsp;will&nbsp;be&nbsp;constructed&nbsp;by&nbsp;functions&nbsp;self.<strong>fopen</strong>.&nbsp;<br>
+&nbsp;<br>
+&nbsp;2.&nbsp;Its&nbsp;data&nbsp;memebers&nbsp;will&nbsp;be&nbsp;updated&nbsp;by&nbsp;self.<strong>fread</strong>.</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

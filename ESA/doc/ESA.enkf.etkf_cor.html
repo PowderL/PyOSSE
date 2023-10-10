@@ -1,0 +1,191 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.enkf.etkf_cor</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.enkf.html"><font color="#ffffff">enkf</font></a>.etkf_cor</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/enkf/etkf_cor.py">/home/lfeng/otool/ESA/enkf/etkf_cor.py</a></font></td></tr></table>
+    <p><tt>Solve&nbsp;Ensemble&nbsp;transform&nbsp;matrix&nbsp;by&nbsp;using&nbsp;&nbsp;approach&nbsp;LU&nbsp;solver<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.09.11<br>
+History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+Classes:<br>
+===============================================<br>
+1.&nbsp;etkf_cl:class&nbsp;for&nbsp;solving&nbsp;ETKF&nbsp;data&nbsp;assimilation&nbsp;equation</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="scipy.sparse.linalg.dsolve.linsolve.html">scipy.sparse.linalg.dsolve.linsolve</a><br>
+</td><td width="25%" valign=top><a href="numpy.linalg.html">numpy.linalg</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.enkf.etkf_cor.html#etkf_cor_cl">etkf_cor_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="etkf_cor_cl">class <strong>etkf_cor_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;Ensemble&nbsp;Transform&nbsp;Kalman&nbsp;Filter&nbsp;solver&nbsp;for&nbsp;correlated&nbsp;observations<br>
+&nbsp;<br>
+See&nbsp;Feng&nbsp;et&nbsp;al.,&nbsp;ACP&nbsp;2009;&nbsp;Palmer&nbsp;et&nbsp;al.,&nbsp;2011.<br>
+&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+-----------------------------------------------------<br>
+&nbsp;<br>
+#&nbsp;control&nbsp;variables&nbsp;<br>
+1.&nbsp;nx:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;control&nbsp;variable&nbsp;<br>
+2.&nbsp;ne:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;perturbation&nbsp;ensemble&nbsp;<br>
+3.&nbsp;x:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;perturbation&nbsp;ensemble&nbsp;<br>
+4.&nbsp;x_mean:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;value&nbsp;of&nbsp;control&nbsp;variable&nbsp;<br>
+5.&nbsp;xnorm:&lt;float&gt;:&nbsp;normalized&nbsp;factor&nbsp;<br>
+&nbsp;<br>
+#&nbsp;model&nbsp;observation&nbsp;<br>
+6.&nbsp;&nbsp;y:&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;ensemble&nbsp;for&nbsp;model&nbsp;observation&nbsp;perturbation&nbsp;<br>
+7.&nbsp;&nbsp;ny:&lt;int&gt;:&nbsp;ny=nobs<br>
+8.&nbsp;&nbsp;y_mean:&lt;array,&nbsp;(nobs)&gt;:&nbsp;model&nbsp;observations&nbsp;for&nbsp;self.<strong>mean_x</strong><br>
+9.&nbsp;&nbsp;sp_y:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;sparse&nbsp;matrix&nbsp;of&nbsp;self.<strong>y</strong><br>
+&nbsp;<br>
+#&nbsp;observation&nbsp;errors&nbsp;<br>
+&nbsp;<br>
+9.&nbsp;&nbsp;r:&lt;array,&nbsp;(nobs,&nbsp;nobs)&gt;:&nbsp;observation&nbsp;err&nbsp;covariance&nbsp;<br>
+10.&nbsp;sp_r:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;sparse&nbsp;matrix&nbsp;of&nbsp;r<br>
+&nbsp;<br>
+11.&nbsp;sp_b:&lt;array,&nbsp;(nobs,&nbsp;nobs)&gt;:&nbsp;background&nbsp;error&nbsp;covariance&nbsp;in&nbsp;obsevation&nbsp;space&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sp_b=sp_y*sp_y^T<br>
+12.&nbsp;sp_r:&lt;array,&nbsp;(nobs,&nbsp;nobs)&gt;:&nbsp;sp_r=sp_r+<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+---------------------------------------------------------------<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;&nbsp;reset:&nbsp;re-do&nbsp;initialization<br>
+3.&nbsp;&nbsp;get_posterior:&nbsp;get&nbsp;posterior&nbsp;<br>
+4.&nbsp;&nbsp;get_tm:&nbsp;get&nbsp;transform&nbsp;matrix<br>
+6.&nbsp;&nbsp;get_inc_m:&nbsp;get&nbsp;increment&nbsp;matrix&nbsp;<br>
+7.&nbsp;&nbsp;get_x_inc:&nbsp;get&nbsp;analysis&nbsp;increment<br>
+8.&nbsp;&nbsp;get_y_inc:&nbsp;get&nbsp;analysis&nbsp;increment&nbsp;in&nbsp;observation&nbsp;space<br>
+9.&nbsp;&nbsp;do_y_transform:&nbsp;transform&nbsp;maxtrix&nbsp;in&nbsp;y&nbsp;space<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="etkf_cor_cl-__init__"><strong>__init__</strong></a>(self, x_mean, y_mean, x, y, r, xref<font color="#909090">=1</font>, xnorm<font color="#909090">=1.0</font>)</dt><dd><tt>Initialization<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------<br>
+1.&nbsp;x_mean:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;values&nbsp;of&nbsp;control&nbsp;variables&nbsp;x<br>
+2.&nbsp;Y_mean:&lt;array,&nbsp;(ny)&gt;:&nbsp;mean&nbsp;model&nbsp;observation&nbsp;values.&nbsp;&nbsp;<br>
+3.&nbsp;x:&nbsp;&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;x&nbsp;perturbations&nbsp;<br>
+4.&nbsp;y:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;model&nbsp;forecast&nbsp;perturbations.&nbsp;ny=nobs&nbsp;<br>
+5.&nbsp;r:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;nobs)&gt;:&nbsp;observation&nbsp;error<br>
+6.&nbsp;xref:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;mean_x&nbsp;<br>
+7.&nbsp;xnorm:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;ensemble&nbsp;purbations</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_inc_m"><strong>get_inc_m</strong></a>(self, yobs)</dt><dd><tt>get&nbsp;the&nbsp;analysis&nbsp;increment&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;yobs:&lt;array,&nbsp;(nobs)&gt;:&nbsp;the&nbsp;observations<br>
+&nbsp;<br>
+Returns:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+------------------------------------------------<br>
+1.&nbsp;inc_m&nbsp;:&lt;array,&nbsp;(ne,)&gt;:increase&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------------------<br>
+1.&nbsp;inc_m=y^T*(R+Y*Y^t)^-0.5*dy</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_posterior"><strong>get_posterior</strong></a>(self, yobs)</dt><dd><tt>calculate&nbsp;posterior&nbsp;from&nbsp;assimilation&nbsp;of&nbsp;observations&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;yobs:&lt;array,&nbsp;nobs&gt;:&nbsp;observations<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------<br>
+1.&nbsp;postprior:&lt;array,&nbsp;nx&gt;:&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------<br>
+1.&nbsp;xa=xf+k*(yobs-f(x))=xf+dx*inc_m</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_tm"><strong>get_tm</strong></a>(self)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;on&nbsp;the&nbsp;variables&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;tm&nbsp;:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;matrix&nbsp;for&nbsp;posterior&nbsp;ensemble:&nbsp;x(f)=x(a)*tm&nbsp;<br>
+&nbsp;<br>
+Notes:&nbsp;<br>
+-----------------------------------<br>
+1.&nbsp;tm*tm=[1.0+(y^t*R^-1*y)&nbsp;]</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_x_inc"><strong>get_x_inc</strong></a>(self, inc_m, x_in<font color="#909090">=None</font>, mean_x_in<font color="#909090">=None</font>)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;of&nbsp;control&nbsp;variables&nbsp;&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;inc_m:&lt;array,&nbsp;(ne)&gt;:&nbsp;increment&nbsp;matrix&nbsp;<br>
+2.&nbsp;x_in:&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;ensemble&nbsp;perturbations<br>
+3.&nbsp;mean_x_in:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;value<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------<br>
+1.&nbsp;xinc:&nbsp;&lt;array,&nbsp;nx&gt;:&nbsp;the&nbsp;x&nbsp;increments</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_y_inc"><strong>get_y_inc</strong></a>(self, y_in, inc_m, mean_y<font color="#909090">=None</font>)</dt><dd><tt>the&nbsp;analysis&nbsp;increment&nbsp;on&nbsp;the&nbsp;variables&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------<br>
+1.&nbsp;y_in:&lt;array,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;the&nbsp;'new'&nbsp;observation&nbsp;perturbation&nbsp;<br>
+2.&nbsp;inc_m&nbsp;:&lt;array,&nbsp;(ne)&gt;:&nbsp;increment&nbsp;matrix&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------<br>
+1.&nbsp;yinc:&nbsp;&lt;array,&nbsp;new_ny&gt;:&nbsp;y&nbsp;increments&nbsp;from&nbsp;xinc</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-get_y_transform"><strong>get_y_transform</strong></a>(self, y_in, tm, mean_y<font color="#909090">=None</font>)</dt><dd><tt>multiply&nbsp;y_in&nbsp;by&nbsp;tm&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------<br>
+1.&nbsp;y_in:&lt;array&gt;,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;'new'&nbsp;observation&nbsp;perturbations&nbsp;<br>
+2.&nbsp;tm&nbsp;&nbsp;:&lt;array,&nbsp;(ne,&nbsp;ne)&gt;:&nbsp;Transformation&nbsp;matrix<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------<br>
+1.&nbsp;yt:&lt;array,&nbsp;(new_ny,&nbsp;ne)&gt;:&nbsp;yt=y_in*tm</tt></dd></dl>
+
+<dl><dt><a name="etkf_cor_cl-reset"><strong>reset</strong></a>(self, x_mean, y_mean, x, y, r, xref<font color="#909090">=1.0</font>, xnorm<font color="#909090">=1.0</font>, do_debug<font color="#909090">=False</font>)</dt><dd><tt>Re-Initialization<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------------<br>
+1.&nbsp;x_mean:&lt;array,&nbsp;(nx)&gt;:&nbsp;mean&nbsp;values&nbsp;of&nbsp;control&nbsp;variables&nbsp;x<br>
+2.&nbsp;Y_mean:&lt;array,&nbsp;(ny)&gt;:&nbsp;mean&nbsp;model&nbsp;observation&nbsp;values.&nbsp;&nbsp;<br>
+3.&nbsp;x:&nbsp;&lt;array,&nbsp;(nx,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;x&nbsp;perturbations&nbsp;<br>
+4.&nbsp;y:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;ne)&gt;:&nbsp;&nbsp;ensemble&nbsp;of&nbsp;model&nbsp;forecast&nbsp;perturbations.&nbsp;ny=nobs&nbsp;<br>
+5.&nbsp;r:&nbsp;&lt;array,&nbsp;(nobs,&nbsp;nobs)&gt;:&nbsp;observation&nbsp;error<br>
+6.&nbsp;xref:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;mean_x&nbsp;<br>
+7.&nbsp;xnorm:&lt;float&gt;:&nbsp;value&nbsp;used&nbsp;to&nbsp;scale&nbsp;ensemble&nbsp;purbations</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

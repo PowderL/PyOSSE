@@ -1,0 +1,53 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.flux_regrid</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.flux_regrid</strong></big></big> (version )</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/flux_regrid.so">/home/lfeng/otool/ESA/util/flux_regrid.so</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;'flux_regrid'&nbsp;is&nbsp;auto-generated&nbsp;with&nbsp;f2py&nbsp;(version:1).<br>
+Functions:<br>
+&nbsp;&nbsp;pos&nbsp;=&nbsp;get_closest_point(x0,x1,nx0=len(x0),nx1=len(x1))<br>
+&nbsp;&nbsp;pos&nbsp;=&nbsp;get_closest_point_cycle(x0,x1,period,nx0=len(x0),nx1=len(x1))<br>
+&nbsp;&nbsp;pos,wgt&nbsp;=&nbsp;get_segment_wgt(x,y,nx=len(x),ny=len(y))<br>
+&nbsp;&nbsp;flux2&nbsp;=&nbsp;regrid_flux_bs(lon1,lat1,lon2,lat2,flux1,nlon=len(lon1),nlat=len(lat1),nlon2=len(lon2),nlat2=len(lat2))<br>
+&nbsp;&nbsp;flux2&nbsp;=&nbsp;regrid_flux_bs_out(flux1,plon,wlon,plat,wlat,nlon=(shape(flux1,0)+1),nlat=(shape(flux1,1)+1),nlon2=len(plon),nlat2=len(plat))<br>
+&nbsp;&nbsp;outflux&nbsp;=&nbsp;regrid_flux_smp(lon1,lat1,lon2,lat2,influx,nlon=len(lon1),nlat=len(lat1),nlon2=len(lon2),nlat2=len(lat2))<br>
+&nbsp;&nbsp;outmap&nbsp;=&nbsp;extract_map_to_multi_layer(rlon1,rlat1,rlon2,rlat2,inmap,ml,nlon=len(rlon1),nlat=len(rlat1),nlon2=len(rlon2),nlat2=len(rlat2))<br>
+&nbsp;&nbsp;outmap,outflux&nbsp;=&nbsp;extract_flux_to_multi_layer(rlon1,rlat1,rlon2,rlat2,inmap,ml,influx,nlon=len(rlon1),nlat=len(rlat1),nlon2=len(rlon2),nlat2=len(rlat2))<br>
+&nbsp;&nbsp;pos&nbsp;=&nbsp;get_upper_index(x0,x1,nx0=len(x0),nx1=len(x1))<br>
+&nbsp;&nbsp;outmap&nbsp;=&nbsp;refine_map(lon1,lat1,lon2,lat2,inmap,nlon=len(lon1),nlat=len(lat1),nlon2=len(lon2),nlat2=len(lat2))<br>
+&nbsp;&nbsp;lon,lat,type_map&nbsp;=&nbsp;read_std_map(nx,ny)<br>
+&nbsp;&nbsp;flux_out&nbsp;=&nbsp;do_flux_by_coef(flux,coef,nx=shape(flux,0),ny=shape(flux,1),nz=shape(flux,2),nm=shape(coef,1))<br>
+&nbsp;&nbsp;flux_out&nbsp;=&nbsp;do_flux_by_coef_wgt(flux,wgt,coef,nx=shape(flux,0),ny=shape(flux,1),nz=shape(flux,2),nm=shape(coef,1))<br>
+&nbsp;&nbsp;outmap&nbsp;=&nbsp;add_val_to_map(inmap,val,idx,idy,nx=shape(inmap,0),ny=shape(inmap,1),npt=len(val))<br>
+&nbsp;&nbsp;wgt&nbsp;=&nbsp;get_obs_wgt_map(grd_lon,grd_lat,olon,olat,dist_table,wlen,lon_period,nlon=len(grd_lon),nlat=len(grd_lat),nobs=len(olon))<br>
+.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__version__</strong> = '$Revision: $'<br>
+<strong>add_val_to_map</strong> = &lt;fortran object&gt;<br>
+<strong>do_flux_by_coef</strong> = &lt;fortran object&gt;<br>
+<strong>do_flux_by_coef_wgt</strong> = &lt;fortran object&gt;<br>
+<strong>extract_flux_to_multi_layer</strong> = &lt;fortran object&gt;<br>
+<strong>extract_map_to_multi_layer</strong> = &lt;fortran object&gt;<br>
+<strong>get_closest_point</strong> = &lt;fortran object&gt;<br>
+<strong>get_closest_point_cycle</strong> = &lt;fortran object&gt;<br>
+<strong>get_obs_wgt_map</strong> = &lt;fortran object&gt;<br>
+<strong>get_segment_wgt</strong> = &lt;fortran object&gt;<br>
+<strong>get_upper_index</strong> = &lt;fortran object&gt;<br>
+<strong>read_std_map</strong> = &lt;fortran object&gt;<br>
+<strong>refine_map</strong> = &lt;fortran object&gt;<br>
+<strong>regrid_flux_bs</strong> = &lt;fortran object&gt;<br>
+<strong>regrid_flux_bs_out</strong> = &lt;fortran object&gt;<br>
+<strong>regrid_flux_smp</strong> = &lt;fortran object&gt;</td></tr></table>
+</body></html>

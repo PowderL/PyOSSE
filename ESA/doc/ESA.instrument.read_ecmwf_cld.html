@@ -1,0 +1,78 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.read_ecmwf_cld</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.read_ecmwf_cld</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/read_ecmwf_cld.py">/home/lfeng/otool/ESA/instrument/read_ecmwf_cld.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;reading&nbsp;&nbsp;ECMWF&nbsp;cloud&nbsp;percentage&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.26<br>
+&nbsp;<br>
+Functions<br>
+=================================================<br>
+&nbsp;<br>
+#&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+1.&nbsp;open_ecmwf_cld:&nbsp;&nbsp;open&nbsp;ECMWF&nbsp;cloud&nbsp;file<br>
+2.&nbsp;close_ecmwf_cld:&nbsp;close&nbsp;ECMWD&nbsp;cloud&nbsp;file&nbsp;<br>
+3.&nbsp;get_ecmwf_cld_map:&nbsp;get&nbsp;ecmwf&nbsp;cloud&nbsp;map</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="pylab.html">pylab</a><br>
+</td><td width="25%" valign=top><a href="Scientific.IO.NetCDF.html">Scientific.IO.NetCDF</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-close_ecmwf_cld"><strong>close_ecmwf_cld</strong></a>(fl)</dt><dd><tt>close&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+=============================================<br>
+1.&nbsp;fl:&lt;obj&gt;:&nbsp;file&nbsp;handle</tt></dd></dl>
+ <dl><dt><a name="-get_ecmwf_cld_map"><strong>get_ecmwf_cld_map</strong></a>(fl, yyyy, mm, dd, hh, tcc<font color="#909090">=None</font>)</dt><dd><tt>get&nbsp;ecmwf&nbsp;cloud&nbsp;map&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------<br>
+1.&nbsp;fl&nbsp;:&lt;handle&gt;:&nbsp;file&nbsp;handle&nbsp;<br>
+2.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;integer&gt;:&nbsp;year,&nbsp;month&nbsp;and&nbsp;day&nbsp;<br>
+3.&nbsp;hh:&nbsp;&lt;integer&gt;:&nbsp;hour<br>
+4.&nbsp;tcc:&lt;variable,&nbsp;(nt,&nbsp;nlat,&nbsp;nlon)&gt;:&nbsp;time&nbsp;series&nbsp;of&nbsp;the&nbsp;total&nbsp;cloud&nbsp;ratio,&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;lon:&lt;array,&nbsp;nlon&gt;:&nbsp;longitude&nbsp;grid&nbsp;<br>
+2.&nbsp;lat:&lt;array,&nbsp;nlon&gt;:&nbsp;latitude&nbsp;grid&nbsp;<br>
+3.&nbsp;sel_tcc:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;cloud&nbsp;map&nbsp;at&nbsp;current&nbsp;time&nbsp;&nbsp;<br>
+4.&nbsp;tcc:&lt;variable,&nbsp;(nt,&nbsp;nlat,&nbsp;nlon)&gt;:&nbsp;&nbsp;time&nbsp;series&nbsp;of&nbsp;cloud&nbsp;map</tt></dd></dl>
+ <dl><dt><a name="-open_ecmwf_cld"><strong>open_ecmwf_cld</strong></a>(datapath, flnm, yyyy, mm, dd, hh)</dt><dd><tt>open&nbsp;cloud&nbsp;file&nbsp;ecmwf&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+=============================================<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;path<br>
+2.&nbsp;flnm:&nbsp;&lt;str&gt;:&nbsp;file&nbsp;name<br>
+3.&nbsp;yyyy,&nbsp;mm,&nbsp;dd,&nbsp;hh:&lt;int&gt;:&nbsp;time&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+===========================================<br>
+1.&nbsp;cld_fl:&lt;obj&gt;:&nbsp;cloud&nbsp;file&nbsp;handle</tt></dd></dl>
+</td></tr></table>
+</body></html>

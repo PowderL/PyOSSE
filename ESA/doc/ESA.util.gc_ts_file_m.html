@@ -1,0 +1,216 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.gc_ts_file_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.gc_ts_file_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/gc_ts_file_m.py">/home/lfeng/otool/ESA/util/gc_ts_file_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;reading&nbsp;&nbsp;GEOS-Chem&nbsp;time&nbsp;serie&nbsp;file&nbsp;from&nbsp;single&nbsp;tracer&nbsp;run&nbsp;or&nbsp;from&nbsp;ensemble&nbsp;runs&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.26<br>
+&nbsp;<br>
+Functions<br>
+=================================================<br>
+#&nbsp;ts&nbsp;file<br>
+&nbsp;<br>
+1.&nbsp;open_gc_file:&nbsp;&nbsp;&nbsp;setup&nbsp;fdesc&nbsp;for&nbsp;GEOS-Chem&nbsp;outputs<br>
+2.&nbsp;setup_daily_field:&nbsp;set&nbsp;up&nbsp;&nbsp;model&nbsp;fields&nbsp;from&nbsp;time-series&nbsp;files<br>
+3.&nbsp;setup_daily_profile:&nbsp;set&nbsp;up&nbsp;&nbsp;model&nbsp;profiles&nbsp;from&nbsp;time-series&nbsp;files<br>
+&nbsp;<br>
+#&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+4.&nbsp;open_enr_file:&nbsp;&nbsp;setup&nbsp;fdesc&nbsp;for&nbsp;GEOS-Chem&nbsp;ensemble&nbsp;runs<br>
+5.&nbsp;setup_enr_daily_field:&nbsp;set&nbsp;up&nbsp;&nbsp;model&nbsp;field&nbsp;ensemble&nbsp;from&nbsp;time-series&nbsp;outputs&nbsp;of&nbsp;ensemble&nbsp;runs<br>
+6.&nbsp;setup_enr_daily_profile:&nbsp;set&nbsp;up&nbsp;&nbsp;model&nbsp;profile&nbsp;ensemble&nbsp;from&nbsp;time-series&nbsp;outputs&nbsp;of&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+#&nbsp;data&nbsp;access&nbsp;<br>
+&nbsp;<br>
+7.&nbsp;get_mod_gp:&nbsp;&nbsp;get&nbsp;model&nbsp;profile&nbsp;(field)for&nbsp;selected&nbsp;variables<br>
+8.&nbsp;get_mod_sp:&nbsp;&nbsp;get&nbsp;surface&nbsp;pressure<br>
+9.&nbsp;get_data:&nbsp;find&nbsp;data&nbsp;according&nbsp;to&nbsp;criteria&nbsp;of&nbsp;traname,&nbsp;category&nbsp;and&nbsp;tracer&nbsp;ID<br>
+10.&nbsp;get_mod_pres:&nbsp;computer&nbsp;or&nbsp;fetch&nbsp;model&nbsp;pressure</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_gcfile_io.html">ESA.util.otool_gcfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_data"><strong>get_data</strong></a>(fdesc, traname, category, tracer)</dt><dd><tt>find&nbsp;data&nbsp;according&nbsp;to&nbsp;criteria&nbsp;of&nbsp;traname,&nbsp;category&nbsp;and&nbsp;tracer&nbsp;ID<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;fdesc:&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;access<br>
+2.&nbsp;traname:&lt;str&gt;:&nbsp;tracer&nbsp;name<br>
+3.&nbsp;category:&lt;str&gt;:&nbsp;category<br>
+4.&nbsp;tracer:&lt;int&gt;:&nbsp;tracer&nbsp;ID&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+found_data_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;selected&nbsp;data&nbsp;set</tt></dd></dl>
+ <dl><dt><a name="-get_mod_gp"><strong>get_mod_gp</strong></a>(fdesc, traname<font color="#909090">='CO2'</font>, category<font color="#909090">=None</font>, tracer<font color="#909090">=None</font>)</dt><dd><tt>get&nbsp;model&nbsp;profile&nbsp;for&nbsp;selected&nbsp;variables<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;fdesc:&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;access<br>
+2.&nbsp;traname:&lt;str&gt;:&nbsp;tracer&nbsp;name<br>
+3.&nbsp;category:&lt;str&gt;:&nbsp;category<br>
+4.&nbsp;tracer:&lt;int&gt;:&nbsp;tracer&nbsp;ID&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------<br>
+gp_lst:&lt;array&gt;:&nbsp;selected&nbsp;data&nbsp;set&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------------<br>
+1.&nbsp;if&nbsp;fdesc.data_lst&nbsp;contains&nbsp;list&nbsp;of&nbsp;profile,&nbsp;&nbsp;gp_lst&nbsp;will&nbsp;be&nbsp;an&nbsp;array&nbsp;in&nbsp;the&nbsp;shape&nbsp;<br>
+of&nbsp;[nobs,&nbsp;nlvl,&nbsp;ntracer&nbsp;(nem)]&nbsp;or&nbsp;shape&nbsp;of&nbsp;[nobs,&nbsp;ntracer]</tt></dd></dl>
+ <dl><dt><a name="-get_mod_pres"><strong>get_mod_pres</strong></a>(fdesc, **keywords)</dt><dd><tt>Calculate&nbsp;or&nbsp;find&nbsp;model&nbsp;pressure&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;fdesc:&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;descript&nbsp;to&nbsp;GEOS-Chem&nbsp;<br>
+2.&nbsp;keywords:&lt;dict&gt;:&nbsp;for&nbsp;extra&nbsp;inputs<br>
+&nbsp;<br>
+---reserved&nbsp;keys:<br>
+---traname:&lt;str&gt;:&nbsp;traname&nbsp;for&nbsp;pressure&nbsp;or&nbsp;sp&nbsp;<br>
+---use_sp:&lt;T/F&gt;:&nbsp;True,&nbsp;surface&nbsp;pressure&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;calculate&nbsp;pressures<br>
+---geos_ver:&lt;int&gt;:&nbsp;GEOS-Chem&nbsp;version<br>
+---use_reduced:&lt;int&gt;:&nbsp;1&nbsp;means&nbsp;reduced&nbsp;model&nbsp;vertical&nbsp;grid&nbsp;is&nbsp;used&nbsp;&nbsp;<br>
+---Reserved&nbsp;keys:<br>
+---category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;pressure<br>
+---tracer:&lt;int&gt;:&nbsp;tracer&nbsp;ID&nbsp;of&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;model&nbsp;pressure<br>
+---tau:&lt;float&gt;:&nbsp;time&nbsp;of&nbsp;surface&nbsp;pressure&nbsp;or&nbsp;model&nbsp;pressure<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+returns:<br>
+--------------------------------------------------<br>
+1.&nbsp;mod_pres:&lt;array&gt;:&nbsp;model&nbsp;pres</tt></dd></dl>
+ <dl><dt><a name="-get_mod_sp"><strong>get_mod_sp</strong></a>(fdesc, sp_traname<font color="#909090">='PSURF'</font>, sp_category<font color="#909090">=None</font>, sp_tracer<font color="#909090">=None</font>)</dt><dd><tt>get&nbsp;model&nbsp;surface&nbsp;pressure</tt></dd></dl>
+ <dl><dt><a name="-open_enr_file"><strong>open_enr_file</strong></a>(datapath, flnm, ftracerinfo, fdiaginfo, yyyy, mm, dd, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>, is_enr_file<font color="#909090">=True</font>, **fio_keywords)</dt><dd><tt>setup&nbsp;fdesc&nbsp;for&nbsp;GEOS-Chem&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;path&nbsp;<br>
+2.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+3,&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+4.&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+&nbsp;<br>
+5.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;categorys&nbsp;to&nbsp;be&nbsp;read<br>
+6.&nbsp;tracers:&lt;list,t:int&gt;:&nbsp;list&nbsp;of&nbsp;tracers&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+7.&nbsp;taus:&lt;list,&nbsp;t:float&gt;:&nbsp;list&nbsp;of&nbsp;taus&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+8.&nbsp;tranames:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;tracer&nbsp;name<br>
+9.&nbsp;is_enr_file:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;it&nbsp;is&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;file&nbsp;<br>
+10.&nbsp;fio_keywords:&nbsp;&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;IO<br>
+&nbsp;<br>
+---Reserved&nbsp;keywords:<br>
+&nbsp;<br>
+---&gt;enr_yst_lst:&lt;list,&nbsp;t:int&gt;:list&nbsp;of&nbsp;years&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;<br>
+---&gt;enr_dst_lst:&lt;list,&nbsp;t:int&gt;&nbsp;list&nbsp;of&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;<br>
+---&gt;enr_step_lst:&lt;list,&nbsp;int&gt;:&nbsp;list&nbsp;of&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;<br>
+---&gt;enr_emst_lst:&lt;list,&nbsp;int&gt;:&nbsp;list&nbsp;of&nbsp;start&nbsp;ensemble&nbsp;for&nbsp;ensemble&nbsp;run<br>
+---&gt;enr_emend_lst:&lt;list,&nbsp;int&gt;:&nbsp;list&nbsp;of&nbsp;start&nbsp;ensemble&nbsp;for&nbsp;ensemble&nbsp;run<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access</tt></dd></dl>
+ <dl><dt><a name="-open_ts_file"><strong>open_ts_file</strong></a>(datapath, flnm, ftracerinfo, fdiaginfo, yyyy, mm, dd, categorys<font color="#909090">=None</font>, tracers<font color="#909090">=None</font>, taus<font color="#909090">=None</font>, tranames<font color="#909090">=None</font>, **fio_keywords)</dt><dd><tt>setup&nbsp;fdesc&nbsp;for&nbsp;GEOS-Chem&nbsp;outputs<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;path&nbsp;<br>
+2.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+3,&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+4.&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+&nbsp;<br>
+5.&nbsp;categorys:&lt;list,&nbsp;t:str&gt;:&nbsp;list&nbsp;of&nbsp;categorys&nbsp;to&nbsp;be&nbsp;read<br>
+6.&nbsp;tracers:&lt;list,t:int&gt;:&nbsp;list&nbsp;of&nbsp;tracers&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+7.&nbsp;taus:&lt;list,&nbsp;t:float&gt;:&nbsp;list&nbsp;of&nbsp;taus&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+8.&nbsp;tranames:&lt;list,&nbsp;t:str&gt;:list&nbsp;of&nbsp;tracer&nbsp;name<br>
+9.&nbsp;fio_keywords:&nbsp;&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;file&nbsp;IO<br>
+---Reserved&nbsp;keywords:<br>
+--<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+--------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;file_desc_cl&gt;:&nbsp;class&nbsp;for&nbsp;file&nbsp;access</tt></dd></dl>
+ <dl><dt><a name="-setup_daily_field"><strong>setup_daily_field</strong></a>(fdesc, yyyy, mm, dd, olon, olat, ext<font color="#909090">=''</font>, **keywords)</dt><dd><tt>set&nbsp;up&nbsp;&nbsp;the&nbsp;model&nbsp;field&nbsp;from&nbsp;time-series&nbsp;files<br>
+Inputs:<br>
+----------------------------------------------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,dd:&lt;int&gt;:&nbsp;&nbsp;year,&nbsp;month,&nbsp;day<br>
+2.&nbsp;olat,&nbsp;olon:&lt;array,&nbsp;(nobs)&gt;:&nbsp;&nbsp;obsvervation&nbsp;location<br>
+3.&nbsp;ext:&lt;str&gt;:&nbsp;extension&nbsp;for&nbsp;filname<br>
+8.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:</tt></dd></dl>
+ <dl><dt><a name="-setup_daily_profile"><strong>setup_daily_profile</strong></a>(fdesc, yyyy, mm, dd, olon, olat, ext<font color="#909090">=''</font>, **keywords)</dt><dd><tt>set&nbsp;up&nbsp;&nbsp;the&nbsp;model&nbsp;profiles&nbsp;from&nbsp;time-series&nbsp;files<br>
+Inputs:<br>
+----------------------------------------------------------------------------------<br>
+1.&nbsp;yyyy,&nbsp;mm,dd:&lt;int&gt;:&nbsp;&nbsp;year,&nbsp;month,&nbsp;day<br>
+2.&nbsp;olat,&nbsp;olon:&lt;array,&nbsp;(nobs)&gt;:&nbsp;&nbsp;obsvervation&nbsp;location<br>
+3.&nbsp;ext:&lt;str&gt;:&nbsp;extension&nbsp;for&nbsp;filname<br>
+8.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:</tt></dd></dl>
+ <dl><dt><a name="-setup_enr_daily_field"><strong>setup_enr_daily_field</strong></a>(fdesc, yyyy, mm, dd, olon, olat, enr_yst_lst, enr_dst_lst, enr_step_lst, enr_em_st_lst, enr_em_end_lst, **keywords)</dt><dd><tt>set&nbsp;up&nbsp;&nbsp;model&nbsp;field&nbsp;ensemble&nbsp;from&nbsp;time-series&nbsp;outputs&nbsp;of&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+2.&nbsp;yyyy,&nbsp;mm,dd:&lt;int&gt;:&nbsp;&nbsp;year,&nbsp;month,&nbsp;day<br>
+3.&nbsp;olat,&nbsp;olon:&lt;array,&nbsp;(nobs)&gt;:&nbsp;&nbsp;obsvervation&nbsp;location<br>
+4.&nbsp;enr_yyyy_lst:&lt;int&gt;:&nbsp;year&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+5.&nbsp;enr_doy_lst:&lt;int&gt;:&nbsp;&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+6.&nbsp;enr_step_lst:&lt;int&gt;:&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run.<br>
+7.&nbsp;enr_em_st_st:&lt;int&gt;:&nbsp;firt&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+8.&nbsp;enr_em_end_lst:&lt;int&gt;:&nbsp;last&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+9.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:</tt></dd></dl>
+ <dl><dt><a name="-setup_enr_daily_profile"><strong>setup_enr_daily_profile</strong></a>(fdesc, yyyy, mm, dd, olon, olat, enr_yst_lst, enr_dst_lst, enr_step_lst, enr_em_st_lst, enr_em_end_lst, **keywords)</dt><dd><tt>set&nbsp;up&nbsp;&nbsp;model&nbsp;profile&nbsp;ensemble&nbsp;from&nbsp;time-series&nbsp;outputs&nbsp;of&nbsp;ensemble&nbsp;runs<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------------------------<br>
+1.&nbsp;fdesc:&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;access<br>
+&nbsp;<br>
+2.&nbsp;yyyy,&nbsp;mm,dd:&lt;int&gt;:&nbsp;&nbsp;year,&nbsp;month,&nbsp;day<br>
+3.&nbsp;olat,&nbsp;olon:&lt;array,&nbsp;(nobs)&gt;:&nbsp;&nbsp;obsvervation&nbsp;location<br>
+4.&nbsp;enr_yyyy_lst:&lt;int&gt;:&nbsp;year&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+5.&nbsp;enr_doy_lst:&lt;int&gt;:&nbsp;&nbsp;doy&nbsp;for&nbsp;ensemble&nbsp;run&nbsp;start.<br>
+6.&nbsp;enr_step_lst:&lt;int&gt;:&nbsp;step&nbsp;for&nbsp;ensemble&nbsp;run.<br>
+7.&nbsp;enr_em_st_st:&lt;int&gt;:&nbsp;firt&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+8.&nbsp;enr_em_end_lst:&lt;int&gt;:&nbsp;last&nbsp;one&nbsp;in&nbsp;the&nbsp;ensemble.&nbsp;<br>
+9.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>def_enr_fdiaginfo_format</strong> = 'diaginfo.STXENRSTEPX.ENXEMSTX-ENXEMENDX.dat'<br>
+<strong>def_enr_filename_format</strong> = 'ts_satellite.STXENRSTEPX.ENXEMSTX-ENXEMENDX.XYYYYXXMMXXDDX.bpch'<br>
+<strong>def_enr_ftracerinfo_format</strong> = 'tracerinfo.STXENRSTEPX.ENXEMSTX-ENXEMENDX.dat'<br>
+<strong>def_ts_fdiaginfo_format</strong> = 'diaginfoXEXTX.dat'<br>
+<strong>def_ts_filename_format</strong> = 'ts_satelliteXEXTX.XYYYYXXMMXXDDX.bpch'<br>
+<strong>def_ts_ftracerinfo_format</strong> = 'tracerinfoXEXTX.dat'</td></tr></table>
+</body></html>

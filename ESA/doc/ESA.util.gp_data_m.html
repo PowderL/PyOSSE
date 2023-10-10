@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.gp_data_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.gp_data_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/gp_data_m.py">/home/lfeng/otool/ESA/util/gp_data_m.py</a></font></td></tr></table>
+    <p><tt>(class&nbsp;)&nbsp;for&nbsp;two&nbsp;or&nbsp;three&nbsp;or&nbsp;four&nbsp;dimenisonal&nbsp;(lon-lat-press-time&nbsp;etc)&nbsp;data&nbsp;set<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.5,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2012.10.28<br>
+this&nbsp;class&nbsp;&nbsp;defines&nbsp;a&nbsp;grid&nbsp;to&nbsp;represent&nbsp;fields,&nbsp;and&nbsp;<br>
+routines&nbsp;for&nbsp;interplotating&nbsp;fields.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.gp_data_m.html#gp_data_cl">gp_data_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="gp_data_cl">class <strong>gp_data_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>general&nbsp;container&nbsp;for&nbsp;gridded&nbsp;geo-physical&nbsp;variables<br>
+&nbsp;<br>
+Members:<br>
+------------------------------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;name:&nbsp;&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;variable&nbsp;<br>
+2.&nbsp;category:&lt;str&gt;:category&nbsp;of&nbsp;variable&nbsp;<br>
+3.&nbsp;id:&nbsp;&lt;numberic&gt;:id&nbsp;of&nbsp;variable<br>
+4.&nbsp;group:&lt;str&gt;:&nbsp;&nbsp;group&nbsp;name&nbsp;of&nbsp;the&nbsp;variable&nbsp;<br>
+4.&nbsp;grid:&lt;gp_grid_cl&gt;:grid<br>
+5.&nbsp;__attr_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;name&nbsp;and&nbsp;ndim<br>
+6.&nbsp;data<br>
+&nbsp;<br>
+Functions:<br>
+==================================================================<br>
+#&nbsp;Interpolation&nbsp;and&nbsp;index<br>
+1.&nbsp;gp_interp:interpolation&nbsp;data&nbsp;set&nbsp;to&nbsp;a&nbsp;given&nbsp;location<br>
+2.&nbsp;gp_get_prof:get&nbsp;profile&nbsp;at&nbsp;given&nbsp;locations<br>
+3.&nbsp;gp_interp_2d:&nbsp;a&nbsp;fast&nbsp;version&nbsp;for&nbsp;interpolate&nbsp;2-D&nbsp;data&nbsp;set&nbsp;to&nbsp;given&nbsp;locations<br>
+4.&nbsp;gp_axis_transform_2d:&nbsp;bilinear&nbsp;interoplation<br>
+5.&nbsp;interp_along_axis:get&nbsp;(n-1)-Dimensional&nbsp;fields&nbsp;at&nbsp;locations&nbsp;along&nbsp;one&nbsp;chosen&nbsp;axis.&nbsp;<br>
+6.&nbsp;mylice:&nbsp;get&nbsp;indexes&nbsp;to&nbsp;access&nbsp;chosen&nbsp;elements&nbsp;of&nbsp;the&nbsp;data.&nbsp;&nbsp;<br>
+7.&nbsp;get_slice:&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+8.&nbsp;save_to_netcdf:save&nbsp;data&nbsp;to&nbsp;a&nbsp;given&nbsp;netcdf&nbsp;file<br>
+9.&nbsp;set_global_attr:&nbsp;set&nbsp;one&nbsp;global&nbsp;attribute<br>
+10.&nbsp;get_global_attr:&nbsp;get&nbsp;one&nbsp;global&nbsp;attribute<br>
+11.&nbsp;remove_global_attr:remove&nbsp;one&nbsp;global&nbsp;attribute<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;disk&nbsp;IO<br>
+11.&nbsp;save_gp_to_netcdf:&nbsp;save&nbsp;selected&nbsp;data&nbsp;set&nbsp;to&nbsp;one&nbsp;netcdf&nbsp;<br>
+12.&nbsp;load_gp_from_file:&nbsp;virtual&nbsp;function&nbsp;to&nbsp;be&nbsp;overrided<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="gp_data_cl-__getitem__"><strong>__getitem__</strong></a>(self, idx)</dt><dd><tt>Inputs:<br>
+------------------------------------------------------------------------<br>
+1.&nbsp;idx:&lt;tuple&gt;:&nbsp;coordinate&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------------------------<br>
+1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-__init__"><strong>__init__</strong></a>(self, data, name<font color="#909090">=''</font>, axis_set<font color="#909090">=[]</font>, id<font color="#909090">=0</font>, category<font color="#909090">=''</font>, unit<font color="#909090">=''</font>, data_attr<font color="#909090">={}</font>)</dt><dd><tt>initialization<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------<br>
+1.&nbsp;data:&lt;array&gt;:&nbsp;array&nbsp;of&nbsp;the&nbsp;data&nbsp;set<br>
+2.&nbsp;axis_set:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;(gp_)axis&nbsp;for&nbsp;grid<br>
+3.&nbsp;name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;data&nbsp;set<br>
+3.&nbsp;category:&lt;str&gt;:&nbsp;category&nbsp;of&nbsp;the&nbsp;data&nbsp;set<br>
+4.&nbsp;unit:&lt;str&gt;:unit&nbsp;of&nbsp;the&nbsp;data&nbsp;set<br>
+5.&nbsp;data_id:&lt;obj&gt;:id&nbsp;of&nbsp;the&nbsp;data&nbsp;set<br>
+7.&nbsp;attr:&lt;dict&gt;:&nbsp;dictionary&nbsp;of&nbsp;the&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>Inputs:<br>
+------------------------------------------------------------------------<br>
+1.&nbsp;attr_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;attribute&nbsp;to&nbsp;be&nbsp;retrieved.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------------------------<br>
+1.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-get_gp"><strong>get_gp</strong></a>(self, xcor, fill_val<font color="#909090">=None</font>, threshold<font color="#909090">=0.0</font>)</dt><dd><tt>Interpolate&nbsp;data&nbsp;to&nbsp;a&nbsp;given&nbsp;location&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+1.xcor:&nbsp;&lt;array&gt;:&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;location<br>
+2.&nbsp;fill_val:&lt;float&gt;:Optional.&nbsp;If&nbsp;data[idx]&nbsp;==fill_val,&nbsp;<br>
+---&nbsp;the&nbsp;weight&nbsp;of&nbsp;value&nbsp;at&nbsp;the&nbsp;axis&nbsp;point&nbsp;will&nbsp;be&nbsp;equal&nbsp;to&nbsp;zero<br>
+3.&nbsp;threshold:&lt;float&gt;:&nbsp;if&nbsp;the&nbsp;total&nbsp;weight&nbsp;for&nbsp;xocs&nbsp;is&nbsp;smaller&nbsp;&lt;threshold,&nbsp;its&nbsp;value&nbsp;<br>
+will&nbsp;be&nbsp;set&nbsp;to&nbsp;fill&nbsp;value&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;gp:&nbsp;variable&nbsp;value&nbsp;at&nbsp;the&nbsp;given&nbsp;locations<br>
+2.&nbsp;wgt:&nbsp;weight&nbsp;information&nbsp;as&nbsp;(lp,&nbsp;rp,&nbsp;wgt)&nbsp;for&nbsp;every&nbsp;axis</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-get_prof"><strong>get_prof</strong></a>(self, xpos, xaxis<font color="#909090">=0</font>)</dt><dd><tt>interpolate&nbsp;the&nbsp;data&nbsp;to&nbsp;a&nbsp;given&nbsp;locations&nbsp;[xvalx,&nbsp;yvals]<br>
+Inputs:<br>
+------------------------------------------------------------------<br>
+1.&nbsp;xpos:&nbsp;&lt;array&gt;:&nbsp;coordinate&nbsp;of&nbsp;the&nbsp;point.&nbsp;Its&nbsp;size&nbsp;is&nbsp;equal&nbsp;to&nbsp;ndim-1,&nbsp;where&nbsp;ndim&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;the&nbsp;dimension&nbsp;size&nbsp;of&nbsp;the&nbsp;data&nbsp;set.&nbsp;&nbsp;<br>
+2.&nbsp;xaxis:&lt;integer&gt;:&nbsp;id&nbsp;of&nbsp;the&nbsp;axis&nbsp;for&nbsp;the&nbsp;profile&nbsp;to&nbsp;be&nbsp;retrieved&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------------------<br>
+1.&nbsp;ref_x:&lt;array&gt;:&nbsp;grid&nbsp;along&nbsp;the&nbsp;chosen&nbsp;x<br>
+2.&nbsp;gp_prof:&lt;array&gt;:&nbsp;profiles&nbsp;at&nbsp;the&nbsp;given&nbsp;locations&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-------------------------------------------------------------------<br>
+1.&nbsp;the&nbsp;stored&nbsp;data&nbsp;set&nbsp;&nbsp;is&nbsp;assumed&nbsp;to&nbsp;have&nbsp;a&nbsp;dimension&nbsp;size&nbsp;of&nbsp;<br>
+ndim&nbsp;equal&nbsp;to&nbsp;len(xpos)+1</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-interp_2d"><strong>interp_2d</strong></a>(self, cor_lst)</dt><dd><tt>Interpolate&nbsp;variable&nbsp;at&nbsp;2D-grid&nbsp;values&nbsp;to&nbsp;a&nbsp;given&nbsp;locations&nbsp;in&nbsp;a&nbsp;two&nbsp;dimensional&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+1.&nbsp;cor_lst:&nbsp;&lt;list&gt;:&nbsp;coordinate&nbsp;of&nbsp;the&nbsp;set&nbsp;of&nbsp;locations&nbsp;<br>
+(i.e.,&nbsp;[[P0],&nbsp;[P1],...]<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;gpv:&lt;array&gt;:&nbsp;variable&nbsp;values&nbsp;at&nbsp;the&nbsp;locations<br>
+2.&nbsp;loc_info:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;weighs&nbsp;and&nbsp;locations&nbsp;of&nbsp;the&nbsp;corners&nbsp;information&nbsp;:<br>
+[[lpx,&nbsp;rpx,&nbsp;wgx,lpy,&nbsp;rpy,&nbsp;wgy],&nbsp;...]</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-myslice"><strong>myslice</strong></a>(self, pos_xl, idx, pos_xr)</dt><dd><tt>return&nbsp;a&nbsp;set&nbsp;of&nbsp;index&nbsp;to&nbsp;access&nbsp;elements&nbsp;of&nbsp;n-d&nbsp;array<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;pos_xl,&nbsp;pos_xr:&nbsp;&lt;tuple&gt;:&nbsp;Tuple&nbsp;of&nbsp;index&nbsp;at&nbsp;the&nbsp;left&nbsp;and&nbsp;right&nbsp;sides&nbsp;of&nbsp;the&nbsp;chosen&nbsp;axis<br>
+2.&nbsp;idx:&lt;list&gt;:&nbsp;&nbsp;list&nbsp;of&nbsp;indexs&nbsp;along&nbsp;the&nbsp;the&nbsp;axis<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------<br>
+ps:&nbsp;&lt;list&gt;:&nbsp;a&nbsp;list&nbsp;of&nbsp;tuple&nbsp;of&nbsp;the&nbsp;n-d&nbsp;index</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-myslice_sgl"><strong>myslice_sgl</strong></a>(self, pos_xl, id, pos_xr)</dt><dd><tt>Form&nbsp;a&nbsp;myslice&nbsp;to&nbsp;access&nbsp;element&nbsp;of&nbsp;n-dimension&nbsp;array&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------------------------<br>
+1.&nbsp;pos_xl,&nbsp;pos_xr:&lt;tuple&gt;:&nbsp;the&nbsp;tuple&nbsp;of&nbsp;index&nbsp;at&nbsp;the&nbsp;left&nbsp;and&nbsp;right&nbsp;<br>
+---side&nbsp;of&nbsp;the&nbsp;chosen&nbsp;axis&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;id:&nbsp;&lt;integer/None&gt;:&nbsp;the&nbsp;location&nbsp;along&nbsp;the&nbsp;chosen&nbsp;axis<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;sl:&nbsp;&lt;tuple&gt;:&nbsp;the&nbsp;tuple&nbsp;of&nbsp;the&nbsp;n-Dimension&nbsp;index.&nbsp;n=len(pos_xl)+len(pos_xr)+1<br>
+If&nbsp;id==None,&nbsp;sl=tuple([pos_xl,&nbsp;:,&nbsp;pos_xr]).&nbsp;If&nbsp;not,&nbsp;sl=tuple([pos_x,&nbsp;id,&nbsp;pos_xr])</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-remove_attr"><strong>remove_attr</strong></a>(self, attr_name)</dt><dd><tt>remove&nbsp;attribute&nbsp;<br>
+1.&nbsp;Inputs<br>
+attr_name:&lt;str&gt;:&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;be&nbsp;removed</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-save_gp_to_netcdf"><strong>save_gp_to_netcdf</strong></a>(self, gpfile)</dt><dd><tt>dump&nbsp;chosen&nbsp;data&nbsp;to&nbsp;a&nbsp;&nbsp;netcdf&nbsp;file&nbsp;<br>
+Inputs:<br>
+1.&nbsp;gpfile:&lt;str&gt;:file&nbsp;name<br>
+2.&nbsp;gpname:&lt;str&gt;:variable&nbsp;name&nbsp;to&nbsp;be&nbsp;save<br>
+&nbsp;<br>
+Returns:</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, val)</dt><dd><tt>Inputs:<br>
+------------------------------------------------------------------------<br>
+1.&nbsp;attr_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;attribute&nbsp;to&nbsp;be&nbsp;retrieved.&nbsp;<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="gp_data_cl-set_grid"><strong>set_grid</strong></a>(self, axis_list)</dt></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

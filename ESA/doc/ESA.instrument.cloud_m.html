@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.cloud_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.cloud_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/cloud_m.py">/home/lfeng/otool/ESA/instrument/cloud_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;cloud&nbsp;PDF&nbsp;data<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2013.02.26<br>
+&nbsp;<br>
+Classes:<br>
+============================================<br>
+1.&nbsp;<a href="#cloud_cl">cloud_cl</a>:&nbsp;class&nbsp;for&nbsp;cloud&nbsp;PDF&nbsp;data</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.atmosphere.compute_gc_grid.html">ESA.atmosphere.compute_gc_grid</a><br>
+<a href="ESA.instrument.cloud_file_m.html">ESA.instrument.cloud_file_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="numpy.random.html">numpy.random</a><br>
+<a href="ESA.util.time_module.html">ESA.util.time_module</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.instrument.cloud_m.html#cloud_cl">cloud_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="cloud_cl">class <strong>cloud_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;cloud&nbsp;data&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Members<br>
+======================================<br>
+&nbsp;<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;cloud&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;(for&nbsp;future&nbsp;use)<br>
+&nbsp;<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;fio_keywords:&lt;dict&gt;:&nbsp;key&nbsp;words&nbsp;for&nbsp;reading&nbsp;cloud&nbsp;data<br>
+7.&nbsp;varname_dict:&lt;dict&gt;:&nbsp;translations&nbsp;between&nbsp;names&nbsp;in&nbsp;the&nbsp;class&nbsp;<br>
+8.&nbsp;and&nbsp;column&nbsp;names&nbsp;in&nbsp;the&nbsp;file.&nbsp;<br>
+9.&nbsp;fdesc:&lt;grdfile_desc_cl&gt;:&nbsp;file&nbsp;access&nbsp;to&nbsp;cloud&nbsp;data<br>
+10.&nbsp;fopen:&lt;func&gt;:&nbsp;open&nbsp;data&nbsp;file&nbsp;<br>
+11.&nbsp;fread:&lt;func&gt;:&nbsp;read&nbsp;data&nbsp;in&nbsp;<br>
+12.&nbsp;fclose:&lt;func&gt;:&nbsp;close&nbsp;file&nbsp;<br>
+13.&nbsp;fget:&nbsp;&lt;func&gt;:&nbsp;&nbsp;get&nbsp;value&nbsp;at&nbsp;given&nbsp;coordinates<br>
+14.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attributes<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions<br>
+=======================================================<br>
+1.&nbsp;__init___:&nbsp;intialization<br>
+2.&nbsp;load_data:&nbsp;load&nbsp;data&nbsp;from&nbsp;file<br>
+3.&nbsp;get_data&nbsp;:&nbsp;get&nbsp;cloud&nbsp;at&nbsp;given&nbsp;locations<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="cloud_cl-__init__"><strong>__init__</strong></a>(self, datapath, flnm, yyyy, mm, dd, varname_dict<font color="#909090">={'cloud': 'val', 'lat': 'lat', 'lon': 'lon'}</font>, fopen<font color="#909090">=&lt;function open_cloud_file&gt;</font>, fread<font color="#909090">=&lt;function read_cloud_file&gt;</font>, fclose<font color="#909090">=&lt;function close_cloud_file&gt;</font>, fget<font color="#909090">=&lt;function get_cloud_data&gt;</font>, fio_keywords<font color="#909090">={}</font>, **keywords)</dt><dd><tt>initialization&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;cloud&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;cloud&nbsp;file<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;read_to_array:&lt;T/F&gt;:&nbsp;if&nbsp;True,&nbsp;data&nbsp;will&nbsp;be&nbsp;read&nbsp;from&nbsp;file&nbsp;as&nbsp;arrays.&nbsp;<br>
+7.&nbsp;use_current_time:&lt;T/F&gt;:&nbsp;<br>
+&nbsp;<br>
+---if&nbsp;True,&nbsp;input&nbsp;time&nbsp;(yyyy,&nbsp;mm,&nbsp;dd)&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;read&nbsp;data.<br>
+---if&nbsp;False,&nbsp;default&nbsp;time&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;read&nbsp;data&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+8.&nbsp;fopen:&lt;func&gt;:&nbsp;open&nbsp;data&nbsp;file&nbsp;<br>
+9.&nbsp;fread:&lt;func&gt;:&nbsp;read&nbsp;data&nbsp;into&nbsp;<br>
+10.&nbsp;fclose:&lt;func&gt;:&nbsp;close&nbsp;file&nbsp;<br>
+11.&nbsp;fget:&nbsp;&lt;func&gt;:&nbsp;&nbsp;get&nbsp;cloud&nbsp;at&nbsp;given&nbsp;locations<br>
+12.&nbsp;keywords:&lt;dict&gt;:&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="cloud_cl-get_data"><strong>get_data</strong></a>(self, olon, olat, oyyyy, omm, odd, osec, **keywords)</dt><dd><tt>get&nbsp;cloud&nbsp;coverage&nbsp;at&nbsp;given&nbsp;location&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.olon:&lt;array,&nbsp;(nob,)&gt;:&nbsp;longitude<br>
+2.olat:&lt;array,&nbsp;(nob,)&gt;:&nbsp;latitude&nbsp;&nbsp;<br>
+3.oyyyy:&lt;int/array,&nbsp;(nob,)&gt;:&nbsp;&nbsp;year&nbsp;&nbsp;(Note&nbsp;2)<br>
+4.omm:&lt;int/array,&nbsp;(nob,)&gt;:&nbsp;&nbsp;month&nbsp;&nbsp;&nbsp;(Note&nbsp;2)<br>
+5.odd:&lt;int/array,&nbsp;(nob,)&gt;:&nbsp;&nbsp;day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Note&nbsp;2)<br>
+6.osec:&lt;int/array,&nbsp;(nob,)&gt;:&nbsp;&nbsp;seconds&nbsp;in&nbsp;the&nbsp;day&nbsp;&nbsp;(Note&nbsp;2).<br>
+&nbsp;<br>
+7.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+---Reserved&nbsp;Entries<br>
+--&gt;common_ref:&lt;str/numeric&gt;:&nbsp;the&nbsp;reference&nbsp;shared&nbsp;by&nbsp;observations.<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;pcld:&nbsp;&lt;array,&nbsp;(nob)&gt;:&nbsp;cloud&nbsp;coverage&nbsp;percentage<br>
+&nbsp;<br>
+Notes:<br>
+--------------------------------------------<br>
+1.&nbsp;keywords&nbsp;passed&nbsp;to&nbsp;self.<strong>fget</strong>&nbsp;will&nbsp;be&nbsp;self.<strong>fio_keywords</strong>+keywords<br>
+2.&nbsp;time&nbsp;(yyyy,&nbsp;mm,&nbsp;dd,&nbsp;sec)&nbsp;can&nbsp;be&nbsp;single&nbsp;values&nbsp;while&nbsp;olon&nbsp;and&nbsp;olat&nbsp;<br>
+two&nbsp;arrays&nbsp;of&nbsp;same&nbsp;sizes.</tt></dd></dl>
+
+<dl><dt><a name="cloud_cl-load_data"><strong>load_data</strong></a>(self, datapath, flnm, yyyy, mm, dd, **keywords)</dt><dd><tt>read&nbsp;data&nbsp;from&nbsp;file&nbsp;to&nbsp;array/table&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;file&nbsp;path&nbsp;for&nbsp;cloud&nbsp;data&nbsp;<br>
+2.&nbsp;flnm:&nbsp;&lt;flnm&gt;:&nbsp;file&nbsp;name&nbsp;for&nbsp;cloud&nbsp;file<br>
+3.&nbsp;yyyy:&nbsp;&lt;int&gt;:&nbsp;&nbsp;year&nbsp;<br>
+4.&nbsp;mm:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;<br>
+5.&nbsp;dd:&lt;int&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;<br>
+6.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs&nbsp;for&nbsp;reading&nbsp;file&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------<br>
+1.&nbsp;is_ready:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;data&nbsp;are&nbsp;read&nbsp;successifully.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------------------</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-cloud_sample"><strong>cloud_sample</strong></a>(olon, olat, otime, ocnt, cloud_pdf, fpenalty<font color="#909090">=None</font>, **keywords)</dt><dd><tt>Set&nbsp;cloud&nbsp;flag&nbsp;according&nbsp;cloud&nbsp;PDF&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;olon:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;observation&nbsp;longitude&nbsp;<br>
+2.&nbsp;olat:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;observation&nbsp;latitude<br>
+3.&nbsp;otime:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;observation&nbsp;time<br>
+4.&nbsp;ocnt:&lt;array,&nbsp;(nobs,)&gt;:&nbsp;observation&nbsp;number&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;cloud_pdf:&lt;array&gt;:&nbsp;cloud&nbsp;percentage<br>
+6.&nbsp;fpenalty:&lt;funct&gt;:cloud&nbsp;&nbsp;PDF&nbsp;penality&nbsp;function.&nbsp;&nbsp;&nbsp;<br>
+7.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;contral&nbsp;variables<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------------------<br>
+1.&nbsp;clear_cnt:&lt;array&gt;:&nbsp;the&nbsp;count&nbsp;number&nbsp;of&nbsp;cloud&nbsp;free&nbsp;scene</tt></dd></dl>
+</td></tr></table>
+</body></html>

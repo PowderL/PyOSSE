@@ -1,0 +1,65 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.instrument.satellite_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.instrument.html"><font color="#ffffff">instrument</font></a>.satellite_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/instrument/satellite_m.py">/home/lfeng/otool/ESA/instrument/satellite_m.py</a></font></td></tr></table>
+    <p><tt>Virtual&nbsp;class&nbsp;for&nbsp;defining&nbsp;satellite&nbsp;<br>
+These&nbsp;functions&nbsp;to&nbsp;be&nbsp;overrided&nbsp;by&nbsp;the&nbsp;user<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;History:&nbsp;v0.95,&nbsp;2013.02.15<br>
+&nbsp;<br>
+&nbsp;Classes:<br>
+&nbsp;===============================================<br>
+&nbsp;1.&nbsp;<a href="#satellite_cl">satellite_cl</a>:&nbsp;class&nbsp;for&nbsp;satellite&nbsp;information</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.instrument.satellite_m.html#satellite_cl">satellite_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="satellite_cl">class <strong>satellite_cl</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="satellite_cl-__init__"><strong>__init__</strong></a>(self, name, sid)</dt></dl>
+
+<dl><dt><a name="satellite_cl-get_alt"><strong>get_alt</strong></a>(self, sat_lon, sat_lat, tau, **keywords)</dt><dd><tt>get&nbsp;satellite&nbsp;altitude</tt></dd></dl>
+
+<dl><dt><a name="satellite_cl-get_groundspeed"><strong>get_groundspeed</strong></a>(self, sat_lon, sat_lat, **keywords)</dt><dd><tt>get&nbsp;satellite&nbsp;ground&nbsp;speed</tt></dd></dl>
+
+<dl><dt><a name="satellite_cl-get_orb"><strong>get_orb</strong></a>(self, tau, **keywords)</dt><dd><tt>get&nbsp;&nbsp;the&nbsp;location&nbsp;of&nbsp;the&nbsp;satellite</tt></dd></dl>
+
+<dl><dt><a name="satellite_cl-get_sat_loc"><strong>get_sat_loc</strong></a>(self, tau, **keywords)</dt><dd><tt>get&nbsp;&nbsp;the&nbsp;location&nbsp;of&nbsp;the&nbsp;satellite</tt></dd></dl>
+
+<dl><dt><a name="satellite_cl-get_viewangle"><strong>get_viewangle</strong></a>(self, olon, olat, sat_lon, sal_lat, sat_alt, **keywords)</dt><dd><tt>get&nbsp;viewangle</tt></dd></dl>
+
+<dl><dt><a name="satellite_cl-get_viewsize"><strong>get_viewsize</strong></a>(self, viewtype, viewmode, viewangle, **keywords)</dt><dd><tt>get&nbsp;view&nbsp;size&nbsp;at&nbsp;the&nbsp;ground</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>def_sat_alt</strong> = 800000.0<br>
+<strong>def_sat_speed</strong> = 7500.0<br>
+<strong>def_viewangle</strong> = 0.0<br>
+<strong>def_viewsize</strong> = 2</td></tr></table>
+</body></html>

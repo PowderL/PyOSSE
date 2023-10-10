@@ -1,0 +1,489 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.atmosphere.ctm_grid_3d</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.atmosphere.html"><font color="#ffffff">atmosphere</font></a>.ctm_grid_3d</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/atmosphere/ctm_grid_3d.py">/home/lfeng/otool/ESA/atmosphere/ctm_grid_3d.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;3D&nbsp;(lon,&nbsp;lat,&nbsp;lz)&nbsp;grid&nbsp;used&nbsp;by&nbsp;CTM&nbsp;models.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.30<br>
+History:&nbsp;v0.95,&nbsp;2012.10.26<br>
+&nbsp;<br>
+&nbsp;<br>
+Classes:<br>
+---------------------------------------------------<br>
+1.&nbsp;<a href="#ctm_grid_cl">ctm_grid_cl</a>:&nbsp;&nbsp;derived&nbsp;class&nbsp;for&nbsp;3D&nbsp;model&nbsp;grid.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.atmosphere.compute_gc_grid.html">ESA.atmosphere.compute_gc_grid</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gp_grid_m.html">ESA.util.gp_grid_m</a><br>
+<a href="ESA.util.horizontal_interp_m.html">ESA.util.horizontal_interp_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.pres_m.html">ESA.util.pres_m</a><br>
+<a href="ESA.util.vertical_interp_m.html">ESA.util.vertical_interp_m</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.gp_grid_m.html#gp_grid_cl">ESA.util.gp_grid_m.gp_grid_cl</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ESA.atmosphere.ctm_grid_3d.html#ctm_grid_cl">ctm_grid_cl</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ctm_grid_cl">class <strong>ctm_grid_cl</strong></a>(<a href="ESA.util.gp_grid_m.html#gp_grid_cl">ESA.util.gp_grid_m.gp_grid_cl</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>derived&nbsp;class&nbsp;for&nbsp;model&nbsp;grid&nbsp;<br>
+It&nbsp;has&nbsp;grid&nbsp;of&nbsp;three&nbsp;axis&nbsp;named&nbsp;as&nbsp;<br>
+['lon',&nbsp;'lat',&nbsp;'lz']<br>
+&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+---------------------------------------<br>
+Added&nbsp;or&nbsp;over-ridden&nbsp;members<br>
+&nbsp;<br>
+1.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;attributes<br>
+2.&nbsp;vtype:&nbsp;Type&nbsp;of&nbsp;the&nbsp;vertical&nbsp;grid<br>
+3.&nbsp;htype:&nbsp;Type&nbsp;of&nbsp;horizontal&nbsp;grid<br>
+4.&nbsp;hresolution:&nbsp;resolution&nbsp;of&nbsp;the&nbsp;horizontal&nbsp;grid<br>
+5.&nbsp;nlon:&lt;integer&gt;:&nbsp;size&nbsp;of&nbsp;longitude&nbsp;grid<br>
+6.&nbsp;nlat:&lt;integer&gt;:&nbsp;size&nbsp;of&nbsp;latitude&nbsp;grid<br>
+7.&nbsp;nz:&lt;integer&gt;:&nbsp;size&nbsp;of&nbsp;vertical&nbsp;grid<br>
+8.&nbsp;mask_val:&lt;float&gt;:&nbsp;filling&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;data<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions&nbsp;(overridden&nbsp;and&nbsp;the&nbsp;new&nbsp;ones):<br>
+-------------------------------------------<br>
+1.&nbsp;__init__:&nbsp;initialize&nbsp;the&nbsp;class<br>
+2.&nbsp;set_mask:&nbsp;set&nbsp;mask&nbsp;values<br>
+&nbsp;<br>
+#&nbsp;horizontal&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;get_lon:&nbsp;return&nbsp;longitude&nbsp;grid&nbsp;<br>
+4.&nbsp;set_lon:&nbsp;set&nbsp;longitude&nbsp;grid&nbsp;<br>
+5.&nbsp;get_lat:&nbsp;return&nbsp;latitude&nbsp;grid&nbsp;<br>
+6.&nbsp;set_lat:&nbsp;set&nbsp;longitude&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+#<br>
+7.&nbsp;set_lz:&nbsp;set&nbsp;vertical&nbsp;level&nbsp;<br>
+8.&nbsp;set_mod_pres:&nbsp;set&nbsp;model&nbsp;pressure<br>
+9.&nbsp;&nbsp;compute_mod_pres:&nbsp;compute&nbsp;model&nbsp;pressure&nbsp;and&nbsp;reset&nbsp;the&nbsp;attributes<br>
+10.&nbsp;compute_mod_pres_edge:&nbsp;&nbsp;compute&nbsp;model&nbsp;pressures&nbsp;at&nbsp;level&nbsp;edges&nbsp;and&nbsp;reset&nbsp;the&nbsp;attributes<br>
+11.&nbsp;get_mod_pres:&nbsp;get&nbsp;model&nbsp;pressure&nbsp;<br>
+12.&nbsp;get_mod_pres_edge:&nbsp;get&nbsp;model&nbsp;pressure&nbsp;at&nbsp;level&nbsp;edges<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;edges&nbsp;<br>
+15.&nbsp;set_lon_edge:&nbsp;set&nbsp;longitude&nbsp;edge<br>
+16.&nbsp;set_lat_edge:&nbsp;set&nbsp;latitude&nbsp;edge<br>
+17.&nbsp;compute_lat_edge:&nbsp;compute_lat_edge<br>
+18.&nbsp;compute_lon_edge:&nbsp;compute_lon_edge&nbsp;<br>
+19.&nbsp;get_area:&nbsp;calculate&nbsp;areas&nbsp;of&nbsp;grid&nbsp;boxes&nbsp;<br>
+&nbsp;<br>
+#&nbsp;interploation<br>
+20.&nbsp;get_hintpl:&nbsp;construct&nbsp;class&nbsp;for&nbsp;horizontal&nbsp;interpolation<br>
+21.&nbsp;get_vintpl:&nbsp;construct&nbsp;class&nbsp;for&nbsp;vertical&nbsp;interpolation<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Attributes&nbsp;(reserved):<br>
+-----------------------------------------------------<br>
+&nbsp;<br>
+#&nbsp;grid&nbsp;edge&nbsp;<br>
+1.&nbsp;lon_edge:&lt;array&gt;:&nbsp;longitude&nbsp;grid&nbsp;<br>
+2.&nbsp;lat_edge:&lt;array&gt;:&nbsp;latitude&nbsp;grid<br>
+&nbsp;<br>
+#&nbsp;pressure&nbsp;<br>
+3.&nbsp;surf_pres&nbsp;:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;surface&nbsp;pressure<br>
+4.&nbsp;ap&nbsp;:&lt;array,(nz+1)&gt;:&nbsp;pressure&nbsp;coefficients<br>
+5.&nbsp;bp:&lt;array,&nbsp;(nz+1)&gt;:&nbsp;pressure&nbsp;coefficients&nbsp;<br>
+6.&nbsp;mod_pres:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nz)&gt;:&nbsp;model&nbsp;pressure&nbsp;in&nbsp;hPa&nbsp;<br>
+7.&nbsp;mod_pres_edge:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nz+1))&gt;:&nbsp;pressure&nbsp;at&nbsp;model&nbsp;level&nbsp;edges&nbsp;<br>
+&nbsp;<br>
+#&nbsp;filling&nbsp;values<br>
+8.&nbsp;mask_val:&lt;float&gt;:&nbsp;filling&nbsp;for&nbsp;bad&nbsp;or&nbsp;missing&nbsp;values.&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;ap:&nbsp;&nbsp;ap&nbsp;coefficients&nbsp;for&nbsp;pressure&nbsp;of&nbsp;hybrid&nbsp;grids<br>
+2.&nbsp;bp:&nbsp;&nbsp;bp&nbsp;coefficients&nbsp;for&nbsp;pressure&nbsp;of&nbsp;hybrid&nbsp;grids<br>
+3.&nbsp;surf_pres:&nbsp;surface&nbsp;pressures&nbsp;in&nbsp;hPa<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ctm_grid_cl-__init__"><strong>__init__</strong></a>(self, lon, lat, lz, vtype<font color="#909090">='Hybrid'</font>, htype<font color="#909090">='Gaussian'</font>, hresolution<font color="#909090">='4x5'</font>, mask_val<font color="#909090">=-999.0</font>, **keywords)</dt><dd><tt>initialize&nbsp;grid&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------<br>
+1.&nbsp;lon,&nbsp;lat,&nbsp;lz:&lt;array&gt;:&nbsp;array&nbsp;for&nbsp;model&nbsp;grids.<br>
+---their&nbsp;sizes&nbsp;are&nbsp;nlon,&nbsp;nlat,&nbsp;nz,&nbsp;respectively<br>
+&nbsp;<br>
+2.&nbsp;vtype:&lt;string&gt;:&nbsp;type&nbsp;of&nbsp;the&nbsp;vertical&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;htype:&lt;string&gt;:&nbsp;type&nbsp;of&nbsp;the&nbsp;horizontal&nbsp;grid<br>
+4.&nbsp;hresolution:&lt;string&gt;:&nbsp;type&nbsp;of&nbsp;the&nbsp;horizontal&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;&nbsp;mask_val=oob.fill_val,<br>
+&nbsp;<br>
+6.&nbsp;keywords:&nbsp;&lt;dict&gt;:&nbsp;attributes&nbsp;<br>
+&nbsp;<br>
+Reserved&nbsp;words:<br>
+&nbsp;<br>
+---&gt;lon_edgee:&lt;array,&nbsp;(nlon+1,)&gt;:&nbsp;array&nbsp;of&nbsp;model&nbsp;lon&nbsp;edges<br>
+---&gt;lat_edgee:&lt;array,&nbsp;(nlat+1,)&gt;:&nbsp;array&nbsp;of&nbsp;model&nbsp;lon&nbsp;edges<br>
+---&gt;ap,&nbsp;bp:&lt;array,&nbsp;(nz+1,)&gt;:&nbsp;coefficients&nbsp;for&nbsp;pressure&nbsp;level<br>
+---&gt;surf_pres:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;pressures&nbsp;at&nbsp;surface<br>
+---&gt;mod_pres:&lt;array,</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-compute_lat_edge"><strong>compute_lat_edge</strong></a>(self, lat_st<font color="#909090">=-90.0</font>, lat_end<font color="#909090">=90</font>)</dt><dd><tt>Compute&nbsp;latitude&nbsp;box&nbsp;edge,&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;the&nbsp;dictionary<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;lat_st:&lt;float&gt;:&nbsp;Starting&nbsp;point&nbsp;&nbsp;of&nbsp;the&nbsp;latitude<br>
+2.&nbsp;lat_end:&lt;float&gt;:&nbsp;End&nbsp;point&nbsp;of&nbsp;the&nbsp;latitude<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;lat_edge:&lt;array,&nbsp;nlat+1&gt;:&nbsp;latitudes&nbsp;of&nbsp;model&nbsp;grid&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-compute_lon_edge"><strong>compute_lon_edge</strong></a>(self, lon_st<font color="#909090">=-180.0</font>, lon_end<font color="#909090">=180.0</font>)</dt><dd><tt>computer&nbsp;lontitude&nbsp;edge,&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;the&nbsp;dictionary<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;shall&nbsp;be&nbsp;over-ridden<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;lon_st:&lt;float&gt;:&nbsp;Starting&nbsp;point&nbsp;&nbsp;of&nbsp;the&nbsp;longitude<br>
+2.&nbsp;lon_end:&lt;float&gt;:&nbsp;End&nbsp;point&nbsp;of&nbsp;the&nbsp;longitude<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;lon_edge:&lt;array,&nbsp;nlon+1&gt;:&nbsp;longitudes&nbsp;at&nbsp;model&nbsp;grid&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-compute_mod_pres"><strong>compute_mod_pres</strong></a>(self, sp, ap, bp, mod_pres_f<font color="#909090">=&lt;function get_mod_pres&gt;</font>)</dt><dd><tt>Compute&nbsp;model&nbsp;pressure<br>
+&nbsp;<br>
+Inputs:&nbsp;<br>
+-----------------------------------------------------------<br>
+1.&nbsp;sp:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;surface&nbsp;pressure&nbsp;in&nbsp;hPa<br>
+2.&nbsp;ap:&lt;array,&nbsp;(nz+1)&gt;:&nbsp;coefficient&nbsp;for&nbsp;model&nbsp;pressure&nbsp;level<br>
+3.&nbsp;bp:&lt;array,&nbsp;(nz+1)&gt;:&nbsp;coefficient&nbsp;for&nbsp;model&nbsp;pressure&nbsp;levels<br>
+&nbsp;<br>
+Returns:<br>
+1.mod_pres:&lt;nlon,&nbsp;nlat,&nbsp;nz&gt;:&nbsp;pressure&nbsp;in&nbsp;hPa<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+----------------------------------------<br>
+1.&nbsp;In&nbsp;default&nbsp;routine,&nbsp;pressure&nbsp;at&nbsp;level&nbsp;edges&nbsp;are&nbsp;<br>
+caculated&nbsp;by&nbsp;<br>
+&nbsp;<br>
+pres_edge=ap+bp*sp</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-compute_mod_pres_edge"><strong>compute_mod_pres_edge</strong></a>(self, sp, ap, bp, mod_pres_edge_f<font color="#909090">=&lt;function get_mod_pres_edge&gt;</font>)</dt><dd><tt>Compute&nbsp;model&nbsp;pressures&nbsp;at&nbsp;level&nbsp;edges&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:&nbsp;<br>
+-----------------------------------------------------------<br>
+1.&nbsp;sp:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;surface&nbsp;pressure&nbsp;in&nbsp;hPa<br>
+2.&nbsp;ap:&lt;array,&nbsp;(nz+1)&gt;:&nbsp;coefficient&nbsp;for&nbsp;model&nbsp;pressure&nbsp;level<br>
+3.&nbsp;bp:&lt;array,&nbsp;(nz+1)&gt;:&nbsp;coefficient&nbsp;for&nbsp;model&nbsp;pressure&nbsp;levels<br>
+&nbsp;<br>
+Returns:<br>
+1.mod_pres_edge:&lt;nlon,&nbsp;nlat,&nbsp;nz+1&gt;:&nbsp;pressures&nbsp;in&nbsp;hPa<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+----------------------------------------<br>
+1.&nbsp;In&nbsp;this&nbsp;routine,&nbsp;pressures&nbsp;at&nbsp;level&nbsp;edges&nbsp;are&nbsp;<br>
+caculated&nbsp;by&nbsp;<br>
+&nbsp;<br>
+pres_edge=ap+bp*sp</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-copy"><strong>copy</strong></a>(self)</dt><dd><tt>Make&nbsp;a&nbsp;copy&nbsp;of&nbsp;itself<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------<br>
+1.&nbsp;new_grid:&lt;<a href="#ctm_grid_cl">ctm_grid_cl</a>&gt;:&nbsp;new&nbsp;grid</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_area"><strong>get_area</strong></a>(self, lon_st<font color="#909090">=-180.0</font>, lon_end<font color="#909090">=180.0</font>, lat_st<font color="#909090">=-90.0</font>, lat_end<font color="#909090">=90</font>)</dt><dd><tt>Calculate&nbsp;areas&nbsp;for&nbsp;grid&nbsp;box&nbsp;(in&nbsp;m2)<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------<br>
+1.&nbsp;lon_st:&lt;integer&gt;:&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;first&nbsp;X&nbsp;grid&nbsp;box<br>
+2.&nbsp;lon_end:&lt;integer&gt;:&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;last&nbsp;X&nbsp;grid&nbsp;box<br>
+3.&nbsp;lat_st:&lt;integer&gt;:&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;first&nbsp;Y&nbsp;grid&nbsp;box<br>
+4.&nbsp;lat_end:&lt;integer&gt;:&nbsp;left&nbsp;edge&nbsp;of&nbsp;the&nbsp;last&nbsp;Y&nbsp;grid&nbsp;box<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------<br>
+1.&nbsp;area:&lt;array,&nbsp;(nx,&nbsp;ny)&gt;:&nbsp;area&nbsp;of&nbsp;grid&nbsp;box&nbsp;in&nbsp;m^2</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_hintpl"><strong>get_hintpl</strong></a>(self, olon, olat)</dt><dd><tt>get&nbsp;weightings&nbsp;and&nbsp;locations&nbsp;for&nbsp;interpolating&nbsp;fields&nbsp;along&nbsp;a&nbsp;track&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;olon:&lt;array,&nbsp;nob&gt;:&nbsp;longitude&nbsp;of&nbsp;the&nbsp;track<br>
+2.&nbsp;olat:&lt;array,&nbsp;nob&gt;:&nbsp;latitude&nbsp;of&nbsp;the&nbsp;track<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+------------------------------------<br>
+hintpl:&lt;interp_cl&gt;:&nbsp;interpolation&nbsp;matrix&nbsp;along&nbsp;the&nbsp;track</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_lat"><strong>get_lat</strong></a>(self)</dt><dd><tt>retrieve&nbsp;latitude&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+-------------------------------------<br>
+1.&nbsp;self.<strong>lat</strong>:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitudes</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_lat_edge"><strong>get_lat_edge</strong></a>(self, lat_st<font color="#909090">=-90.0</font>, lat_end<font color="#909090">=90</font>)</dt><dd><tt>Retrieve&nbsp;latitude&nbsp;box&nbsp;edges&nbsp;from&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;lat_edge:&lt;array,&nbsp;nlat+1&gt;:&nbsp;latitudes&nbsp;at&nbsp;model&nbsp;grid&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_lon"><strong>get_lon</strong></a>(self)</dt><dd><tt>retrieve&nbsp;longitude&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+-------------------------------------<br>
+1.&nbsp;self.<strong>lon</strong>:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitudes</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_lon_edge"><strong>get_lon_edge</strong></a>(self, lon_edge)</dt><dd><tt>Retrieve&nbsp;longitude&nbsp;box&nbsp;edges&nbsp;from&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------------<br>
+1.&nbsp;lon_edge:&lt;array,&nbsp;nlon+1&gt;:&nbsp;longitudes&nbsp;at&nbsp;model&nbsp;grid&nbsp;edges</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_lz"><strong>get_lz</strong></a>(self)</dt><dd><tt>retrieve&nbsp;lz&nbsp;(vertical)&nbsp;grid&nbsp;<br>
+returns:&nbsp;<br>
+--------------------------<br>
+1.&nbsp;self.<strong>lz</strong>:&lt;array&gt;:&nbsp;longitudes</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_mod_pres"><strong>get_mod_pres</strong></a>(self)</dt><dd><tt>retrieve&nbsp;model&nbsp;pressure&nbsp;from&nbsp;dictionary&nbsp;<br>
+Returns<br>
+-------------------------------<br>
+&nbsp;<br>
+1.&nbsp;mod_pres:&lt;array,&nbsp;(nz,)&gt;:pressure&nbsp;at&nbsp;model&nbsp;edge</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_mod_pres_edge"><strong>get_mod_pres_edge</strong></a>(self)</dt><dd><tt>retrieve&nbsp;model&nbsp;pressure&nbsp;at&nbsp;box&nbsp;edges&nbsp;from&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+mod_pres_edge:&lt;array,&nbsp;(nz+1,)&gt;:pressure&nbsp;at&nbsp;model&nbsp;edge</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_regrid_mtx"><strong>get_regrid_mtx</strong></a>(self, newlon, newlat)</dt><dd><tt>get&nbsp;weightings&nbsp;and&nbsp;locations&nbsp;for&nbsp;interpolating&nbsp;fields&nbsp;along&nbsp;a&nbsp;track&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;newlon:&lt;array,&nbsp;new_nlon&gt;:&nbsp;longitude&nbsp;of&nbsp;the&nbsp;track<br>
+2.&nbsp;newlat:&lt;array,&nbsp;new_nlat&gt;:&nbsp;latitude&nbsp;of&nbsp;the&nbsp;track<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+------------------------------------<br>
+hintpl:&lt;interp_cl&gt;:&nbsp;interpolation&nbsp;matrix&nbsp;for&nbsp;regridding</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_vintpl"><strong>get_vintpl</strong></a>(self, mod_pres, opres, is_in_log, do_reverse, do_ob_reverse)</dt><dd><tt>get&nbsp;weightings&nbsp;and&nbsp;locations&nbsp;for&nbsp;vertically&nbsp;interpolating&nbsp;fields&nbsp;along&nbsp;a&nbsp;track&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;mod_pres:&lt;array,&nbsp;(nob,&nbsp;nz,&nbsp;..)&gt;:&nbsp;model&nbsp;pressure&nbsp;along&nbsp;the&nbsp;track&nbsp;<br>
+2.&nbsp;opres:&lt;array,&nbsp;(nob,&nbsp;ob_nz,&nbsp;...)&gt;:&nbsp;ob&nbsp;pressures&nbsp;to&nbsp;be&nbsp;interpolated&nbsp;to.&nbsp;<br>
+3.&nbsp;is_in_log:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;mod_pres&nbsp;and&nbsp;&nbsp;and&nbsp;opress&nbsp;are&nbsp;in&nbsp;log10<br>
+4.&nbsp;do_reverse:&lt;T/F&gt;:&nbsp;True,&nbsp;if&nbsp;mod_pres&nbsp;is&nbsp;given&nbsp;in&nbsp;decending&nbsp;order&nbsp;<br>
+5.&nbsp;do_ob_reverse:&lt;T/F&gt;:&nbsp;True,&nbsp;&nbsp;if&nbsp;opress&nbsp;is&nbsp;given&nbsp;in&nbsp;decending&nbsp;order&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+------------------------------------<br>
+hintpl:&lt;interp_cl&gt;:&nbsp;vertical&nbsp;interpolation&nbsp;matrix</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_lat"><strong>set_lat</strong></a>(self, lat)</dt><dd><tt>set&nbsp;latitude&nbsp;&nbsp;grid&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;lat:&lt;array&gt;:&nbsp;latitude&nbsp;<br>
+------------------------------------</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_lat_edge"><strong>set_lat_edge</strong></a>(self, lat_edge)</dt><dd><tt>Save&nbsp;latitude&nbsp;box&nbsp;edge&nbsp;into&nbsp;dictionary&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------<br>
+1.&nbsp;lat_edge:&lt;array,&nbsp;nlat+1&gt;:&nbsp;edge&nbsp;of&nbsp;the&nbsp;latitude&nbsp;boxes</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_lon"><strong>set_lon</strong></a>(self, lon)</dt><dd><tt>set&nbsp;longitude&nbsp;&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;<br>
+&nbsp;<br>
+Returns:&nbsp;<br>
+-------------------------------------</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_lon_edge"><strong>set_lon_edge</strong></a>(self, lon_edge)</dt><dd><tt>save&nbsp;longitude&nbsp;box&nbsp;edges&nbsp;to&nbsp;the&nbsp;dictionary</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_lz"><strong>set_lz</strong></a>(self, lz)</dt><dd><tt>set&nbsp;latitude&nbsp;&nbsp;grid&nbsp;<br>
+Inputs:<br>
+------------------------------------<br>
+1.&nbsp;lz:&lt;array&gt;:&nbsp;vertical&nbsp;coordinate<br>
+returns:&nbsp;<br>
+------------------------------------</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_mask"><strong>set_mask</strong></a>(self, mask)</dt><dd><tt>set&nbsp;filling&nbsp;value&nbsp;for&nbsp;missing&nbsp;or&nbsp;bad&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_mod_pres"><strong>set_mod_pres</strong></a>(self, mod_pres)</dt></dl>
+
+<hr>
+Methods inherited from <a href="ESA.util.gp_grid_m.html#gp_grid_cl">ESA.util.gp_grid_m.gp_grid_cl</a>:<br>
+<dl><dt><a name="ctm_grid_cl-__getitem__"><strong>__getitem__</strong></a>(self, ax_id)</dt><dd><tt>get&nbsp;axis&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;ax_id:&lt;integer/str&gt;:&nbsp;Id&nbsp;for&nbsp;the&nbsp;axis&nbsp;to&nbsp;be&nbsp;found<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1,&nbsp;gax:&lt;gp_axis_cl&gt;:&nbsp;axis&nbsp;if&nbsp;the&nbsp;ax_id&nbsp;is&nbsp;valid</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-allocate_point"><strong>allocate_point</strong></a>(self, p)</dt><dd><tt>find&nbsp;grid&nbsp;points&nbsp;around&nbsp;a&nbsp;given&nbsp;point,&nbsp;and&nbsp;&nbsp;<br>
+calculate&nbsp;their&nbsp;weights&nbsp;according&nbsp;to&nbsp;the&nbsp;distances&nbsp;from&nbsp;this&nbsp;point.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------<br>
+1.&nbsp;p:&lt;array,&nbsp;(nax,)&gt;:&nbsp;the&nbsp;coordiantes&nbsp;of&nbsp;the&nbsp;given&nbsp;point.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------------------<br>
+1.&nbsp;grd_pt_lst:&nbsp;&lt;list,&nbsp;t:tuple&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;index&nbsp;of&nbsp;the&nbsp;surrounding&nbsp;grid&nbsp;points.<br>
+---If&nbsp;the&nbsp;dimension&nbsp;size&nbsp;nax&nbsp;is&nbsp;n,&nbsp;the&nbsp;length&nbsp;of&nbsp;grd_pt_lst&nbsp;is&nbsp;2^n,&nbsp;<br>
+with&nbsp;each&nbsp;element&nbsp;being&nbsp;an&nbsp;array&nbsp;of&nbsp;size&nbsp;n.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+2.&nbsp;grd_wgt_lst:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;Weights&nbsp;of&nbsp;the&nbsp;the&nbsp;surrounding&nbsp;points,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+---which&nbsp;are&nbsp;calculated&nbsp;from&nbsp;their&nbsp;distances&nbsp;from&nbsp;the&nbsp;point.</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-allocate_point_subspace"><strong>allocate_point_subspace</strong></a>(self, p, axis_id_lst)</dt><dd><tt>find&nbsp;grid&nbsp;points&nbsp;around&nbsp;a&nbsp;given&nbsp;point,&nbsp;and&nbsp;&nbsp;<br>
+calculate&nbsp;their&nbsp;weights&nbsp;according&nbsp;to&nbsp;the&nbsp;distances&nbsp;from&nbsp;this&nbsp;point.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------<br>
+1.&nbsp;p:&lt;array,&nbsp;(nuse,)&gt;:&nbsp;the&nbsp;coordiantes&nbsp;of&nbsp;the&nbsp;given&nbsp;point.&nbsp;&nbsp;<br>
+2.&nbsp;axis_id_lst:&lt;list,&nbsp;t:integer&gt;:&nbsp;the&nbsp;use&nbsp;the&nbsp;index<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------------------------<br>
+1.&nbsp;grd_pt_lst:&nbsp;&lt;list,&nbsp;t:tuple&gt;:&nbsp;list&nbsp;of&nbsp;the&nbsp;index&nbsp;of&nbsp;the&nbsp;surrounding&nbsp;grid&nbsp;points.<br>
+---If&nbsp;the&nbsp;dimension&nbsp;size&nbsp;nax&nbsp;is&nbsp;n,&nbsp;the&nbsp;length&nbsp;of&nbsp;grd_pt_lst&nbsp;is&nbsp;2^n,&nbsp;<br>
+with&nbsp;each&nbsp;element&nbsp;being&nbsp;an&nbsp;array&nbsp;of&nbsp;size&nbsp;n&nbsp;with&nbsp;coordinate&nbsp;[:]&nbsp;for&nbsp;axis=axis_id<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+2.&nbsp;grd_wgt_lst:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;Weights&nbsp;of&nbsp;the&nbsp;the&nbsp;surrounding&nbsp;points,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+---which&nbsp;are&nbsp;calculated&nbsp;from&nbsp;their&nbsp;distances&nbsp;from&nbsp;the&nbsp;point.</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-copy_attr_dict"><strong>copy_attr_dict</strong></a>(self)</dt><dd><tt>get&nbsp;one&nbsp;copy&nbsp;of&nbsp;the&nbsp;attr_dict</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_attr"><strong>get_attr</strong></a>(self, attr_name)</dt><dd><tt>find&nbsp;the&nbsp;attribute<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;attr_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;attr:&nbsp;&lt;obj&gt;:&nbsp;if&nbsp;the&nbsp;attribute&nbsp;exists.</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_axis"><strong>get_axis</strong></a>(self, ax_id)</dt><dd><tt>wrapper&nbsp;for&nbsp;__getitem__<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;ax_id:&lt;integer/str&gt;:&nbsp;Id&nbsp;for&nbsp;the&nbsp;axis&nbsp;to&nbsp;be&nbsp;found<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------<br>
+1,&nbsp;gax:&lt;gp_axis_cl&gt;:&nbsp;axis&nbsp;if&nbsp;the&nbsp;ax_id&nbsp;is&nbsp;valid</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_axis_ids"><strong>get_axis_ids</strong></a>(self, axis_name_lst)</dt><dd><tt>Find&nbsp;id&nbsp;for&nbsp;given&nbsp;names&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------<br>
+1.&nbsp;axis_name_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;the&nbsp;names<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;axis_id_lst:&lt;list,t:integer&gt;:&nbsp;the&nbsp;index</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_profile"><strong>get_profile</strong></a>(self, p, field, axis_id_lst)</dt><dd><tt>extract&nbsp;profile&nbsp;at&nbsp;a&nbsp;&nbsp;given&nbsp;'horizontal&nbsp;location'<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------<br>
+1.&nbsp;p:&lt;array,&nbsp;(nuse,)&gt;:&nbsp;the&nbsp;sub&nbsp;coordiantes&nbsp;of&nbsp;the&nbsp;given&nbsp;points.&nbsp;&nbsp;<br>
+2.&nbsp;field:&lt;array,&nbsp;dims&gt;:&nbsp;gridded&nbsp;data&nbsp;<br>
+3.&nbsp;axis_id_lst:&lt;integer&gt;:&nbsp;index&nbsp;of&nbsp;the&nbsp;axis,&nbsp;where&nbsp;the&nbsp;axises&nbsp;to&nbsp;be&nbsp;used<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;profile:&lt;array,&nbsp;...&gt;:&nbsp;the&nbsp;profile&nbsp;at&nbsp;the&nbsp;locations</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-get_value_at_point"><strong>get_value_at_point</strong></a>(self, p, field)</dt><dd><tt>calculate&nbsp;value&nbsp;at&nbsp;a&nbsp;given&nbsp;p&nbsp;by&nbsp;interpolating&nbsp;the&nbsp;<br>
+gridded&nbsp;data&nbsp;(field)&nbsp;at&nbsp;surrounding&nbsp;grid&nbsp;points<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------------------<br>
+1.&nbsp;p:&lt;array,&nbsp;(nax,)&gt;:&nbsp;the&nbsp;coordiantes&nbsp;of&nbsp;the&nbsp;given&nbsp;point.&nbsp;&nbsp;<br>
+2.&nbsp;field:&lt;array,&nbsp;(nx,&nbsp;ny,&nbsp;nz,&nbsp;...)&gt;:gridded&nbsp;data<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------------------------<br>
+val:&lt;float&gt;:&nbsp;values&nbsp;at&nbsp;point&nbsp;p</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-set_attr"><strong>set_attr</strong></a>(self, attr_name, attr_value)</dt><dd><tt>set&nbsp;attribute<br>
+Inputs:<br>
+----------------------------<br>
+1.&nbsp;attr_name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute<br>
+2.&nbsp;attr_value:&lt;obj&gt;:&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-shape"><strong>shape</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;shape&nbsp;of&nbsp;the&nbsp;grid</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-size"><strong>size</strong></a>(self, ax_id<font color="#909090">=None</font>)</dt><dd><tt>Return&nbsp;size&nbsp;along&nbsp;one&nbsp;direction&nbsp;or&nbsp;total&nbsp;size&nbsp;of&nbsp;the&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------<br>
+1.&nbsp;ax_id:&lt;integer/str&gt;:&nbsp;Id&nbsp;for&nbsp;the&nbsp;axis&nbsp;to&nbsp;be&nbsp;found<br>
+&nbsp;<br>
+Returns:<br>
+1.&nbsp;nsize:&lt;integer&gt;:&nbsp;the&nbsp;size&nbsp;of&nbsp;axis&nbsp;if&nbsp;axis_id&nbsp;is&nbsp;provided,&nbsp;or&nbsp;the&nbsp;total&nbsp;size&nbsp;if&nbsp;no&nbsp;ax_id&nbsp;is&nbsp;specified.</tt></dd></dl>
+
+<dl><dt><a name="ctm_grid_cl-update_axis"><strong>update_axis</strong></a>(self, gp_axis)</dt><dd><tt>add&nbsp;or&nbsp;replace&nbsp;axis&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;gp_axis:&lt;gp_axis_cl&gt;:&nbsp;class&nbsp;to&nbsp;be&nbsp;added&nbsp;or&nbsp;replaced<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Output:<br>
+-------------------------------------------------<br>
+2.&nbsp;gax:&lt;gp_axis&gt;:&nbsp;axis&nbsp;if&nbsp;the&nbsp;Id&nbsp;is&nbsp;correct</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

@@ -1,0 +1,101 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.spatial_cor</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.spatial_cor</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/spatial_cor.py">/home/lfeng/otool/ESA/surface/spatial_cor.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;generating&nbsp;error&nbsp;correlation&nbsp;matrix<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.03.01<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Functionso:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;===============================================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;construct_region_spatial_err_cov:&nbsp;Generate&nbsp;&nbsp;error&nbsp;correlations&nbsp;between&nbsp;regions</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.great_circle_distance.html">ESA.util.great_circle_distance</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+<a href="numpy.linalg.html">numpy.linalg</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="pylab.html">pylab</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-construct_grid_spatial_err_cov"><strong>construct_grid_spatial_err_cov</strong></a>(lon, lat, err, cor_length, scaling_factor, dist_threshold<font color="#909090">=4</font>)</dt><dd><tt>Generate&nbsp;&nbsp;error&nbsp;correlations&nbsp;between&nbsp;select_grid&nbsp;boxes<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;olon:&lt;array,&nbsp;(npt,)&gt;:&nbsp;longitudes&nbsp;for&nbsp;selected&nbsp;points<br>
+2.&nbsp;olat:&lt;array,&nbsp;(npt,)&gt;:&nbsp;latitudes&nbsp;for&nbsp;selected&nbsp;points<br>
+3.&nbsp;err:&lt;arry,&nbsp;(npt,)&gt;:&nbsp;uncerntity&nbsp;<br>
+4.&nbsp;cor_len:&lt;float&gt;:&nbsp;correlation&nbsp;length&nbsp;<br>
+5.&nbsp;scaling_factor:&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;for&nbsp;off-diagonl&nbsp;terms<br>
+6.&nbsp;threshold:&lt;float&gt;:&nbsp;threshold&nbsp;for&nbsp;ratio&nbsp;distance/cor_length&nbsp;where&nbsp;correlations&nbsp;to&nbsp;be&nbsp;ignored<br>
+&nbsp;<br>
+Return:<br>
+---------------------------------------------------------<br>
+1.&nbsp;err_cov:&lt;array,&nbsp;(npt,&nbsp;npt)&gt;:&nbsp;error&nbsp;spatial&nbsp;correlation&nbsp;matrix</tt></dd></dl>
+ <dl><dt><a name="-construct_region_spatial_cor_factor"><strong>construct_region_spatial_cor_factor</strong></a>(lon, lat, flux, area, cor_length, dist_threshold<font color="#909090">=4</font>)</dt><dd><tt>Generate&nbsp;&nbsp;factor&nbsp;for&nbsp;spatial&nbsp;error&nbsp;correlations&nbsp;between&nbsp;regions<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitudes<br>
+2.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitudes<br>
+3.&nbsp;flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nz)&gt;:&nbsp;region&nbsp;flux<br>
+4.&nbsp;area:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;area<br>
+5.&nbsp;cor_len:&lt;float&gt;:&nbsp;correlation&nbsp;length&nbsp;<br>
+6.&nbsp;threshold:&lt;float&gt;:&nbsp;threshold&nbsp;for&nbsp;ratio&nbsp;distance/cor_length&nbsp;where&nbsp;correlations&nbsp;to&nbsp;be&nbsp;ignored<br>
+&nbsp;<br>
+Return:<br>
+---------------------------------------------------------<br>
+1.&nbsp;cor_factor:&lt;array,&nbsp;(nz,&nbsp;nz)&gt;:&nbsp;spatial&nbsp;correlation&nbsp;factor</tt></dd></dl>
+ <dl><dt><a name="-construct_region_spatial_err_cov"><strong>construct_region_spatial_err_cov</strong></a>(lon, lat, reg_idx_lst, reg_err_lst, cor_length, scaling_factor, dist_threshold<font color="#909090">=4</font>)</dt><dd><tt>Generate&nbsp;&nbsp;error&nbsp;correlations&nbsp;between&nbsp;regions<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------------------<br>
+1.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitudes<br>
+2.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitudes<br>
+3.&nbsp;reg_idx_lst:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;cells&nbsp;in&nbsp;each&nbsp;regions<br>
+4.&nbsp;reg_err_lst:&lt;list&gt;:&nbsp;list&nbsp;of&nbsp;flux&nbsp;error&nbsp;in&nbsp;each&nbsp;regions<br>
+5.&nbsp;cor_len:&lt;float&gt;:&nbsp;correlation&nbsp;length&nbsp;<br>
+6.&nbsp;scaling_factor:&lt;float&gt;:&nbsp;scaling&nbsp;factor&nbsp;for&nbsp;off-diagonl&nbsp;terms<br>
+7.&nbsp;threshold:&lt;float&gt;:&nbsp;threshold&nbsp;for&nbsp;ratio&nbsp;distance/cor_length&nbsp;where&nbsp;correlations&nbsp;to&nbsp;be&nbsp;ignored<br>
+&nbsp;<br>
+Return:<br>
+---------------------------------------------------------<br>
+1.&nbsp;err_cov:&lt;array&gt;:&nbsp;error&nbsp;spatial&nbsp;correlation&nbsp;matrix</tt></dd></dl>
+ <dl><dt><a name="-get_mean_location"><strong>get_mean_location</strong></a>(lon, lat, flux, area)</dt><dd><tt>get&nbsp;flux-mean&nbsp;location&nbsp;of&nbsp;regions<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitudes<br>
+2.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitudes<br>
+3.&nbsp;flux:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nlayer)&gt;:&nbsp;region&nbsp;flux<br>
+4.&nbsp;area:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;area<br>
+&nbsp;<br>
+Returns<br>
+&nbsp;<br>
+----------------------------------------------------<br>
+1.&nbsp;clon:&lt;array,&nbsp;(nz)&gt;:&nbsp;mean&nbsp;longitude<br>
+2.&nbsp;clat:&lt;array,&nbsp;(nz)&gt;:&nbsp;mean&nbsp;latitude</tt></dd></dl>
+</td></tr></table>
+</body></html>

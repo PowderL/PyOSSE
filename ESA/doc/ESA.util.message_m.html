@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.message_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.message_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/message_m.py">/home/lfeng/otool/ESA/util/message_m.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;for&nbsp;warning&nbsp;message&nbsp;processing&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.04.30<br>
+History:&nbsp;v0.95,&nbsp;2012.12.01<br>
+&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;Parameters<br>
+-----------------------------------------------<br>
+#&nbsp;action<br>
+&nbsp;<br>
+1.&nbsp;msm_action_stop=-3<br>
+2.&nbsp;msm_action_wait=-2<br>
+3.&nbsp;msm_action_warn=-1<br>
+4.&nbsp;msm_action_cont=0<br>
+&nbsp;<br>
+#&nbsp;pre-defined&nbsp;error&nbsp;title&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;msm_no_attr='attribute&nbsp;not&nbsp;found:&nbsp;<br>
+6.&nbsp;msm_no_var='variable&nbsp;not&nbsp;found:&nbsp;'<br>
+7.&nbsp;msm_wrong_dim='wrong&nbsp;array&nbsp;dimension:&nbsp;'<br>
+8.&nbsp;msm_wrong_type='wrong&nbsp;type:&nbsp;'<br>
+9.&nbsp;msm_wrong_index='Index&nbsp;is&nbsp;not&nbsp;valid:'<br>
+&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;Functions<br>
+-------------------------------------<br>
+1.&nbsp;show_err_msg&nbsp;&nbsp;#&nbsp;show&nbsp;error&nbsp;message&nbsp;<br>
+2.&nbsp;write_log_msg&nbsp;#&nbsp;save&nbsp;error&nbsp;message&nbsp;to&nbsp;log&nbsp;files.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-show_err_msg"><strong>show_err_msg</strong></a>(error_msg, msg_title<font color="#909090">=''</font>, action<font color="#909090">=-1</font>)</dt><dd><tt>show&nbsp;error&nbsp;message&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------<br>
+1.&nbsp;error_msg:&lt;str&gt;:&nbsp;error&nbsp;message&nbsp;<br>
+2.&nbsp;msg_title:&lt;str&gt;:&nbsp;title&nbsp;for&nbsp;error&nbsp;message<br>
+3.&nbsp;action:&lt;integer&gt;:&nbsp;action&nbsp;ID<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------<br>
+1.</tt></dd></dl>
+ <dl><dt><a name="-write_log_msg"><strong>write_log_msg</strong></a>(logflnm, log_msg)</dt><dd><tt>Save&nbsp;error&nbsp;message&nbsp;into&nbsp;log&nbsp;file&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------------------<br>
+1.&nbsp;logflnm:&lt;str&gt;:&nbsp;log&nbsp;file&nbsp;name&nbsp;<br>
+2.&nbsp;log_msg:&lt;str&gt;:&nbsp;message&nbsp;to&nbsp;be&nbsp;saved</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>msm_action_cont</strong> = 0<br>
+<strong>msm_action_stop</strong> = -3<br>
+<strong>msm_action_wait</strong> = -2<br>
+<strong>msm_action_warn</strong> = -1<br>
+<strong>msm_no_attr</strong> = 'attribute not found: '<br>
+<strong>msm_no_var</strong> = 'variable not found: '<br>
+<strong>msm_wrong_dim</strong> = 'wrong array dimension: '<br>
+<strong>msm_wrong_index</strong> = 'Index is not valid:'<br>
+<strong>msm_wrong_type</strong> = 'wrong type: '</td></tr></table>
+</body></html>

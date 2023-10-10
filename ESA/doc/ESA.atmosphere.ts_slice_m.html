@@ -1,0 +1,269 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.atmosphere.ts_slice_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.atmosphere.html"><font color="#ffffff">atmosphere</font></a>.ts_slice_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/atmosphere/ts_slice_m.py">/home/lfeng/otool/ESA/atmosphere/ts_slice_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;reading&nbsp;GEOS-Chem&nbsp;outputs&nbsp;to&nbsp;profiles&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.5,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2012.10.28<br>
+&nbsp;<br>
+Classes:<br>
+--------------------------------------------<br>
+1.&nbsp;ts_slice_cl:&nbsp;&nbsp;class&nbsp;derived&nbsp;from&nbsp;<a href="ESA.atmosphere.ctm_slice_m.html#ctm_slice_cl">ctm_slice_cl</a>&nbsp;to&nbsp;read&nbsp;and&nbsp;store&nbsp;time-serie&nbsp;outputs</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.atmosphere.ctm_field_m.html">ESA.atmosphere.ctm_field_m</a><br>
+<a href="ESA.atmosphere.ctm_grid_3d.html">ESA.atmosphere.ctm_grid_3d</a><br>
+<a href="ESA.atmosphere.ctm_profile_m.html">ESA.atmosphere.ctm_profile_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.atmosphere.gc_grid_3d.html">ESA.atmosphere.gc_grid_3d</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_gcfile_io.html">ESA.util.otool_gcfile_io</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.atmosphere.ctm_slice_m.html">ESA.atmosphere.ctm_slice_m</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.gc_ts_file_m.html">ESA.util.gc_ts_file_m</a><br>
+<a href="ESA.util.vertical_interp_m.html">ESA.util.vertical_interp_m</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.atmosphere.ctm_slice_m.html#ctm_slice_cl">ESA.atmosphere.ctm_slice_m.ctm_slice_cl</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ESA.atmosphere.ts_slice_m.html#gc_slice_cl">gc_slice_cl</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="gc_slice_cl">class <strong>gc_slice_cl</strong></a>(<a href="ESA.atmosphere.ctm_slice_m.html#ctm_slice_cl">ESA.atmosphere.ctm_slice_m.ctm_slice_cl</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;derived&nbsp;from&nbsp;<a href="ESA.atmosphere.ctm_slice_m.html#ctm_slice_cl">ctm_slice_cl</a>&nbsp;to&nbsp;read&nbsp;and&nbsp;store&nbsp;GEOS-Chem&nbsp;outputs<br>
+&nbsp;<br>
+Members&nbsp;(overridden&nbsp;or&nbsp;new)&nbsp;<br>
+--------------------------------------------------------<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;1.&nbsp;&nbsp;fdesc:&nbsp;&lt;gcfdesc_cl&gt;:&nbsp;file&nbsp;access<br>
+&nbsp;2.&nbsp;&nbsp;fopen:&nbsp;&lt;func&gt;:&nbsp;&nbsp;open&nbsp;file&nbsp;to&nbsp;read<br>
+&nbsp;3.&nbsp;&nbsp;fread:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;read&nbsp;data&nbsp;to&nbsp;fdesc&nbsp;and&nbsp;self.<strong>data_lst</strong><br>
+&nbsp;4.&nbsp;&nbsp;fget:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;get&nbsp;selected&nbsp;profile&nbsp;<br>
+&nbsp;5.&nbsp;&nbsp;fpres:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;calculate&nbsp;or&nbsp;find&nbsp;model&nbsp;pressure<br>
+&nbsp;6.&nbsp;&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;(template)&nbsp;for&nbsp;GEOS-Chem&nbsp;outputs<br>
+&nbsp;7.&nbsp;&nbsp;datapath:&lt;str&gt;:&nbsp;path&nbsp;for&nbsp;GEOS-Chem&nbsp;outputs<br>
+&nbsp;8.&nbsp;&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;file&nbsp;name&nbsp;(template)&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+&nbsp;9.&nbsp;&nbsp;ftracerinfo:&lt;str&gt;:file&nbsp;name&nbsp;(template)&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+&nbsp;10.&nbsp;yyyy:&lt;int&gt;:&nbsp;year<br>
+&nbsp;11&nbsp;&nbsp;mm:&lt;int&gt;:&nbsp;month<br>
+&nbsp;12.&nbsp;dd:&lt;int&gt;:&nbsp;day<br>
+&nbsp;13.&nbsp;sp_name:&lt;str&gt;:&nbsp;surface&nbsp;pressure&nbsp;name&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+Functions&nbsp;(new&nbsp;or&nbsp;overridden)<br>
+---------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;load_model_output:&nbsp;read&nbsp;model&nbsp;outputs&nbsp;into&nbsp;slice<br>
+3.&nbsp;get_sel_profile:&nbsp;find&nbsp;the&nbsp;selected&nbsp;data<br>
+4.&nbsp;compute_mod_pres:&nbsp;calculate&nbsp;model&nbsp;pressures&nbsp;from&nbsp;surface&nbsp;pressure&nbsp;<br>
+&nbsp;&nbsp;&nbsp;or&nbsp;model&nbsp;pressure&nbsp;read&nbsp;in&nbsp;from&nbsp;disk&nbsp;file&nbsp;<br>
+5.&nbsp;set_mod_pres:&nbsp;set&nbsp;pressure&nbsp;grid&nbsp;from&nbsp;given&nbsp;pressure&nbsp;or&nbsp;data&nbsp;read&nbsp;in&nbsp;from&nbsp;disk&nbsp;file<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="gc_slice_cl-__init__"><strong>__init__</strong></a>(self, datapath, filename, ftracerinfo, fdiaginfo, name, fopen<font color="#909090">=&lt;function open_ts_file&gt;</font>, fread<font color="#909090">=&lt;function setup_daily_profile&gt;</font>, fget<font color="#909090">=&lt;function get_mod_gp&gt;</font>, fpres<font color="#909090">=&lt;function get_mod_pres&gt;</font>, ext<font color="#909090">=''</font>, sp_name<font color="#909090">='PSURF'</font>, **keywords)</dt><dd><tt>Initialize&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------<br>
+&nbsp;<br>
+1.&nbsp;datapath:&lt;str&gt;:&nbsp;path&nbsp;<br>
+2.&nbsp;flnm:&lt;str&gt;:&nbsp;file&nbsp;name<br>
+3,&nbsp;ftracerinfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;tracerinfo&nbsp;file<br>
+4.&nbsp;fdiaginfo:&lt;str&gt;:&nbsp;name&nbsp;for&nbsp;diaginfo&nbsp;file<br>
+&nbsp;<br>
+6.&nbsp;fopen:&nbsp;&lt;func&gt;:&nbsp;&nbsp;open&nbsp;file&nbsp;to&nbsp;read<br>
+7.&nbsp;fread:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;read&nbsp;data&nbsp;to&nbsp;fdesc&nbsp;and&nbsp;self.<strong>data_lst</strong><br>
+8.&nbsp;fget:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;get&nbsp;selected&nbsp;profile&nbsp;<br>
+9.&nbsp;fpres:&lt;func&gt;:&nbsp;function&nbsp;to&nbsp;calculate&nbsp;pressure&nbsp;<br>
+&nbsp;<br>
+10.&nbsp;ext:&lt;str&gt;:&nbsp;extension&nbsp;for&nbsp;file&nbsp;name&nbsp;<br>
+&nbsp;<br>
+11.&nbsp;keywords:&nbsp;&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;attributes</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-compute_mod_pres"><strong>compute_mod_pres</strong></a>(self, **keywords)</dt><dd><tt>calculate&nbsp;or&nbsp;fetch&nbsp;model&nbsp;pressure<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------<br>
+&nbsp;<br>
+&nbsp;<br>
+outputs:<br>
+---------------------------------------------<br>
+1.&nbsp;mod_pres:&lt;array,&nbsp;([nx],&nbsp;[ny],&nbsp;[nlvl])&gt;:&nbsp;model&nbsp;pressure</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-get_attr"><strong>get_attr</strong></a>(self, varname)</dt></dl>
+
+<dl><dt><a name="gc_slice_cl-get_sel_profile"><strong>get_sel_profile</strong></a>(self, name, sel_id, time, **keywords)</dt><dd><tt>select&nbsp;data&nbsp;according&nbsp;to&nbsp;name,&nbsp;id,&nbsp;and&nbsp;time<br>
+&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+======================================================<br>
+1.name:&lt;str&gt;:&nbsp;name&nbsp;of&nbsp;the&nbsp;profile<br>
+2.sel_id:&lt;int&gt;:&nbsp;index&nbsp;for&nbsp;selected&nbsp;profile&nbsp;(see&nbsp;Notes).&nbsp;<br>
+3.time:&lt;array&gt;:&nbsp;time&nbsp;(not&nbsp;used&nbsp;for&nbsp;GEOS-Chem&nbsp;outputs)<br>
+4.keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs<br>
+&nbsp;<br>
+Returns:<br>
+======================================================<br>
+1.&nbsp;out_lst:&lt;list/array&gt;:&nbsp;select&nbsp;data&nbsp;set&nbsp;(Note&nbsp;1)<br>
+&nbsp;<br>
+Notes:<br>
+===================================================<br>
+1.&nbsp;When&nbsp;sel_id&nbsp;is&nbsp;set,&nbsp;out_lst&nbsp;could&nbsp;be:<br>
+---if&nbsp;cprof.data&nbsp;is&nbsp;in&nbsp;shape&nbsp;of&nbsp;[nobs,&nbsp;nlvl,&nbsp;ntracer&nbsp;(nem)],&nbsp;out_lst=cprof.data[:,:,&nbsp;sel_id].<br>
+---if&nbsp;cprof.data&nbsp;is&nbsp;given&nbsp;as&nbsp;[nobs,&nbsp;nlvl],&nbsp;&nbsp;out_lst&nbsp;is&nbsp;cprof.data&nbsp;when</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-load_mod_output"><strong>load_mod_output</strong></a>(self, yyyy, mm, dd, olon<font color="#909090">=None</font>, olat<font color="#909090">=None</font>, gpname_lst<font color="#909090">=['SPURF', 'CO2']</font>, append_data<font color="#909090">=False</font>, **keywords)</dt><dd><tt>read&nbsp;GEOS-Chem&nbsp;outputs&nbsp;from&nbsp;ensemble&nbsp;run&nbsp;into&nbsp;self.<strong>data_lst</strong><br>
+&nbsp;<br>
+Input:<br>
+============================================================<br>
+1.&nbsp;yyyy,&nbsp;mm,&nbsp;dd:&lt;int&gt;:&nbsp;year&nbsp;month&nbsp;day&nbsp;<br>
+2.&nbsp;olon:&lt;array&gt;:&nbsp;longitude<br>
+3.&nbsp;olat:&lt;array&gt;:latitude&nbsp;<br>
+4.&nbsp;spname:&lt;str&gt;:&nbsp;tracer&nbsp;name&nbsp;for&nbsp;surface&nbsp;pressure&nbsp;outputs<br>
+5.spcategory:&lt;str&gt;:&nbsp;tracer&nbsp;category&nbsp;for&nbsp;surface&nbsp;pressure&nbsp;outputs<br>
+6.&nbsp;gpname_lst:&lt;list,&nbsp;t:str&gt;:&nbsp;name&nbsp;of&nbsp;tracers&nbsp;to&nbsp;be&nbsp;read&nbsp;in&nbsp;<br>
+7.&nbsp;append_data:&lt;T/F&gt;:&nbsp;if&nbsp;True,&nbsp;read&nbsp;data&nbsp;will&nbsp;be&nbsp;appended&nbsp;to&nbsp;list&nbsp;end<br>
+8.&nbsp;keywords:&lt;dict&gt;:&nbsp;extra&nbsp;inputs:<br>
+---reserved&nbsp;keywords:<br>
+---&gt;1.&nbsp;categorys:&nbsp;&lt;list,&nbsp;t:str&gt;:&nbsp;category&nbsp;for&nbsp;variables&nbsp;to&nbsp;be&nbsp;read&nbsp;<br>
+---&gt;2.&nbsp;tracers:&lt;list,&nbsp;t:int&gt;:&nbsp;list&nbsp;for&nbsp;tracer&nbsp;ID&nbsp;<br>
+---&gt;3.&nbsp;taus:&nbsp;&lt;list,&nbsp;t:float&gt;:&nbsp;list&nbsp;for&nbsp;starting&nbsp;time&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+==========================================================<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+----------------------------------------<br>
+1.&nbsp;if&nbsp;olon&nbsp;and&nbsp;olat&nbsp;are&nbsp;not&nbsp;given,&nbsp;self.<strong>lon</strong>,&nbsp;and&nbsp;self.<strong>lat</strong>&nbsp;will&nbsp;be&nbsp;used&nbsp;<br>
+---&nbsp;if&nbsp;olon&nbsp;and&nbsp;olat&nbsp;are&nbsp;given,&nbsp;self.<strong>lon</strong>,&nbsp;and&nbsp;self.<strong>lat</strong>&nbsp;will&nbsp;be&nbsp;replaced</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-set_mod_pres"><strong>set_mod_pres</strong></a>(self, mod_pres<font color="#909090">=None</font>, is_in_log<font color="#909090">=False</font>, do_reverse<font color="#909090">=True</font>, **keywords)</dt><dd><tt>set&nbsp;up&nbsp;pressure&nbsp;grid&nbsp;<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;mod_pres:&lt;array&gt;:&nbsp;model&nbsp;pressure<br>
+2.&nbsp;is_in_log:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;model&nbsp;pressure&nbsp;if&nbsp;given&nbsp;as&nbsp;log&nbsp;<br>
+3.&nbsp;do_reverse:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;model&nbsp;pressure&nbsp;is&nbsp;in&nbsp;descending&nbsp;order</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="ESA.atmosphere.ctm_slice_m.html#ctm_slice_cl">ESA.atmosphere.ctm_slice_m.ctm_slice_cl</a>:<br>
+<dl><dt><a name="gc_slice_cl-__delitem__"><strong>__delitem__</strong></a>(self, index)</dt><dd><tt>del&nbsp;item&nbsp;given&nbsp;at&nbsp;index<br>
+Inputs:&nbsp;<br>
+1.&nbsp;index:&nbsp;&lt;integer/string&gt;:&nbsp;index&nbsp;or&nbsp;name&nbsp;of&nbsp;the&nbsp;data&nbsp;to&nbsp;be&nbsp;deleted&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;<br>
+1.&nbsp;ndel:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;the&nbsp;data&nbsp;have&nbsp;been&nbsp;deleted</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-__getitem__"><strong>__getitem__</strong></a>(self, index)</dt><dd><tt>retrieve&nbsp;data&nbsp;given&nbsp;at&nbsp;index<br>
+Inputs:&nbsp;<br>
+1.&nbsp;index:&nbsp;&lt;integer/string&gt;:&nbsp;index&nbsp;or&nbsp;name&nbsp;of&nbsp;the&nbsp;data&nbsp;to&nbsp;be&nbsp;retrieve&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+&nbsp;<br>
+1.data_lst:&lt;list,&nbsp;t:ctm_profile_cl&gt;:&nbsp;list&nbsp;of&nbsp;profiles&nbsp;with&nbsp;index&nbsp;and&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-add_attr"><strong>add_attr</strong></a>(self, name, val)</dt><dd><tt>add&nbsp;or&nbsp;replace&nbsp;attributes<br>
+Inputs<br>
+---------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-add_data"><strong>add_data</strong></a>(self, data)</dt><dd><tt>Add&nbsp;data&nbsp;(ctm_field_cl)&nbsp;into&nbsp;the&nbsp;class&nbsp;<br>
+Inputs:<br>
+------------------------------<br>
+1.&nbsp;data:&lt;ctm_field_cl&gt;:&nbsp;class&nbsp;for&nbsp;ctm&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-find_profile_cl"><strong>find_profile_cl</strong></a>(self, **keywords)</dt><dd><tt>find&nbsp;the&nbsp;data&nbsp;meeting&nbsp;the&nbsp;requirements&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------<br>
+&nbsp;<br>
+1.&nbsp;keywords:&lt;dict&gt;:&nbsp;list&nbsp;of&nbsp;criteria&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------<br>
+1.&nbsp;found_data:&lt;list,&nbsp;t:ctm_field_cl&gt;:&nbsp;datasets&nbsp;meeting&nbsp;the&nbsp;criteria</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-get_lat"><strong>get_lat</strong></a>(self)</dt><dd><tt>get&nbsp;lat<br>
+Returns:<br>
+----------------------------------------------------------------------------------<br>
+1.&nbsp;lat:&lt;array,&nbsp;(nob,)&gt;:&nbsp;latitude</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-get_lon"><strong>get_lon</strong></a>(self)</dt><dd><tt>get&nbsp;lon<br>
+Returns:<br>
+1.&nbsp;lon:&lt;array,&nbsp;(nob,)&gt;:&nbsp;longitude</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-get_pressure"><strong>get_pressure</strong></a>(self)</dt><dd><tt>get&nbsp;pressure<br>
+Returns:<br>
+-------------------------------------------------------------------------------------------------<br>
+1.&nbsp;pressure:&lt;array,&nbsp;(nob,&nbsp;nz)&gt;:&nbsp;longitude</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-init_veritcal_interp"><strong>init_veritcal_interp</strong></a>(self, opres, is_in_log, do_ob_reverse)</dt><dd><tt>initialize&nbsp;vertical&nbsp;interpolation<br>
+&nbsp;<br>
+Inputs<br>
+----------------------------------------------------------------------------------------------------<br>
+1.&nbsp;opres:&lt;array,&nbsp;(nlon,&nbsp;ob_nz)&gt;:&nbsp;ob&nbsp;pressure&nbsp;grid&nbsp;to&nbsp;be&nbsp;projected.&nbsp;<br>
+2.&nbsp;is_in_log:&lt;T/F&gt;:&nbsp;optional.&nbsp;Ture&nbsp;if&nbsp;opres&nbsp;is&nbsp;given&nbsp;in&nbsp;log10&nbsp;space<br>
+3.&nbsp;do_ob_reverse:&lt;T/F&gt;:&nbsp;optional.&nbsp;True&nbsp;of&nbsp;opres&nbsp;is&nbsp;given&nbsp;at&nbsp;descending&nbsp;order</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-is_data_in_list"><strong>is_data_in_list</strong></a>(self, data, keys)</dt><dd><tt>check&nbsp;whether&nbsp;a&nbsp;data&nbsp;is&nbsp;already&nbsp;in&nbsp;the&nbsp;self.<strong>data_lst</strong>&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------------------------------<br>
+1.&nbsp;data:&lt;ctm_profile_cl&gt;:&nbsp;profile&nbsp;fileds<br>
+2.&nbsp;keys:&lt;list,&nbsp;t:string&gt;:&nbsp;a&nbsp;list&nbsp;of&nbsp;key&nbsp;should&nbsp;be&nbsp;checked.&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------------------------------------------------<br>
+1.&nbsp;is_found:&lt;integer&gt;:&nbsp;if&nbsp;a&nbsp;data&nbsp;set&nbsp;with&nbsp;the&nbsp;same&nbsp;attributes&nbsp;of&nbsp;data&nbsp;input&nbsp;&nbsp;<br>
+is&nbsp;found&nbsp;in&nbsp;the&nbsp;list,&nbsp;its&nbsp;index&nbsp;will&nbsp;be&nbsp;given;&nbsp;<br>
+Otherwise,&nbsp;oob.fill_val_int&nbsp;will&nbsp;be&nbsp;given</tt></dd></dl>
+
+<dl><dt><a name="gc_slice_cl-set_lat"><strong>set_lat</strong></a>(self, olat)</dt></dl>
+
+<dl><dt><a name="gc_slice_cl-set_lon"><strong>set_lon</strong></a>(self, olon)</dt></dl>
+
+<dl><dt><a name="gc_slice_cl-set_pressure"><strong>set_pressure</strong></a>(self, pressure, is_in_log, do_reverse, mask_val)</dt><dd><tt>define&nbsp;the&nbsp;grid&nbsp;pressure&nbsp;level<br>
+&nbsp;<br>
+Inputs:&nbsp;<br>
+1.pressure:&lt;array,&nbsp;(nob,nz)&gt;:&nbsp;pressure&nbsp;at&nbsp;each&nbsp;level<br>
+2.&nbsp;is_in_log:&lt;T/F&gt;:&nbsp;True&nbsp;when&nbsp;pressure&nbsp;is&nbsp;given&nbsp;in&nbsp;log10<br>
+3.&nbsp;do_reverse:&lt;T/F&gt;:&nbsp;True&nbsp;when&nbsp;pressure&nbsp;is&nbsp;given&nbsp;at&nbsp;decending&nbsp;order</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.surface.divide_region</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.surface.html"><font color="#ffffff">surface</font></a>.divide_region</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/surface/divide_region.py">/home/lfeng/otool/ESA/surface/divide_region.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;to&nbsp;divide&nbsp;the&nbsp;regions&nbsp;into&nbsp;smaller&nbsp;areas&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.9,&nbsp;2012.06.28<br>
+&nbsp;&nbsp;&nbsp;&nbsp;History:&nbsp;v0.95,&nbsp;2013.01.12<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Functions:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;==============================================================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;divide_region_to_subregion:&nbsp;divide&nbsp;invidual&nbsp;region&nbsp;to&nbsp;sub-regions<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;divide_region_to_box:&nbsp;divide&nbsp;invidual&nbsp;region&nbsp;to&nbsp;boxes&nbsp;of&nbsp;given&nbsp;sizes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.&nbsp;divide_map:&nbsp;divide&nbsp;selected&nbsp;regions&nbsp;into&nbsp;required&nbsp;sub-region&nbsp;or&nbsp;boxes.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Classes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;==============================================================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;<a href="#reg_op_cl">reg_op_cl</a>:class&nbsp;for&nbsp;defining&nbsp;actions&nbsp;&nbsp;to&nbsp;split&nbsp;regions.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.flux_regrid.html">ESA.util.flux_regrid</a><br>
+<a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+<a href="ESA.util.gen_plots.html">ESA.util.gen_plots</a><br>
+</td><td width="25%" valign=top><a href="ESA.atmosphere.ctm_grid_2d.html">ESA.atmosphere.ctm_grid_2d</a><br>
+<a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="ESA.util.otool_ncfile_io.html">ESA.util.otool_ncfile_io</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+<a href="ESA.util.otool_var_io.html">ESA.util.otool_var_io</a><br>
+</td><td width="25%" valign=top><a href="pylab.html">pylab</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.surface.divide_region.html#reg_op_cl">reg_op_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="reg_op_cl">class <strong>reg_op_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;for&nbsp;paramter&nbsp;and&nbsp;action&nbsp;to&nbsp;split&nbsp;one&nbsp;region&nbsp;<br>
+&nbsp;<br>
+Members:<br>
+------------------------------------------------------<br>
+1.&nbsp;reg_id:&lt;int&gt;:&nbsp;region&nbsp;ID&nbsp;for&nbsp;parent&nbsp;region<br>
+2.&nbsp;nx:&nbsp;&lt;int&gt;:&nbsp;<br>
+---If&nbsp;split_op=divide_region_to_subregion,&nbsp;nx&nbsp;is&nbsp;sub-region&nbsp;number&nbsp;<br>
+---along&nbsp;longitude.<br>
+---If&nbsp;split_op=divide_region_to_box,&nbsp;nx&nbsp;is&nbsp;<br>
+---the&nbsp;number&nbsp;of&nbsp;cells&nbsp;along&nbsp;longitude&nbsp;for&nbsp;each&nbsp;box.&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;ny:&lt;int&gt;:<br>
+---If&nbsp;split_op=divide_region_to_subregion,&nbsp;ny&nbsp;is&nbsp;sub-region&nbsp;number&nbsp;<br>
+---along&nbsp;latitude.<br>
+---If&nbsp;split_op=divide_region_to_box,&nbsp;ny&nbsp;is&nbsp;<br>
+---the&nbsp;number&nbsp;of&nbsp;cells&nbsp;along&nbsp;latitude&nbsp;for&nbsp;each&nbsp;box.&nbsp;<br>
+&nbsp;<br>
+4.&nbsp;split_op:&lt;func&gt;:&nbsp;actions&nbsp;to&nbsp;split&nbsp;the&nbsp;region<br>
+&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+-----------------------------------------<br>
+1.&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;do_split:&nbsp;&nbsp;split&nbsp;regions&nbsp;as&nbsp;required<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="reg_op_cl-__init__"><strong>__init__</strong></a>(self, reg_id, nx, ny, split_op)</dt><dd><tt>Initialization&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+---------------------------------------<br>
+1.&nbsp;reg_id:&lt;int&gt;:&nbsp;region&nbsp;ID&nbsp;for&nbsp;parent&nbsp;region<br>
+2.&nbsp;nx:&nbsp;&lt;int&gt;:&nbsp;<br>
+---If&nbsp;split_op=divide_region_to_subregion,&nbsp;nx&nbsp;is&nbsp;sub-region&nbsp;number&nbsp;<br>
+---along&nbsp;longitude.<br>
+---If&nbsp;split_op=divide_region_to_box,&nbsp;nx&nbsp;is&nbsp;<br>
+---the&nbsp;number&nbsp;of&nbsp;cells&nbsp;along&nbsp;longitude&nbsp;for&nbsp;each&nbsp;box.&nbsp;<br>
+&nbsp;<br>
+3.&nbsp;ny:&lt;int&gt;:<br>
+---If&nbsp;split_op=divide_region_to_subregion,&nbsp;ny&nbsp;is&nbsp;sub-region&nbsp;number&nbsp;<br>
+---along&nbsp;latitude.<br>
+---If&nbsp;split_op=divide_region_to_box,&nbsp;ny&nbsp;is&nbsp;<br>
+---the&nbsp;number&nbsp;of&nbsp;cells&nbsp;along&nbsp;latitude&nbsp;for&nbsp;each&nbsp;box.&nbsp;<br>
+4.&nbsp;split_op:&lt;func&gt;:&nbsp;actions&nbsp;to&nbsp;split&nbsp;the&nbsp;region</tt></dd></dl>
+
+<dl><dt><a name="reg_op_cl-do_split"><strong>do_split</strong></a>(self, inmap, lon, lat, **keywords)</dt><dd><tt>split&nbsp;region&nbsp;into&nbsp;sub-regions&nbsp;or&nbsp;boxes<br>
+&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;inmap:&lt;array,&nbsp;(nlon,&nbsp;lat)&gt;:&nbsp;region&nbsp;map&nbsp;<br>
+2.&nbsp;lon:&lt;array,&nbsp;(nlon)&gt;:&nbsp;longitude&nbsp;<br>
+3.&nbsp;lat:&lt;array,&nbsp;(nlat)&gt;:&nbsp;latitude&nbsp;<br>
+4.&nbsp;keywords:&lt;dict&gt;:&nbsp;dictionary&nbsp;for&nbsp;extra&nbsp;inputs<br>
+---reserved&nbsp;keywords<br>
+---nx:&lt;int&gt;:&nbsp;replacement&nbsp;for&nbsp;self.<strong>nx</strong><br>
+---ny:&lt;int&gt;:&nbsp;replacement&nbsp;for&nbsp;self.<strong>ny</strong><br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-------------------------------------------------<br>
+1.&nbsp;combine_map:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;map&nbsp;for&nbsp;sub-regions&nbsp;<br>
+2.&nbsp;map_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;layer&nbsp;map&nbsp;for&nbsp;sub-regions<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+------------------------------------------------------<br>
+1.&nbsp;combine_map&nbsp;masks&nbsp;sub-regions&nbsp;from&nbsp;1&nbsp;to&nbsp;its&nbsp;total</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-divide_map"><strong>divide_map</strong></a>(type_map, lon, lat, reg_op_lst)</dt><dd><tt>divide&nbsp;regional&nbsp;map&nbsp;into&nbsp;more&nbsp;sub-regions.&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------------<br>
+1.&nbsp;type_map_in:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;the&nbsp;map&nbsp;defining&nbsp;the&nbsp;regions&nbsp;<br>
+2.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitude&nbsp;<br>
+3.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitude<br>
+4.&nbsp;reg_op_lst:&lt;list,&nbsp;t:<a href="#reg_op_cl">reg_op_cl</a>&gt;:&nbsp;list&nbsp;for&nbsp;class&nbsp;<a href="#reg_op_cl">reg_op_cl</a>&nbsp;on&nbsp;<br>
+---how&nbsp;to&nbsp;divide&nbsp;each&nbsp;regions<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------------<br>
+1.&nbsp;new_map:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;map&nbsp;for&nbsp;more&nbsp;regions<br>
+2.&nbsp;pid_lst:&lt;list,&nbsp;t:int&gt;:&nbsp;list&nbsp;&nbsp;for&nbsp;parent&nbsp;ids&nbsp;of&nbsp;the&nbsp;sub&nbsp;regions</tt></dd></dl>
+ <dl><dt><a name="-divide_region_to_box"><strong>divide_region_to_box</strong></a>(type_map_in, lon, lat, nx_box, ny_box, reg_id)</dt><dd><tt>divide&nbsp;a&nbsp;region&nbsp;into&nbsp;sub-regions&nbsp;defined&nbsp;by&nbsp;(nsb_lon,&nbsp;nsb_lat)<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------<br>
+1.&nbsp;type_map_in:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;ratio&nbsp;&nbsp;map&nbsp;defining&nbsp;one&nbsp;region.&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitude&nbsp;<br>
+3.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitude<br>
+4.&nbsp;nx_box:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;longitude&nbsp;grids&nbsp;for&nbsp;one&nbsp;box.&nbsp;&nbsp;&nbsp;<br>
+5.&nbsp;ny_box:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;longitude&nbsp;grids&nbsp;for&nbsp;one&nbsp;box.<br>
+6.&nbsp;reg_id:&lt;integer&gt;:&nbsp;region&nbsp;id<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;combine_map:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;new&nbsp;regions&nbsp;masked&nbsp;with&nbsp;sub-region&nbsp;number&nbsp;<br>
+2.&nbsp;new_map_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;the&nbsp;layer&nbsp;map&nbsp;with&nbsp;each&nbsp;layer&nbsp;for&nbsp;each&nbsp;sub-regions</tt></dd></dl>
+ <dl><dt><a name="-divide_region_to_subregion"><strong>divide_region_to_subregion</strong></a>(type_map_in, lon, lat, nsb_lon, nsb_lat, reg_id)</dt><dd><tt>divide&nbsp;a&nbsp;region&nbsp;into&nbsp;sub-regions&nbsp;defined&nbsp;by&nbsp;(nsb_lon,&nbsp;nsb_lat)<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------<br>
+1.&nbsp;type_map_in:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;the&nbsp;map&nbsp;defining&nbsp;the&nbsp;regions&nbsp;<br>
+2.&nbsp;lon:&lt;array,&nbsp;(nlon,)&gt;:&nbsp;longitude&nbsp;<br>
+3.&nbsp;lat:&lt;array,&nbsp;(nlat,)&gt;:&nbsp;latitude<br>
+4.&nbsp;nsb_lon:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;sub&nbsp;regions&nbsp;along&nbsp;lon&nbsp;<br>
+5.&nbsp;nsb_lat:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;sub&nbsp;regions&nbsp;along&nbsp;lat&nbsp;<br>
+6.&nbsp;reg_id:&lt;integer&gt;:&nbsp;region&nbsp;id<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------------<br>
+1.&nbsp;combine_map:&lt;array,&nbsp;(nlon,&nbsp;nlat)&gt;:&nbsp;new&nbsp;<br>
+---regions&nbsp;masked&nbsp;with&nbsp;sub-region&nbsp;number&nbsp;<br>
+2.&nbsp;new_map_lst:&lt;list,&nbsp;t:array&gt;:&nbsp;the&nbsp;layer&nbsp;map&nbsp;<br>
+---with&nbsp;each&nbsp;layer&nbsp;for&nbsp;each&nbsp;sub-regions<br>
+&nbsp;<br>
+&nbsp;<br>
+Notes:<br>
+-----------------------------------<br>
+1.Algorithm&nbsp;for&nbsp;dividing&nbsp;regions&nbsp;<br>
+---&gt;&nbsp;separate&nbsp;regions&nbsp;into&nbsp;(nsub_lat)&nbsp;latitude&nbsp;bands&nbsp;according&nbsp;to&nbsp;'area'<br>
+---&gt;&nbsp;divede&nbsp;each&nbsp;latitude&nbsp;band&nbsp;into&nbsp;(nsub_lon)&nbsp;longitude&nbsp;blocks&nbsp;according&nbsp;to&nbsp;'area'<br>
+&nbsp;<br>
+2.&nbsp;combine_map&nbsp;masks&nbsp;sub-regions&nbsp;from&nbsp;1&nbsp;to&nbsp;its&nbsp;total</tt></dd></dl>
+</td></tr></table>
+</body></html>

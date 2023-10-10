@@ -1,0 +1,179 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.util.horizontal_interp_m</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.util.html"><font color="#ffffff">util</font></a>.horizontal_interp_m</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/util/horizontal_interp_m.py">/home/lfeng/otool/ESA/util/horizontal_interp_m.py</a></font></td></tr></table>
+    <p><tt>Class&nbsp;for&nbsp;horizontal&nbsp;(lon-lat)&nbsp;interpolations&nbsp;of&nbsp;model&nbsp;fields<br>
+&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.9,&nbsp;2012.06.30<br>
+History:&nbsp;v0.95,&nbsp;2012.09.30<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+1.&nbsp;Functions:<br>
+===============================================<br>
+1.&nbsp;is_the_same_array:&nbsp;whether&nbsp;two&nbsp;arrays&nbsp;are&nbsp;identical.<br>
+&nbsp;<br>
+&nbsp;<br>
+2.&nbsp;Classes:<br>
+==============================================<br>
+1.&nbsp;<a href="#hinterp_cl">hinterp_cl</a>:&nbsp;class&nbsp;for&nbsp;horizontal&nbsp;interpolation</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.gp_axis_m.html">ESA.util.gp_axis_m</a><br>
+<a href="ESA.util.sample_model_field.html">ESA.util.sample_model_field</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ESA.util.horizontal_interp_m.html#hinterp_cl">hinterp_cl</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="hinterp_cl">class <strong>hinterp_cl</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>horizontal&nbsp;interpolation&nbsp;class<br>
+&nbsp;<br>
+Members:<br>
+----------------------------------------<br>
+1.&nbsp;&nbsp;ax_lon:&lt;gp_axis&gt;:longitude&nbsp;axis<br>
+2.&nbsp;&nbsp;ax_lat:&lt;gp_axis&gt;:latitude&nbsp;axis<br>
+3.&nbsp;&nbsp;dims:&lt;tuple&gt;:&nbsp;shape&nbsp;of&nbsp;[ax_lon,&nbsp;ax_lat]<br>
+4.&nbsp;&nbsp;lon:&lt;array&gt;:&nbsp;x&nbsp;value<br>
+5.&nbsp;&nbsp;lat:&lt;array&gt;:&nbsp;y&nbsp;value<br>
+6.&nbsp;&nbsp;nlon:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;longitude<br>
+7.&nbsp;&nbsp;nlat:&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;latitude<br>
+8.&nbsp;&nbsp;mask_val:&lt;float&gt;:&nbsp;filling&nbsp;value&nbsp;for&nbsp;missing&nbsp;or&nbsp;bad&nbsp;data<br>
+9.&nbsp;attr_dict:&lt;dict&gt;:&nbsp;attribute&nbsp;dictionary<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;ob&nbsp;(target)&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+10.&nbsp;&nbsp;olon:&lt;array&gt;:&nbsp;&nbsp;longitudes&nbsp;to&nbsp;be&nbsp;interploated&nbsp;to<br>
+11.&nbsp;&nbsp;olat:&lt;array&gt;:&nbsp;latitudes&nbsp;to&nbsp;be&nbsp;interploated&nbsp;to<br>
+12.&nbsp;&nbsp;ob_only_1d:&lt;T/F&gt;:&nbsp;if&nbsp;true,&nbsp;olon&nbsp;and&nbsp;olat&nbsp;are&nbsp;along&nbsp;observation&nbsp;tracks,&nbsp;&nbsp;<br>
+---otherwise&nbsp;olon&nbsp;and&nbsp;olat&nbsp;form&nbsp;another&nbsp;(target)&nbsp;grid&nbsp;<br>
+&nbsp;<br>
+#&nbsp;variables&nbsp;for&nbsp;saving&nbsp;interpolation&nbsp;coefficients.<br>
+&nbsp;<br>
+13.&nbsp;&nbsp;lonp1:&lt;array&gt;:&nbsp;longitude&nbsp;index&nbsp;for&nbsp;left&nbsp;corners&nbsp;of&nbsp;the&nbsp;encircling&nbsp;boxes.<br>
+14.&nbsp;&nbsp;lonp2:&lt;array&gt;:&nbsp;longitude&nbsp;index&nbsp;for&nbsp;right&nbsp;corners&nbsp;of&nbsp;the&nbsp;encircling&nbsp;boxes.<br>
+15.&nbsp;&nbsp;latp1:&lt;array&gt;:&nbsp;latitude&nbsp;index&nbsp;for&nbsp;lower&nbsp;corners&nbsp;of&nbsp;the&nbsp;encircling&nbsp;boxes.<br>
+16.&nbsp;&nbsp;latp2:&lt;array&gt;:&nbsp;latitude&nbsp;index&nbsp;for&nbsp;upper&nbsp;corners&nbsp;of&nbsp;the&nbsp;encircling&nbsp;boxes.<br>
+17.&nbsp;&nbsp;lonwgt:&lt;array&gt;:&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;left&nbsp;corner<br>
+18.&nbsp;&nbsp;latwgt:&lt;array&gt;:&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;lower&nbsp;corner<br>
+&nbsp;<br>
+19&nbsp;&nbsp;w1,&nbsp;w2,&nbsp;w3,&nbsp;w4:&lt;array&gt;&nbsp;aggregated&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;the&nbsp;4&nbsp;corners.&nbsp;<br>
+20.&nbsp;is_ready:&nbsp;&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;interpolation&nbsp;has&nbsp;been&nbsp;initilzed.&nbsp;<br>
+&nbsp;<br>
+Functions:<br>
+--------------------------------------------------------<br>
+1.&nbsp;&nbsp;__init__:&nbsp;initialization<br>
+2.&nbsp;set_attr:&nbsp;set&nbsp;attribute<br>
+3.&nbsp;get_attr:&nbsp;get_attribute<br>
+4.&nbsp;set_mask:&nbsp;set&nbsp;mask&nbsp;values<br>
+&nbsp;<br>
+5.&nbsp;init_interp:&nbsp;set&nbsp;parameters&nbsp;for&nbsp;interoplation&nbsp;<br>
+6.&nbsp;get_profile:&nbsp;get&nbsp;the&nbsp;profiles&nbsp;at&nbsp;given&nbsp;locations&nbsp;(or&nbsp;regridding&nbsp;field&nbsp;when&nbsp;&nbsp;ob_only_1d=False<br>
+7.&nbsp;get_wgt:&nbsp;Interpolation&nbsp;weight&nbsp;along&nbsp;lon&nbsp;or&nbsp;lat<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="hinterp_cl-__init__"><strong>__init__</strong></a>(self, ax_lon, ax_lat, mask_val<font color="#909090">=-999.0</font>)</dt><dd><tt>initialize&nbsp;horizontal&nbsp;interpolation&nbsp;class&nbsp;<br>
+Inputs:<br>
+&nbsp;<br>
+1.&nbsp;ax_lon:&lt;gp_axis&gt;:&nbsp;longitude&nbsp;axis&nbsp;<br>
+2.&nbsp;ax_lat:&lt;gp_axis&gt;:&nbsp;latitude&nbsp;&nbsp;axis&nbsp;<br>
+3.&nbsp;mask_val:&nbsp;&lt;float&gt;:&nbsp;filling&nbsp;value&nbsp;for&nbsp;missing&nbsp;or&nbsp;bad&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-get_attr"><strong>get_attr</strong></a>(self, name)</dt><dd><tt>check&nbsp;attribute<br>
+Inputs:<br>
+---------------------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;val:&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-get_profile"><strong>get_profile</strong></a>(self, gp_fld)</dt><dd><tt>Get&nbsp;profiles&nbsp;at&nbsp;the&nbsp;given&nbsp;horizontal&nbsp;locations<br>
+Inputs:<br>
+------------------------------<br>
+1.&nbsp;gp_fld:&lt;array,&nbsp;(nlon,&nbsp;nlat,&nbsp;nl,&nbsp;...&gt;:&nbsp;2D&nbsp;(or&nbsp;more)&nbsp;&nbsp;gridded&nbsp;data.&nbsp;<br>
+&nbsp;<br>
+Outputs:<br>
+1.&nbsp;prof:&lt;array,&nbsp;(ob_nlon,&nbsp;nl,&nbsp;...):&nbsp;if&nbsp;ob_only_1d&nbsp;is&nbsp;true.&nbsp;or<br>
+---&nbsp;prof:&lt;array,&nbsp;(ob_nlon,&nbsp;ob_nlat,&nbsp;...):&nbsp;if&nbsp;ob_only_1d&nbsp;is&nbsp;False</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-get_wgt"><strong>get_wgt</strong></a>(self, xval, ax_id<font color="#909090">=0</font>)</dt><dd><tt>get&nbsp;interpolation&nbsp;weight<br>
+A&nbsp;wrap&nbsp;for&nbsp;getwgt&nbsp;for&nbsp;each&nbsp;axis<br>
+&nbsp;<br>
+Inputs:<br>
+-----------------------------------------------------<br>
+1.xval:&lt;array,&nbsp;(nob,)&gt;:&nbsp;values&nbsp;<br>
+2.&nbsp;ax_id:&lt;integer/string&gt;:&nbsp;axid&nbsp;=0&nbsp;or&nbsp;1&nbsp;or&nbsp;ax_id='lon',&nbsp;'lat'<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------------<br>
+1.&nbsp;pl:&lt;array,&nbsp;(nob,)&gt;:&nbsp;left&nbsp;boundaries<br>
+2.&nbsp;pr:&lt;array,&nbsp;(nob,)&gt;:&nbsp;right&nbsp;boundaries<br>
+3.&nbsp;wgt:&lt;array,&nbsp;(nob,)&gt;:&nbsp;weighting&nbsp;factor&nbsp;for&nbsp;left&nbsp;boundaries</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-init_interp"><strong>init_interp</strong></a>(self, olon, olat, ob_only_1d<font color="#909090">=True</font>)</dt><dd><tt>initialize&nbsp;interpolation&nbsp;coefficients&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------------------<br>
+1.&nbsp;olon:&lt;array&gt;:&nbsp;longitudes&nbsp;to&nbsp;be&nbsp;projected&nbsp;to&nbsp;<br>
+2.&nbsp;olat:&lt;array&gt;:&nbsp;latitudes&nbsp;to&nbsp;be&nbsp;projected&nbsp;to&nbsp;<br>
+3.&nbsp;ob_only_1d:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;points&nbsp;are&nbsp;along&nbsp;tracks</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-set_attr"><strong>set_attr</strong></a>(self, name, val)</dt><dd><tt>add&nbsp;or&nbsp;replace&nbsp;attributes<br>
+&nbsp;<br>
+Inputs<br>
+---------------------------------<br>
+1.&nbsp;name:&lt;str&gt;:&nbsp;attribute&nbsp;name<br>
+2.&nbsp;val:&nbsp;&lt;obj&gt;:&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute</tt></dd></dl>
+
+<dl><dt><a name="hinterp_cl-set_mask"><strong>set_mask</strong></a>(self, mask)</dt><dd><tt>set&nbsp;values&nbsp;for&nbsp;data&nbsp;mask&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+------------------------------------------<br>
+1.&nbsp;mask:&lt;float&gt;:&nbsp;new&nbsp;mask&nbsp;values</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-is_the_same_array"><strong>is_the_same_array</strong></a>(a, b)</dt><dd><tt>check&nbsp;whether&nbsp;two&nbsp;arrays&nbsp;are&nbsp;identical.&nbsp;<br>
+Inputs:<br>
+1.&nbsp;a:&nbsp;&lt;array&gt;:&nbsp;array&nbsp;of&nbsp;a<br>
+2.&nbsp;b:&nbsp;&lt;array&gt;:&nbsp;array&nbsp;of&nbsp;b<br>
+Outputs:&nbsp;<br>
+1.&nbsp;is_same:&lt;T/F&gt;:&nbsp;True&nbsp;if&nbsp;a==b</tt></dd></dl>
+</td></tr></table>
+</body></html>

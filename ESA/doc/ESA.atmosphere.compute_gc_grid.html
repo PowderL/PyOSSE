@@ -1,0 +1,132 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ESA.atmosphere.compute_gc_grid</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="ESA.html"><font color="#ffffff">ESA</font></a>.<a href="ESA.atmosphere.html"><font color="#ffffff">atmosphere</font></a>.compute_gc_grid</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lfeng/otool/ESA/atmosphere/compute_gc_grid.py">/home/lfeng/otool/ESA/atmosphere/compute_gc_grid.py</a></font></td></tr></table>
+    <p><tt>Functions&nbsp;to&nbsp;calculate&nbsp;GEOS-Chem&nbsp;model&nbsp;horizontal&nbsp;grids&nbsp;<br>
+&nbsp;<br>
+Authors:&nbsp;L.&nbsp;Feng,&nbsp;Edinburgh&nbsp;University<br>
+History:&nbsp;v0.5,&nbsp;2012.06.28<br>
+History:&nbsp;v0.95,&nbsp;2012.10.28<br>
+&nbsp;<br>
+Functions<br>
+==============================================<br>
+1.&nbsp;get_model_resolution:&nbsp;get&nbsp;model&nbsp;resolution&nbsp;from&nbsp;sizes&nbsp;of&nbsp;longitude&nbsp;and&nbsp;latitude&nbsp;grid.&nbsp;&nbsp;<br>
+2.&nbsp;get_model_lat:&nbsp;calculate&nbsp;model&nbsp;grid&nbsp;latitudes<br>
+&nbsp;<br>
+3.&nbsp;get_model_lon:&nbsp;calculate&nbsp;model&nbsp;grid&nbsp;longitudes<br>
+&nbsp;<br>
+4.&nbsp;get_model_lat_edge:&nbsp;calculate&nbsp;edges&nbsp;of&nbsp;model&nbsp;latitude&nbsp;grid.&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+5.&nbsp;get_model_lon_edge:&nbsp;calculate&nbsp;edges&nbsp;of&nbsp;model&nbsp;longitude&nbsp;grid.<br>
+&nbsp;<br>
+6.&nbsp;get_wnd_lons:&nbsp;get&nbsp;window&nbsp;longitude&nbsp;range<br>
+&nbsp;<br>
+7.&nbsp;get_wnd_lats:&nbsp;get&nbsp;window&nbsp;latitude&nbsp;range<br>
+&nbsp;<br>
+8.&nbsp;get_area:&nbsp;calculate&nbsp;areas&nbsp;for&nbsp;grid&nbsp;box</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="ESA.util.geo_constant.html">ESA.util.geo_constant</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.message_m.html">ESA.util.message_m</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="ESA.util.otool_obj.html">ESA.util.otool_obj</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_area"><strong>get_area</strong></a>(lon_edge, lat_edge)</dt><dd><tt>calculate&nbsp;areas&nbsp;for&nbsp;grid&nbsp;box&nbsp;(in&nbsp;m2)<br>
+&nbsp;<br>
+Inputs:<br>
+--------------------------------------<br>
+1.&nbsp;lon_edge:&lt;array,&nbsp;(nx+1,)&gt;:&nbsp;edges&nbsp;of&nbsp;the&nbsp;X&nbsp;(longitude)&nbsp;grid&nbsp;boxes<br>
+2.&nbsp;lat_edge:&lt;array,&nbsp;(ny+1,)&gt;:&nbsp;edges&nbsp;of&nbsp;the&nbsp;Y&nbsp;(latitude)&nbsp;grid&nbsp;boxes<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------<br>
+1.&nbsp;area:&lt;array,&nbsp;(nx,&nbsp;ny)&gt;:&nbsp;area&nbsp;of&nbsp;grid&nbsp;box&nbsp;in&nbsp;m^2</tt></dd></dl>
+ <dl><dt><a name="-get_model_lat"><strong>get_model_lat</strong></a>(model_res<font color="#909090">=None</font>, nlat<font color="#909090">=0</font>)</dt><dd><tt>calculate&nbsp;model&nbsp;grid&nbsp;latitudes&nbsp;<br>
+Inputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;model_res:&nbsp;&lt;string&gt;:&nbsp;model_resolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;nlat:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;latitudes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;lats:&nbsp;&lt;array,&nbsp;(ny,)&gt;:&nbsp;model&nbsp;grid&nbsp;centre&nbsp;latitudes</tt></dd></dl>
+ <dl><dt><a name="-get_model_lat_edge"><strong>get_model_lat_edge</strong></a>(model_res<font color="#909090">=None</font>, nlat<font color="#909090">=0</font>)</dt><dd><tt>calculate&nbsp;edges&nbsp;of&nbsp;model&nbsp;latitude&nbsp;grid.<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;model_res:&nbsp;&lt;string&gt;:&nbsp;model_resolution<br>
+2.&nbsp;nlat:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;latitudes<br>
+&nbsp;<br>
+Returns:<br>
+---------------------------------------------------<br>
+1.&nbsp;lat:&nbsp;&lt;array,&nbsp;(ny+1,)&gt;:&nbsp;model&nbsp;grid&nbsp;edge&nbsp;latitudes</tt></dd></dl>
+ <dl><dt><a name="-get_model_lon"><strong>get_model_lon</strong></a>(model_res<font color="#909090">=None</font>, nlon<font color="#909090">=0</font>)</dt><dd><tt>calculate&nbsp;model&nbsp;grid&nbsp;longitudes&nbsp;<br>
+Inputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;model_res:&nbsp;&lt;string&gt;:&nbsp;model_resolution<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;nlon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;longitudes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;lon:&nbsp;&lt;array,&nbsp;(nx,)&gt;:&nbsp;model&nbsp;grid&nbsp;center&nbsp;longitudes</tt></dd></dl>
+ <dl><dt><a name="-get_model_lon_edge"><strong>get_model_lon_edge</strong></a>(model_res<font color="#909090">=None</font>, nlon<font color="#909090">=0</font>)</dt><dd><tt>calculate&nbsp;model&nbsp;grid&nbsp;longitudes&nbsp;<br>
+Inputs:<br>
+----------------------------------------------------<br>
+1.&nbsp;model_res:&nbsp;&lt;string&gt;:&nbsp;model_resolution<br>
+2.&nbsp;nlon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;number&nbsp;of&nbsp;longitudes<br>
+&nbsp;<br>
+Returns:<br>
+------------------------------------------------<br>
+1.&nbsp;lon:&nbsp;&lt;array,&nbsp;(nx+1,)&gt;:&nbsp;model&nbsp;grid&nbsp;edge&nbsp;longitudes</tt></dd></dl>
+ <dl><dt><a name="-get_model_resolution"><strong>get_model_resolution</strong></a>(nx, ny)</dt><dd><tt>Get_model_resolution:&nbsp;get&nbsp;model&nbsp;resolution&nbsp;from&nbsp;sizes&nbsp;of&nbsp;longitude&nbsp;and&nbsp;latitude&nbsp;grid<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------------------<br>
+1.&nbsp;nx:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;longitude<br>
+2.&nbsp;ny:&lt;int&gt;:&nbsp;size&nbsp;of&nbsp;latitude<br>
+&nbsp;<br>
+Returns:<br>
+--------------------------------------<br>
+1.&nbsp;model_res:&lt;str&gt;:&nbsp;model&nbsp;resolution</tt></dd></dl>
+ <dl><dt><a name="-get_wnd_lats"><strong>get_wnd_lats</strong></a>(glb_lats, jx, jfirst)</dt><dd><tt>get&nbsp;window&nbsp;latitude&nbsp;range&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;glb_lats:&nbsp;&lt;array,&nbsp;(ny,)&gt;:&nbsp;model&nbsp;grid&nbsp;latitudes<br>
+2.&nbsp;jx:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;window&nbsp;y&nbsp;(latitude)&nbsp;size<br>
+3.&nbsp;jfirst:&nbsp;&nbsp;&lt;integer&gt;:&nbsp;window&nbsp;y&nbsp;shift<br>
+&nbsp;<br>
+Returns:<br>
+----------------------------------------------<br>
+1.&nbsp;lats:&nbsp;&lt;array,&nbsp;(jx)&gt;:&nbsp;window&nbsp;latitudes</tt></dd></dl>
+ <dl><dt><a name="-get_wnd_lons"><strong>get_wnd_lons</strong></a>(glb_lons, ix, ifirst, centre180)</dt><dd><tt>get&nbsp;window&nbsp;longitude&nbsp;range&nbsp;<br>
+&nbsp;<br>
+Inputs:<br>
+-------------------------------------<br>
+1.&nbsp;glb_lons:&nbsp;&lt;array,&nbsp;(nx,)&gt;:&nbsp;model&nbsp;grid&nbsp;longitudes<br>
+2.&nbsp;ix:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;integer&gt;:&nbsp;window&nbsp;x&nbsp;(longitude)&nbsp;size<br>
+3.&nbsp;ifirst:&nbsp;&nbsp;&lt;integer&gt;:&nbsp;window&nbsp;shift<br>
+4.&nbsp;center180:&lt;integer&gt;:&nbsp;0==model&nbsp;grid&nbsp;starting&nbsp;from&nbsp;-180.0<br>
+&nbsp;<br>
+Returns:<br>
+-----------------------------------------------<br>
+1.&nbsp;lons:&nbsp;&lt;array,&nbsp;(ix)&gt;:&nbsp;window&nbsp;longitudes</tt></dd></dl>
+</td></tr></table>
+</body></html>
